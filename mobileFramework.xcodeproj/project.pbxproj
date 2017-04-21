@@ -7,9 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A50EB7D01EA9423200329A5E /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EB7CF1EA9423200329A5E /* Beacon.swift */; };
+		A50EB7D11EA9427A00329A5E /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EB7CF1EA9423200329A5E /* Beacon.swift */; };
+		A5FC03011EA8F373005F22C7 /* CLLocationManagerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03001EA8F373005F22C7 /* CLLocationManagerSpy.swift */; };
+		A5FC03031EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03021EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift */; };
+		A5FC03051EA9232F005F22C7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03041EA9232F005F22C7 /* Constants.swift */; };
+		A5FC03061EA9232F005F22C7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03041EA9232F005F22C7 /* Constants.swift */; };
+		A5FC030D1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030C1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift */; };
+		A5FC030F1EA92EA3005F22C7 /* BeaconStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030E1EA92EA3005F22C7 /* BeaconStore.swift */; };
+		A5FC03101EA92EA3005F22C7 /* BeaconStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030E1EA92EA3005F22C7 /* BeaconStore.swift */; };
+		A5FC03141EA92F10005F22C7 /* BeaconStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03131EA92F10005F22C7 /* BeaconStoreTests.swift */; };
 		A5FC1C971EA7F96F00669C89 /* mobileFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FC1C8D1EA7F96F00669C89 /* mobileFramework.framework */; };
-		A5FC1C9C1EA7F96F00669C89 /* mobileFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC1C9B1EA7F96F00669C89 /* mobileFrameworkTests.swift */; };
 		A5FC1C9E1EA7F96F00669C89 /* mobileFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = A5FC1C901EA7F96F00669C89 /* mobileFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A5FC1CA81EA7F99900669C89 /* GalleryLocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC1CA71EA7F99900669C89 /* GalleryLocationManagerTests.swift */; };
+		A5FC1CAA1EA7FBBD00669C89 /* GalleryLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC1CA91EA7FBBD00669C89 /* GalleryLocationManager.swift */; };
+		A5FC1CAB1EA7FBBD00669C89 /* GalleryLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC1CA91EA7FBBD00669C89 /* GalleryLocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +35,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A50EB7CF1EA9423200329A5E /* Beacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
+		A5FC03001EA8F373005F22C7 /* CLLocationManagerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManagerSpy.swift; sourceTree = "<group>"; };
+		A5FC03021EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryLocationManagerSpy.swift; sourceTree = "<group>"; };
+		A5FC03041EA9232F005F22C7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A5FC030C1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryLocationManagerDelegate.swift; sourceTree = "<group>"; };
+		A5FC030E1EA92EA3005F22C7 /* BeaconStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconStore.swift; sourceTree = "<group>"; };
+		A5FC03131EA92F10005F22C7 /* BeaconStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconStoreTests.swift; sourceTree = "<group>"; };
 		A5FC1C8D1EA7F96F00669C89 /* mobileFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mobileFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FC1C901EA7F96F00669C89 /* mobileFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mobileFramework.h; sourceTree = "<group>"; };
 		A5FC1C911EA7F96F00669C89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5FC1C961EA7F96F00669C89 /* mobileFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mobileFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5FC1C9B1EA7F96F00669C89 /* mobileFrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mobileFrameworkTests.swift; sourceTree = "<group>"; };
 		A5FC1C9D1EA7F96F00669C89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5FC1CA71EA7F99900669C89 /* GalleryLocationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryLocationManagerTests.swift; sourceTree = "<group>"; };
+		A5FC1CA91EA7FBBD00669C89 /* GalleryLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryLocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +70,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A551F3F51EAA9CC000BFCE93 /* Beacons */ = {
+			isa = PBXGroup;
+			children = (
+				A5FC030E1EA92EA3005F22C7 /* BeaconStore.swift */,
+				A50EB7CF1EA9423200329A5E /* Beacon.swift */,
+			);
+			name = Beacons;
+			sourceTree = "<group>";
+		};
+		A551F3F61EAA9CCC00BFCE93 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A5FC1C911EA7F96F00669C89 /* Info.plist */,
+				A5FC1C901EA7F96F00669C89 /* mobileFramework.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A551F3F71EAA9CE200BFCE93 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A5FC1C9D1EA7F96F00669C89 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A5FC03111EA92EDD005F22C7 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Mocks;
+			sourceTree = "<group>";
+		};
+		A5FC03121EA92EE2005F22C7 /* Spys */ = {
+			isa = PBXGroup;
+			children = (
+				A5FC03001EA8F373005F22C7 /* CLLocationManagerSpy.swift */,
+				A5FC03021EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift */,
+			);
+			name = Spys;
+			sourceTree = "<group>";
+		};
 		A5FC1C831EA7F96F00669C89 = {
 			isa = PBXGroup;
 			children = (
@@ -71,8 +133,11 @@
 		A5FC1C8F1EA7F96F00669C89 /* mobileFramework */ = {
 			isa = PBXGroup;
 			children = (
-				A5FC1C901EA7F96F00669C89 /* mobileFramework.h */,
-				A5FC1C911EA7F96F00669C89 /* Info.plist */,
+				A5FC03041EA9232F005F22C7 /* Constants.swift */,
+				A551F3F61EAA9CCC00BFCE93 /* Supporting Files */,
+				A551F3F51EAA9CC000BFCE93 /* Beacons */,
+				A5FC1CA91EA7FBBD00669C89 /* GalleryLocationManager.swift */,
+				A5FC030C1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift */,
 			);
 			path = mobileFramework;
 			sourceTree = "<group>";
@@ -80,8 +145,11 @@
 		A5FC1C9A1EA7F96F00669C89 /* mobileFrameworkTests */ = {
 			isa = PBXGroup;
 			children = (
-				A5FC1C9B1EA7F96F00669C89 /* mobileFrameworkTests.swift */,
-				A5FC1C9D1EA7F96F00669C89 /* Info.plist */,
+				A551F3F71EAA9CE200BFCE93 /* Supporting Files */,
+				A5FC03121EA92EE2005F22C7 /* Spys */,
+				A5FC03111EA92EDD005F22C7 /* Mocks */,
+				A5FC1CA71EA7F99900669C89 /* GalleryLocationManagerTests.swift */,
+				A5FC03131EA92F10005F22C7 /* BeaconStoreTests.swift */,
 			);
 			path = mobileFrameworkTests;
 			sourceTree = "<group>";
@@ -149,6 +217,7 @@
 					A5FC1C8C1EA7F96F00669C89 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = ZP279JY2W4;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					A5FC1C951EA7F96F00669C89 = {
@@ -198,6 +267,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5FC1CAA1EA7FBBD00669C89 /* GalleryLocationManager.swift in Sources */,
+				A5FC030F1EA92EA3005F22C7 /* BeaconStore.swift in Sources */,
+				A50EB7D01EA9423200329A5E /* Beacon.swift in Sources */,
+				A5FC03051EA9232F005F22C7 /* Constants.swift in Sources */,
+				A5FC030D1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +279,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5FC1C9C1EA7F96F00669C89 /* mobileFrameworkTests.swift in Sources */,
+				A5FC03011EA8F373005F22C7 /* CLLocationManagerSpy.swift in Sources */,
+				A5FC03141EA92F10005F22C7 /* BeaconStoreTests.swift in Sources */,
+				A5FC03101EA92EA3005F22C7 /* BeaconStore.swift in Sources */,
+				A5FC1CAB1EA7FBBD00669C89 /* GalleryLocationManager.swift in Sources */,
+				A5FC03031EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift in Sources */,
+				A50EB7D11EA9427A00329A5E /* Beacon.swift in Sources */,
+				A5FC1CA81EA7F99900669C89 /* GalleryLocationManagerTests.swift in Sources */,
+				A5FC03061EA9232F005F22C7 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +405,7 @@
 		A5FC1CA21EA7F96F00669C89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZP279JY2W4;
@@ -336,6 +418,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.philamuseum.mobileFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -343,6 +426,7 @@
 		A5FC1CA31EA7F96F00669C89 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZP279JY2W4;
@@ -362,6 +446,7 @@
 		A5FC1CA51EA7F96F00669C89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = ZP279JY2W4;
 				INFOPLIST_FILE = mobileFrameworkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -374,6 +459,7 @@
 		A5FC1CA61EA7F96F00669C89 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = ZP279JY2W4;
 				INFOPLIST_FILE = mobileFrameworkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -402,6 +488,7 @@
 				A5FC1CA31EA7F96F00669C89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A5FC1CA41EA7F96F00669C89 /* Build configuration list for PBXNativeTarget "mobileFrameworkTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +497,7 @@
 				A5FC1CA61EA7F96F00669C89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
