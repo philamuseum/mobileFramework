@@ -15,6 +15,30 @@ class BeaconStore {
     private(set) var beacons = [Beacon]()
     private(set) var beaconsInRange = [Beacon]()
     
+    var closestBeacon : Beacon? {
+        get {
+            
+            var occurances : [Beacon:Int] = [:]
+            
+            _ = beaconsInRange.map{
+                if let val: Int = occurances[$0]  {
+                    occurances[$0] = val+1
+                } else {
+                    occurances[$0] = 1
+                }
+            }
+            
+            let sortedOccurances = occurances.sorted{ $0.value > $1.value }
+            
+            if sortedOccurances.count >= 2 && sortedOccurances[0].value == sortedOccurances[1].value {
+                return nil
+            }
+            
+            return sortedOccurances.first?.key
+            
+        }
+    }
+    
     func add(beacon: Beacon) {
         beacons.append(beacon)
     }

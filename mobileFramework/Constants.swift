@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+class Constants {
+    
+    struct beacons {
+        static let defaultTTL : Int = 3
+    }
+    
+}
