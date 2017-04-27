@@ -25,10 +25,11 @@ class Beacon {
         }
     }
     
-    init(major: Int, minor: Int, UUID: UUID) {
+    init(major: Int, minor: Int, UUID: UUID, alias: String?) {
         self.major = major
         self.minor = minor
         self.UUID = UUID
+        self.alias = alias
     }
     
     func setPresent() {

@@ -13,6 +13,8 @@ class galleryLocationServiceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        BeaconStore.reset()
+        LocationStore.reset()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -81,6 +83,30 @@ class galleryLocationServiceTests: XCTestCase {
        
     }
     
+    func test_get_current_location_when_ranging_a_beacon() {
+        
+        let locationManager = GalleryLocationManager(locationManager: CLLocationManager())
+        
+        let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
+        let sampleBeacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
+        BeaconStore.sharedInstance.add(beacon: sampleBeacon)
+        BeaconStore.sharedInstance.markInRange(major: sampleBeacon.major, minor: sampleBeacon.minor, UUID: sampleUUID!)
+        
+        let sampleLocation = Location(name: "166", title: "166", active: true, floor: .first)
+        LocationStore.sharedInstance.add(location: sampleLocation)
+
+        locationManager.beaconRanged(major: sampleBeacon.major, minor: sampleBeacon.minor, UUID: sampleUUID!)
+        
+        XCTAssertEqual(sampleBeacon, BeaconStore.sharedInstance.closestBeacon)
+        
+        XCTAssertEqual(1, LocationStore.sharedInstance.locations.count)
+        
+        XCTAssertEqual(sampleLocation, LocationStore.sharedInstance.locationForBeacon(beacon: sampleBeacon))
+        
+        XCTAssertEqual(sampleLocation, locationManager.currentLocation)
+        
+        
+    }
     
     
 }

@@ -25,6 +25,16 @@ class GalleryLocationManager : NSObject  {
         self.locationManager.delegate = self
     }
     
+    var currentLocation : Location? {
+        get {
+            if let closestBeacon = BeaconStore.sharedInstance.closestBeacon {
+                return LocationStore.sharedInstance.locationForBeacon(beacon: closestBeacon)
+            } else {
+                return nil
+            }
+        }
+    }
+    
     var desiredAccuracy : CLLocationAccuracy {
         set(value) {
             locationManager.desiredAccuracy = value
@@ -52,6 +62,13 @@ class GalleryLocationManager : NSObject  {
         locationManager.requestWhenInUseAuthorization()
     }
     
+    internal func beaconRanged(major: Int, minor: Int, UUID: UUID) {
+        let store = BeaconStore.sharedInstance
+    
+        store.markInRange(major: major, minor: minor, UUID: UUID)
+        
+    }
+    
 
     
     
@@ -62,6 +79,11 @@ extension GalleryLocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         
+        // do some filtering here to get the closest beacon
+        
+        let closestBeacon = beacons.first!
+        
+        beaconRanged(major: closestBeacon.major.intValue, minor: closestBeacon.minor.intValue, UUID: region.proximityUUID)
     }
     
     func locationManager(locationManager: GalleryLocationManager, didEnterLocation: String) {

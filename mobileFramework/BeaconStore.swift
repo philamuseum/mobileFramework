@@ -10,7 +10,11 @@ import Foundation
 
 class BeaconStore {
     
-    static let sharedInstance = BeaconStore()
+    static var sharedInstance = BeaconStore()
+    
+    static func reset() {
+        sharedInstance = BeaconStore()
+    }
     
     private(set) var beacons = [Beacon]()
     private(set) var beaconsInRange = [Beacon]()

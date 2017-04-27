@@ -36,7 +36,7 @@ class BeaconStoreTests: XCTestCase {
         let store = BeaconStore()
         
         let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
-        let sampleBeacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!)
+        let sampleBeacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
         
         XCTAssertEqual(0, store.beacons.count)
         
@@ -50,7 +50,7 @@ class BeaconStoreTests: XCTestCase {
         let store = BeaconStore()
         
         let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
-        let sampleBeacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!)
+        let sampleBeacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
         
         store.add(beacon: sampleBeacon)
         
@@ -67,7 +67,7 @@ class BeaconStoreTests: XCTestCase {
         let store = BeaconStore()
         
         let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
-        let sampleBeacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!)
+        let sampleBeacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
         
         store.add(beacon: sampleBeacon)
         
@@ -82,9 +82,9 @@ class BeaconStoreTests: XCTestCase {
         let store = BeaconStore()
         
         let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
-        let sampleBeaconA = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!)
-        let sampleBeaconB = Beacon(major: 2222, minor: 3333, UUID: sampleUUID!)
-        let sampleBeaconC = Beacon(major: 3333, minor: 4444, UUID: sampleUUID!)
+        let sampleBeaconA = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
+        let sampleBeaconB = Beacon(major: 2222, minor: 3333, UUID: sampleUUID!, alias: "175")
+        let sampleBeaconC = Beacon(major: 3333, minor: 4444, UUID: sampleUUID!, alias: "188")
         
         store.add(beacon: sampleBeaconA)
         store.add(beacon: sampleBeaconB)
@@ -105,9 +105,9 @@ class BeaconStoreTests: XCTestCase {
         let store = BeaconStore()
         
         let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
-        let sampleBeaconA = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!)
-        let sampleBeaconB = Beacon(major: 2222, minor: 3333, UUID: sampleUUID!)
-        let sampleBeaconC = Beacon(major: 3333, minor: 4444, UUID: sampleUUID!)
+        let sampleBeaconA = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
+        let sampleBeaconB = Beacon(major: 2222, minor: 3333, UUID: sampleUUID!, alias: "175")
+        let sampleBeaconC = Beacon(major: 3333, minor: 4444, UUID: sampleUUID!, alias: "188")
         
         store.add(beacon: sampleBeaconA)
         store.add(beacon: sampleBeaconB)
