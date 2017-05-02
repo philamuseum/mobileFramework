@@ -1,0 +1,22 @@
+{
+    "devices": [
+                {
+                "alias": "LFH_R",
+                "major": 46453,
+                "minor": 61315,
+                "uniqueId": "OlDU"
+                },
+                {
+                "alias": "GSH_1_T_R",
+                "major": 54733,
+                "minor": 24192,
+                "uniqueId": "x0lw"
+                },
+                {
+                "alias": "GSH_1_M_R",
+                "major": 53827,
+                "minor": 19489,
+                "uniqueId": "et3h"
+                }
+    ]
+}

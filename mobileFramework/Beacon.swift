@@ -25,7 +25,7 @@ class Beacon {
         }
     }
     
-    init(major: Int, minor: Int, UUID: UUID, alias: String?) {
+    init(major: Int, minor: Int, UUID: UUID, alias: String?, uniqueId: String? = nil) {
         self.major = major
         self.minor = minor
         self.UUID = UUID

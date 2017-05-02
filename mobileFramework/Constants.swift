@@ -17,6 +17,7 @@ class Constants {
     }
     
     struct beacons {
+        static let defaultUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
         static let defaultTTL : Int = 3
         static let validAliasReplacements = ["_L", "_R", "_C", "_T", "_M", "_B"]
         
