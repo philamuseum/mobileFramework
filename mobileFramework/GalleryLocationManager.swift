@@ -17,13 +17,19 @@ enum GalleryLocationManagerError: Error {
 class GalleryLocationManager : NSObject  {
     
     private var locationManager : CLLocationManager!
+    private var locationUpdateTimer : Timer?
+    
     var beaconRegion: CLBeaconRegion?
+    
+    var delegate : GalleryLocationManagerDelegate?
     
     init(locationManager: CLLocationManager) {
         super.init()
         self.locationManager = locationManager
         self.locationManager.delegate = self
     }
+    
+    private var previousLocation : Location?
     
     var currentLocation : Location? {
         get {
@@ -52,6 +58,8 @@ class GalleryLocationManager : NSObject  {
             } else {
                 // let's finally start
                 locationManager.startRangingBeacons(in: beaconRegion!)
+                self.locationUpdateTimer?.invalidate()
+                self.locationUpdateTimer = Timer.scheduledTimer(timeInterval: Constants.locationSensing.locationUpdateInterval, target: self, selector: #selector(checkForLocationUpdates), userInfo: nil, repeats: true)
             }
         } else {
             throw GalleryLocationManagerError.missingRegion
@@ -60,6 +68,22 @@ class GalleryLocationManager : NSObject  {
     
     func requestPermissions() {
         locationManager.requestWhenInUseAuthorization()
+    }
+    
+    internal func checkForLocationUpdates() {
+        // if we don't have a current location, we can skip right out
+        guard let currentLocation = self.currentLocation else { return }
+        
+        if self.previousLocation == currentLocation {
+            // previous and current location are identical, which means we haven't moved
+            // so we don't need to trigger a location update
+        } else {
+            // we have to trigger an update since it seems like we moved
+            self.delegate?.locationManager(locationManager: self, didEnterLocation: currentLocation)
+            
+            // and we also have to set the previous location to the current location
+            self.previousLocation = currentLocation
+        }
     }
     
     internal func beaconRanged(major: Int, minor: Int, UUID: UUID) {
@@ -84,9 +108,5 @@ extension GalleryLocationManager: CLLocationManagerDelegate {
         let closestBeacon = beacons.first!
         
         beaconRanged(major: closestBeacon.major.intValue, minor: closestBeacon.minor.intValue, UUID: region.proximityUUID)
-    }
-    
-    func locationManager(locationManager: GalleryLocationManager, didEnterLocation: String) {
-        
     }
 }

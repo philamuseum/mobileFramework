@@ -103,5 +103,29 @@ class galleryLocationServiceTests: XCTestCase {
         
     }
     
+    func test_location_ranged_delegate_method_called() {
+        
+        let locationManager = GalleryLocationManager(locationManager: CLLocationManager())
+        let delegate = GalleryLocationManagerDelegateSpy()
+        locationManager.delegate = delegate
+        
+        let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
+        let sampleBeacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
+        BeaconStore.sharedInstance.add(beacon: sampleBeacon)
+        BeaconStore.sharedInstance.markInRange(major: sampleBeacon.major, minor: sampleBeacon.minor, UUID: sampleUUID!)
+        
+        let sampleLocation = Location(name: "166", title: "166", active: true, floor: .first)
+        LocationStore.sharedInstance.add(location: sampleLocation)
+        
+        locationManager.beaconRanged(major: sampleBeacon.major, minor: sampleBeacon.minor, UUID: sampleUUID!)
+        
+        XCTAssertEqual(sampleLocation, locationManager.currentLocation)
+        
+        locationManager.checkForLocationUpdates()
+        
+        XCTAssertTrue(delegate.didEnterLocationCalled)
+        
+    }
+    
     
 }
