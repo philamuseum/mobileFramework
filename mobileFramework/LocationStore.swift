@@ -51,6 +51,10 @@ class LocationStore {
         return location
     }
     
+    func load(fromAsset: LocationAsset) {
+        self.locations = fromAsset.locations
+    }
+    
     // http://stackoverflow.com/questions/27880650/swift-extract-regex-matches
     private func matches(for regex: String, in text: String) -> [String] {
         

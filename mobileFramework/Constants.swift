@@ -10,10 +10,23 @@ import Foundation
 
 class Constants {
     
-    enum floors {
+    enum floors : Int {
         case ground
         case first
         case second
+        
+        static func enumFromString(string:String) -> floors? {
+            var i = 0
+            while let item = floors(rawValue: i) {
+                if String(describing: item) == string { return item }
+                i += 1
+            }
+            return nil
+        }
+    }
+    
+    struct assets {
+        static let beacons = "beacons.json"
     }
     
     struct beacons {

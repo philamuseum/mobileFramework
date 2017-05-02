@@ -63,4 +63,23 @@ class LocationStoreTests: XCTestCase {
         
     }
     
+    func test_loading_locations_from_file() {
+        
+        let store = LocationStore()
+        
+        let feature = FeatureStore()
+        
+        do {
+            try feature.load(filename: "sampleLocations", type: .location, completion: {
+                if let asset = feature.assets.first as? LocationAsset {
+                    store.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown")
+        }
+        
+        XCTAssertEqual(3, store.locations.count)
+    }
+    
 }

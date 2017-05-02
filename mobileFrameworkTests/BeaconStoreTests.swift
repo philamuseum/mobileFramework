@@ -145,7 +145,7 @@ class BeaconStoreTests: XCTestCase {
         let feature = FeatureStore()
         
         do {
-            try feature.load(filename: "sampleBeacons", completion: {
+            try feature.load(filename: "sampleBeacons", type: .beacon, completion: {
                 if let asset = feature.assets.first as? BeaconAsset {
                     store.load(fromAsset: asset)
                 }

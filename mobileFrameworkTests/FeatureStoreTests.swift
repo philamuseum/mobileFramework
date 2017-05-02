@@ -20,7 +20,7 @@ class FeatureStoreTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_load_JSON_file() {
+    func test_load_beacon_JSON_file() {
         
         let store = FeatureStore()
         
@@ -29,7 +29,37 @@ class FeatureStoreTests: XCTestCase {
         let expectationSuccess = expectation(description: "Loading JSON file")
         
         do {
-            try store.load(filename: "sampleBeacons", ext: "json", completion: {
+            try store.load(filename: "sampleBeacons", ext: "json", type: .beacon, completion: {
+                expectationSuccess.fulfill()
+            })
+        } catch FeatureStoreError.fileNotFound {
+            XCTFail("Sample file not found")
+        } catch FeatureStoreError.ParsingError {
+            XCTFail("Error parsing sample file")
+        } catch {
+            XCTFail("Unknown error thrown")
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            if let error = error {
+                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+            }
+        }
+        
+        XCTAssertEqual(1, store.assets.count)
+        
+    }
+    
+    func test_load_location_JSON_file() {
+        
+        let store = FeatureStore()
+        
+        XCTAssertEqual(0, store.assets.count)
+        
+        let expectationSuccess = expectation(description: "Loading JSON file")
+        
+        do {
+            try store.load(filename: "sampleLocations", ext: "json", type: .location, completion: {
                 expectationSuccess.fulfill()
             })
         } catch FeatureStoreError.fileNotFound {
