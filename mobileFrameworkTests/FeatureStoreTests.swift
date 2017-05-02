@@ -80,4 +80,34 @@ class FeatureStoreTests: XCTestCase {
         
     }
     
+    func test_load_edge_JSON_file() {
+        
+        let store = FeatureStore()
+        
+        XCTAssertEqual(0, store.assets.count)
+        
+        let expectationSuccess = expectation(description: "Loading JSON file")
+        
+        do {
+            try store.load(filename: "sampleEdges", ext: "json", type: .edge, completion: {
+                expectationSuccess.fulfill()
+            })
+        } catch FeatureStoreError.fileNotFound {
+            XCTFail("Sample file not found")
+        } catch FeatureStoreError.ParsingError {
+            XCTFail("Error parsing sample file")
+        } catch {
+            XCTFail("Unknown error thrown")
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            if let error = error {
+                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+            }
+        }
+        
+        XCTAssertEqual(1, store.assets.count)
+        
+    }
+    
 }

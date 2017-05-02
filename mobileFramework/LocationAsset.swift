@@ -15,8 +15,6 @@ class LocationAsset: JSONDecodable {
     public required init?(JSON: Any) {
         guard let JSON = JSON as? [[String: Any]] else { return nil }
         
-        print("locations: \(JSON)")
-        
         var locations = [Location]()
         
         for location in JSON {

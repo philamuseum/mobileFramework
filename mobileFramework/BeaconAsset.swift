@@ -17,13 +17,9 @@ class BeaconAsset: JSONDecodable {
         
         guard let devices = JSON["devices"] as? [[String: Any]] else { return nil }
         
-        print("devices: \(devices)")
-        
         var beacons = [Beacon]()
         
         for device in devices {
-            
-            print("device")
         
             guard let alias = device["alias"] as? String else { return nil }
             guard let major = device["major"] as? Int else { return nil }
@@ -31,8 +27,6 @@ class BeaconAsset: JSONDecodable {
             guard let uniqueID = device["uniqueId"] as? String else { return nil }
             
             let beacon = Beacon(major: major, minor: minor, UUID: Constants.beacons.defaultUUID!, alias: alias, uniqueId: uniqueID)
-            
-            print("beacon: \(beacon)")
             
             beacons.append(beacon)
             

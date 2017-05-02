@@ -17,6 +17,7 @@ class LocationStore {
     }
     
     private(set) var locations = [Location]()
+    private(set) var edges = [Edge]()
     
     func add(location: Location) {
         locations.append(location)
@@ -53,6 +54,17 @@ class LocationStore {
     
     func load(fromAsset: LocationAsset) {
         self.locations = fromAsset.locations
+    }
+    
+    func load(fromAsset: EdgeAsset) {
+        self.edges = fromAsset.edges
+        
+        for edge in self.edges {
+            guard let nodeA = findLocationByName(name: edge.nodeAName) else { return }
+            guard let nodeB = findLocationByName(name: edge.nodeBName) else { return }
+            
+            edge.resolveNodeLocations(nodeA: nodeA, nodeB: nodeB)
+        }
     }
     
     // http://stackoverflow.com/questions/27880650/swift-extract-regex-matches

@@ -82,4 +82,49 @@ class LocationStoreTests: XCTestCase {
         XCTAssertEqual(3, store.locations.count)
     }
     
+    func test_loading_edges_from_file() {
+        
+        let store = LocationStore()
+        
+        let feature = FeatureStore()
+        
+        do {
+            try feature.load(filename: "sampleEdges", type: .edge, completion: {
+                if let asset = feature.assets.first as? EdgeAsset {
+                    store.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown")
+        }
+        
+        XCTAssertEqual(2, store.edges.count)
+    }
+    
+    func test_matching_edge_names_to_locations() {
+        
+        let lStore = LocationStore()
+        
+        let fStore = FeatureStore()
+        
+        do {
+            try fStore.load(filename: "sampleLocations", type: .location, completion: {
+                if let asset = fStore.assets[0] as? LocationAsset {
+                    lStore.load(fromAsset: asset)
+                }
+            })
+            
+            try fStore.load(filename: "sampleEdges", type: .edge, completion: {
+                if let asset = fStore.assets[1] as? EdgeAsset {
+                    lStore.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown")
+        }
+        
+        XCTAssertEqual(lStore.findLocationByName(name: "100"), lStore.edges.first?.nodeA)
+        
+    }
+    
 }

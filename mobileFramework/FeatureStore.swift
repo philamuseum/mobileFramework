@@ -16,6 +16,7 @@ enum FeatureStoreError: Error {
 enum FeatureStoreType : Int {
     case beacon
     case location
+    case edge
 }
 
 class FeatureStore {
@@ -40,6 +41,8 @@ class FeatureStore {
                 asset = BeaconAsset(JSON: JSON) as Any
             } else if type == .location {
                 asset = LocationAsset(JSON: JSON) as Any
+            } else if type == .edge {
+                asset = EdgeAsset(JSON: JSON) as Any
             }
             
             if let asset = asset {
