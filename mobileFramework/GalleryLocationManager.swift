@@ -104,9 +104,14 @@ extension GalleryLocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         
         // do some filtering here to get the closest beacon
+        let beacons = beacons.filter{ $0.proximity != CLProximity.unknown }
         
-        let closestBeacon = beacons.first!
+        if let closestBeacon = beacons.first {
+            // we really only look for beacons within our defined UUID
+            if closestBeacon.proximityUUID == Constants.beacons.defaultUUID {
+                beaconRanged(major: closestBeacon.major.intValue, minor: closestBeacon.minor.intValue, UUID: region.proximityUUID)
+            }
+        }
         
-        beaconRanged(major: closestBeacon.major.intValue, minor: closestBeacon.minor.intValue, UUID: region.proximityUUID)
     }
 }
