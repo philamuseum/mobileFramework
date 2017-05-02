@@ -30,6 +30,7 @@ class LocationAssetTests: XCTestCase {
         let asset = LocationAsset(JSON: JSON)
         
         XCTAssertEqual(1, asset!.locations.count)
+        XCTAssertEqual(Constants.floors.first, asset!.locations.first?.floor)
     }
     
 }
