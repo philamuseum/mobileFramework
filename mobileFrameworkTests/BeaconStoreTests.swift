@@ -138,6 +138,25 @@ class BeaconStoreTests: XCTestCase {
         
     }
     
+    func test_loading_beacons_from_file() {
+        
+        let store = BeaconStore()
+        
+        let feature = FeatureStore()
+        
+        do {
+            try feature.load(filename: "sampleBeacons", completion: {
+                if let asset = feature.assets.first as? BeaconAsset {
+                    store.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown")
+        }
+        
+        XCTAssertEqual(3, store.beacons.count)
+    }
+    
     
     
 }

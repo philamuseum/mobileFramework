@@ -65,6 +65,10 @@ class BeaconStore {
         
     }
     
+    func load(fromAsset: BeaconAsset) {
+        self.beacons = fromAsset.beacons
+    }
+    
     private func findBeaconFor(major: Int, minor: Int, UUID: UUID) -> Beacon? {
         let result = beacons.filter() {
             let major = $0.major == major
