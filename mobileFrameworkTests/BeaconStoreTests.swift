@@ -110,6 +110,34 @@ class BeaconStoreTests: XCTestCase {
         
     }
     
+    func test_get_closest_beacon_in_range_with_expired_beacons() {
+        
+        let store = BeaconStore()
+        
+        let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
+        let sampleBeaconA = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
+        let sampleBeaconB = Beacon(major: 2222, minor: 3333, UUID: sampleUUID!, alias: "175")
+        let sampleBeaconC = Beacon(major: 3333, minor: 4444, UUID: sampleUUID!, alias: "188")
+        
+        store.add(beacon: sampleBeaconA)
+        store.add(beacon: sampleBeaconB)
+        store.add(beacon: sampleBeaconC)
+        
+        store.markInRange(major: sampleBeaconA.major, minor: sampleBeaconA.minor, UUID: sampleUUID!)
+        store.markInRange(major: sampleBeaconA.major, minor: sampleBeaconA.minor, UUID: sampleUUID!)
+        store.markInRange(major: sampleBeaconB.major, minor: sampleBeaconB.minor, UUID: sampleUUID!)
+        store.markInRange(major: sampleBeaconC.major, minor: sampleBeaconC.minor, UUID: sampleUUID!)
+        
+        XCTAssertEqual(sampleBeaconA, store.closestBeacon)
+        
+        sampleBeaconA.setExpired()
+        sampleBeaconB.setExpired()
+        
+        XCTAssertEqual(sampleBeaconC, store.closestBeacon)
+        
+        
+    }
+    
     
     
 }

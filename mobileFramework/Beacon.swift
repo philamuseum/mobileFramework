@@ -51,6 +51,10 @@ class Beacon {
         }
     }
     
+    internal func setExpired() {
+        self.ttl = nil
+    }
+    
 }
 
 extension Beacon: Equatable {

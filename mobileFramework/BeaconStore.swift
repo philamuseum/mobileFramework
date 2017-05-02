@@ -24,7 +24,11 @@ class BeaconStore {
             
             var occurances : [Beacon:Int] = [:]
             
-            _ = beaconsInRange.map{
+            let onlyBeaconsCurrentlyPresent = beaconsInRange.filter() {
+                return $0.isPresent == true
+            }
+            
+            _ = onlyBeaconsCurrentlyPresent.map{
                 if let val: Int = occurances[$0]  {
                     occurances[$0] = val+1
                 } else {
@@ -55,6 +59,7 @@ class BeaconStore {
     
     func markInRange(major: Int, minor: Int, UUID: UUID) {
         if let beacon = findBeaconFor(major: major, minor: minor, UUID: UUID) {
+            beacon.setPresent()
             beaconsInRange.append(beacon)
         }
         

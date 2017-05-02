@@ -55,6 +55,22 @@ class BeaconTests: XCTestCase {
 
         
     }
+    
+    func test_set_expired() {
+        
+        let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
+        
+        let beacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
+        
+        beacon.setPresent()
+        
+        XCTAssertTrue(beacon.isPresent)
+        
+        beacon.setExpired()
+        
+        XCTAssertFalse(beacon.isPresent)
+        
+    }
 
     
 }
