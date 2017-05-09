@@ -7,6 +7,8 @@
 //
 
 import XCTest
+import CoreLocation
+import MapKit
 
 class LocationStoreTests: XCTestCase {
     
@@ -32,6 +34,27 @@ class LocationStoreTests: XCTestCase {
         XCTAssertEqual(1, store.locations.count)
     }
     
+    func test_add_location_with_polygon() {
+        let store = LocationStore()
+        
+        var coordinates = [CLLocationCoordinate2D]()
+        
+        coordinates.append(CLLocationCoordinate2D(latitude: 39.96501561000008, longitude: -75.181273465999936))
+        coordinates.append(CLLocationCoordinate2D(latitude: 39.965012548000061, longitude: -75.181277315999921))
+        coordinates.append(CLLocationCoordinate2D(latitude: 39.965018103000034, longitude: -75.181284622999897))
+        coordinates.append(CLLocationCoordinate2D(latitude: 39.965018599000075, longitude: -75.181285274999937))
+        
+        let samplePolygon = MKPolygon(coordinates: &coordinates, count: coordinates.count)
+        
+        let sampleLocation = Location(name: "166", title: "166", active: true, floor: .first, polygon: samplePolygon, coordinates: coordinates)
+        
+        XCTAssertEqual(0, store.locations.count)
+        
+        store.add(location: sampleLocation)
+        
+        XCTAssertEqual(1, store.locations.count)
+    }
+    
     func test_get_location_for_alias() {
         
         let sampleLocation = Location(name: "166", title: "166", active: true, floor: .first)
@@ -44,6 +67,33 @@ class LocationStoreTests: XCTestCase {
         }
         
         XCTAssertEqual(sampleLocation, locationResult)
+    }
+    
+    func test_get_location_for_coordinate() {
+        
+        var sampleCoordinates = [CLLocationCoordinate2D]()
+        
+        sampleCoordinates.append(CLLocationCoordinate2D(latitude: 39.96511746533821, longitude: -75.18134329650225))
+        sampleCoordinates.append(CLLocationCoordinate2D(latitude: 39.965097760926454, longitude: -75.18124935927544))
+        sampleCoordinates.append(CLLocationCoordinate2D(latitude: 39.96501666967046, longitude: -75.18131659855469))
+        sampleCoordinates.append(CLLocationCoordinate2D(latitude: 39.96507767758396, longitude: -75.18138383783392))
+        
+        let samplePolygon = MKPolygon(coordinates: &sampleCoordinates, count: sampleCoordinates.count)
+
+        
+        let sampleLocation = Location(name: "166", title: "166", active: true, floor: .first, polygon: samplePolygon, coordinates: sampleCoordinates)
+        let sampleCoordinateWithinPolygon = CLLocationCoordinate2D(latitude: 39.965080709037295, longitude: -75.18132352024095)
+        
+        let lStore = LocationStore()
+        lStore.add(location: sampleLocation)
+        
+        guard let locationResult = lStore.locationForCoordinate(coordinate: sampleCoordinateWithinPolygon, floor: .first) else {
+            XCTFail("location not found for coordinate")
+            return
+        }
+        
+        XCTAssertEqual(sampleLocation, locationResult)
+        
     }
     
     
@@ -100,6 +150,25 @@ class LocationStoreTests: XCTestCase {
         
         XCTAssertEqual(2, store.edges.count)
     }
+    
+//    func test_loading_units_geojson_from_file() {
+//        
+//        let store = LocationStore()
+//        
+//        let feature = FeatureStore()
+//        
+//        do {
+//            try feature.load(filename: "sampleUnits", ext: "geojson", type: .units, completion: {
+//                if let asset = feature.assets.first as? UnitAsset {
+//                    store.load(fromAsset: asset)
+//                }
+//            })
+//        } catch {
+//            XCTFail("Exception thrown")
+//        }
+//        
+//        XCTAssertEqual(1, store.locations.count)
+//    }
     
     func test_matching_edge_names_to_locations() {
         

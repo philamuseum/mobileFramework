@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 public class Location {
     
@@ -17,12 +18,17 @@ public class Location {
     
     public let floor : Constants.floors!
     
+    public private(set) var polygon : MKPolygon?
+    public private(set) var coordinates : [CLLocationCoordinate2D]?
     
-    init(name: String, title: String, active: Bool, floor: Constants.floors) {
+    
+    init(name: String, title: String, active: Bool, floor: Constants.floors, polygon: MKPolygon? = nil, coordinates: [CLLocationCoordinate2D]? = nil) {
         self.name = name
         self.title = title
         self.active = active
         self.floor = floor
+        self.polygon = polygon
+        self.coordinates = coordinates
     }
     
 }

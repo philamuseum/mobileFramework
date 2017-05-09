@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 public class LocationStore {
     
@@ -67,6 +68,18 @@ public class LocationStore {
         }
     }
     
+    public func locationForCoordinate(coordinate: CLLocationCoordinate2D, floor: Constants.floors) -> Location? {
+        
+        for location in self.locations {
+            if location.floor == floor && location.coordinates != nil {
+                if coordinate.contained(by: location.coordinates!) {
+                    return location
+                }
+            }
+        }
+        return nil
+    }
+    
     // http://stackoverflow.com/questions/27880650/swift-extract-regex-matches
     private func matches(for regex: String, in text: String) -> [String] {
         
@@ -82,4 +95,23 @@ public class LocationStore {
     }
 
 
+}
+
+extension CLLocationCoordinate2D {
+    
+    func contained(by vertices: [CLLocationCoordinate2D]) -> Bool {
+        let path = CGMutablePath()
+        
+        for vertex in vertices {
+            if path.isEmpty {
+                path.move(to: CGPoint(x: vertex.longitude, y: vertex.latitude))
+            } else {
+                path.addLine(to: CGPoint(x: vertex.longitude, y: vertex.latitude))
+            }
+        }
+        
+        let point = CGPoint(x: self.longitude, y: self.latitude)
+        return path.contains(point)
+    }
+    
 }

@@ -17,6 +17,7 @@ public enum FeatureStoreType : Int {
     case beacon
     case location
     case edge
+    case units
 }
 
 public class FeatureStore {
