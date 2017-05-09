@@ -8,14 +8,14 @@
 
 import Foundation
 
-class Location {
+public class Location {
     
-    let name : String
-    let title : String
+    public let name : String
+    public let title : String
     
-    var active : Bool
+    public var active : Bool
     
-    let floor : Constants.floors!
+    public let floor : Constants.floors!
     
     
     init(name: String, title: String, active: Bool, floor: Constants.floors) {
@@ -28,7 +28,7 @@ class Location {
 }
 
 extension Location: Equatable {
-    static func == (lhs: Location, rhs: Location) -> Bool {
+    public static func == (lhs: Location, rhs: Location) -> Bool {
         return lhs.name == rhs.name &&
             lhs.title == rhs.title &&
             lhs.floor == rhs.floor
@@ -36,7 +36,7 @@ extension Location: Equatable {
 }
 
 extension Location: Hashable {
-    var hashValue: Int {
+    public var hashValue: Int {
         return name.hashValue ^ title.hashValue ^ floor.hashValue
     }
 }

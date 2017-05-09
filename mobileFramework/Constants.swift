@@ -8,9 +8,9 @@
 
 import Foundation
 
-class Constants {
+public class Constants {
     
-    enum floors : Int {
+    public enum floors : Int {
         case ground
         case first
         case second
@@ -25,18 +25,18 @@ class Constants {
         }
     }
     
-    struct assets {
+    public struct assets {
         static let beacons = "beacons.json"
     }
     
-    struct locationSensing {
-        static let locationUpdateInterval : Double = 1
+    public struct locationSensing {
+        static let locationUpdateInterval : Double = 0.5
     }
     
-    struct beacons {
-        static let defaultUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
-        static let defaultTTL : Int = 3
-        static let validAliasReplacements = ["_L", "_R", "_C", "_T", "_M", "_B"]
+    public struct beacons {
+        public static let defaultUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
+        public static let defaultTTL : Int = 3
+        public static let validAliasReplacements = ["_L", "_R", "_C", "_T", "_M", "_B"]
     }
     
 }

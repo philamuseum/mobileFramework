@@ -8,22 +8,22 @@
 
 import Foundation
 
-class LocationStore {
+public class LocationStore {
     
-    static var sharedInstance = LocationStore()
+    public static var sharedInstance = LocationStore()
     
     static func reset() {
         sharedInstance = LocationStore()
     }
     
-    private(set) var locations = [Location]()
+    public private(set) var locations = [Location]()
     private(set) var edges = [Edge]()
     
     func add(location: Location) {
         locations.append(location)
     }
     
-    func findLocationByName(name: String) -> Location? {
+    public func findLocationByName(name: String) -> Location? {
         let result = locations.filter() {
             return $0.name == name
         }
@@ -36,7 +36,7 @@ class LocationStore {
     }
 
     
-    func locationForBeacon(beacon: Beacon) -> Location? {
+    public func locationForBeacon(beacon: Beacon) -> Location? {
         guard let alias = beacon.alias else { return nil }
         var cleanedAlias = alias
         
@@ -52,11 +52,11 @@ class LocationStore {
         return location
     }
     
-    func load(fromAsset: LocationAsset) {
+    public func load(fromAsset: LocationAsset) {
         self.locations = fromAsset.locations
     }
     
-    func load(fromAsset: EdgeAsset) {
+    public func load(fromAsset: EdgeAsset) {
         self.edges = fromAsset.edges
         
         for edge in self.edges {

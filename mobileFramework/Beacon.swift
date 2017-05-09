@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Beacon {
+public class Beacon {
     
     let major : Int
     let minor: Int
@@ -58,7 +58,7 @@ class Beacon {
 }
 
 extension Beacon: Equatable {
-    static func == (lhs: Beacon, rhs: Beacon) -> Bool {
+   public  static func == (lhs: Beacon, rhs: Beacon) -> Bool {
         return lhs.major == rhs.major &&
             lhs.minor == rhs.minor &&
             lhs.UUID == rhs.UUID
@@ -66,7 +66,7 @@ extension Beacon: Equatable {
 }
 
 extension Beacon: Hashable {
-    var hashValue: Int {
+    public var hashValue: Int {
         return major.hashValue ^ minor.hashValue ^ UUID.hashValue
     }
 }

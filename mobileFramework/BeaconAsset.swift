@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BeaconAsset: JSONDecodable {
+public class BeaconAsset: JSONDecodable {
     
     private(set) var beacons = [Beacon]()
     

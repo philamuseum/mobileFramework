@@ -8,18 +8,18 @@
 
 import Foundation
 
-class BeaconStore {
+public class BeaconStore {
     
-    static var sharedInstance = BeaconStore()
+    public static var sharedInstance = BeaconStore()
     
     static func reset() {
         sharedInstance = BeaconStore()
     }
     
-    private(set) var beacons = [Beacon]()
+    public private(set) var beacons = [Beacon]()
     private(set) var beaconsInRange = [Beacon]()
     
-    var closestBeacon : Beacon? {
+    public var closestBeacon : Beacon? {
         get {
             
             var occurances : [Beacon:Int] = [:]
@@ -57,7 +57,7 @@ class BeaconStore {
         
     }
     
-    func markInRange(major: Int, minor: Int, UUID: UUID) {
+    public func markInRange(major: Int, minor: Int, UUID: UUID) {
         if let beacon = findBeaconFor(major: major, minor: minor, UUID: UUID) {
             beacon.setPresent()
             beaconsInRange.append(beacon)
@@ -65,7 +65,7 @@ class BeaconStore {
         
     }
     
-    func load(fromAsset: BeaconAsset) {
+    public func load(fromAsset: BeaconAsset) {
         self.beacons = fromAsset.beacons
     }
     

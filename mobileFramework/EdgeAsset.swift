@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EdgeAsset: JSONDecodable {
+public class EdgeAsset: JSONDecodable {
     
     private(set) var edges = [Edge]()
     

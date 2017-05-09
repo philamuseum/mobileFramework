@@ -9,6 +9,6 @@
 import UIKit
 import CoreLocation
 
-protocol GalleryLocationManagerDelegate : CLLocationManagerDelegate {
-    func locationManager(locationManager: GalleryLocationManager, didEnterLocation: Location)
+public protocol GalleryLocationManagerDelegate : CLLocationManagerDelegate {
+    func locationManager(locationManager: GalleryLocationManager, didEnterLocation location: Location)
 }

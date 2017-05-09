@@ -8,24 +8,24 @@
 
 import Foundation
 
-enum FeatureStoreError: Error {
+public enum FeatureStoreError: Error {
     case fileNotFound
     case ParsingError
 }
 
-enum FeatureStoreType : Int {
+public enum FeatureStoreType : Int {
     case beacon
     case location
     case edge
 }
 
-class FeatureStore {
+public class FeatureStore {
     
-    static var sharedInstance = FeatureStore()
+    public static var sharedInstance = FeatureStore()
     
-    private(set) var assets = [Any]()
+    public private(set) var assets = [Any]()
     
-    func load(filename: String, ext: String = "json", type: FeatureStoreType, completion: () -> Void) throws {
+    public func load(filename: String, ext: String = "json", type: FeatureStoreType, completion: () -> Void) throws {
         
         let bundle = Bundle(for: type(of: self))
         guard let fileURL = bundle.url(forResource: filename, withExtension: ext)

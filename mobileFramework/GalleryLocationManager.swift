@@ -9,21 +9,21 @@
 import UIKit
 import CoreLocation
 
-enum GalleryLocationManagerError: Error {
+public enum GalleryLocationManagerError: Error {
     case missingRegion
     case insufficientPermissions
 }
 
-class GalleryLocationManager : NSObject  {
+public class GalleryLocationManager : NSObject  {
     
     private var locationManager : CLLocationManager!
     private var locationUpdateTimer : Timer?
     
-    var beaconRegion: CLBeaconRegion?
+    public var beaconRegion: CLBeaconRegion?
     
-    var delegate : GalleryLocationManagerDelegate?
+    public var delegate : GalleryLocationManagerDelegate?
     
-    init(locationManager: CLLocationManager) {
+    public init(locationManager: CLLocationManager) {
         super.init()
         self.locationManager = locationManager
         self.locationManager.delegate = self
@@ -51,7 +51,7 @@ class GalleryLocationManager : NSObject  {
     }
     
    
-    func startLocationRanging() throws {
+    public func startLocationRanging() throws {
         if beaconRegion != nil {
             if (CLLocationManager.authorizationStatus() != CLAuthorizationStatus.authorizedWhenInUse) {
                 throw GalleryLocationManagerError.insufficientPermissions
@@ -66,13 +66,15 @@ class GalleryLocationManager : NSObject  {
         }
     }
     
-    func requestPermissions() {
+    public func requestPermissions() {
         locationManager.requestWhenInUseAuthorization()
     }
     
     internal func checkForLocationUpdates() {
         // if we don't have a current location, we can skip right out
-        guard let currentLocation = self.currentLocation else { return }
+        guard let currentLocation = self.currentLocation else {
+            return
+        }
         
         if self.previousLocation == currentLocation {
             // previous and current location are identical, which means we haven't moved
@@ -93,17 +95,12 @@ class GalleryLocationManager : NSObject  {
         
     }
     
-
-    
-    
-    
 }
 
 extension GalleryLocationManager: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+    public func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         
-        // do some filtering here to get the closest beacon
         let beacons = beacons.filter{ $0.proximity != CLProximity.unknown }
         
         if let closestBeacon = beacons.first {

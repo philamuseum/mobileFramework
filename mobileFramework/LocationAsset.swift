@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LocationAsset: JSONDecodable {
+public class LocationAsset: JSONDecodable {
     
     private(set) var locations = [Location]()
     
