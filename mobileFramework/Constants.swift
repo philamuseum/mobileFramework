@@ -23,6 +23,12 @@ public class Constants {
             }
             return nil
         }
+        static func enumFromLevelID(string:String) -> floors? {
+            let digit = Int(String(string.characters.last!))
+            let floor = digit! - 1
+            
+            return floors(rawValue: floor)
+        }
     }
     
     public struct assets {

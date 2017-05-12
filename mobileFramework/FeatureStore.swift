@@ -17,7 +17,7 @@ public enum FeatureStoreType : Int {
     case beacon
     case location
     case edge
-    case units
+    case geojson
 }
 
 public class FeatureStore {
@@ -44,6 +44,8 @@ public class FeatureStore {
                 asset = LocationAsset(JSON: JSON) as Any
             } else if type == .edge {
                 asset = EdgeAsset(JSON: JSON) as Any
+            } else if type == .geojson {
+                asset = GeoJSONAsset(JSON: JSON) as Any
             }
             
             if let asset = asset {

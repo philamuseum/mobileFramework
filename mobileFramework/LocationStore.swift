@@ -68,6 +68,13 @@ public class LocationStore {
         }
     }
     
+    public func load(fromAsset: GeoJSONAsset) {
+        for geoJSONLocation in fromAsset.locations {
+            guard let location = findLocationByName(name: geoJSONLocation.name) else { return }
+            location.addGeoJSONData(polygon: geoJSONLocation.polygon, coordinates: geoJSONLocation.coordinates)
+        }
+    }
+    
     public func locationForCoordinate(coordinate: CLLocationCoordinate2D, floor: Constants.floors) -> Location? {
         
         for location in self.locations {

@@ -151,24 +151,38 @@ class LocationStoreTests: XCTestCase {
         XCTAssertEqual(2, store.edges.count)
     }
     
-//    func test_loading_units_geojson_from_file() {
-//        
-//        let store = LocationStore()
-//        
-//        let feature = FeatureStore()
-//        
-//        do {
-//            try feature.load(filename: "sampleUnits", ext: "geojson", type: .units, completion: {
-//                if let asset = feature.assets.first as? UnitAsset {
-//                    store.load(fromAsset: asset)
-//                }
-//            })
-//        } catch {
-//            XCTFail("Exception thrown")
-//        }
-//        
-//        XCTAssertEqual(1, store.locations.count)
-//    }
+    func test_loading_units_geojson_from_file() {
+        
+        let store = LocationStore()
+        
+        let feature = FeatureStore()
+        
+        do {
+            try feature.load(filename: "sampleLocations", type: .location, completion: {
+                if let asset = feature.assets.first as? LocationAsset {
+                    store.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown")
+        }
+        
+        XCTAssertEqual(3, store.locations.count)
+        
+        do {
+            try feature.load(filename: "sampleUnits", ext: "geojson", type: .geojson, completion: {
+                if let asset = feature.assets[1] as? GeoJSONAsset {
+                    store.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown: \(error)")
+        }
+        
+        XCTAssertEqual(3, store.locations.count)
+        XCTAssertEqual("175", store.locations.last?.name)
+        XCTAssertEqual(53, store.locations.last?.coordinates?.count)
+    }
     
     func test_matching_edge_names_to_locations() {
         

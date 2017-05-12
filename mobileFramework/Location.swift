@@ -31,6 +31,11 @@ public class Location {
         self.coordinates = coordinates
     }
     
+    func addGeoJSONData(polygon: MKPolygon, coordinates: [CLLocationCoordinate2D]) {
+        self.polygon = polygon
+        self.coordinates = coordinates
+    }
+    
 }
 
 extension Location: Equatable {
