@@ -22,5 +22,10 @@
 	<string>This application uses iBeacons (Bluetooth LE) to determine gallery locations</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>
