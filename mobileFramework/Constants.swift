@@ -10,6 +10,11 @@ import Foundation
 
 public class Constants {
     
+    public struct cache {
+        static let dataModel = "mobileFramework"
+        static let entity = "DownloadItem"
+    }
+    
     public enum floors : Int {
         case ground
         case first
