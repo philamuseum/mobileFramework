@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class CacheService {
     
@@ -14,10 +15,6 @@ class CacheService {
     
     let cacheURL : URL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
     
-    // define two cache repositories: live and temp (temp will have subfolders based on queue names)
-    
-    // service.request(url: url, cached: false) { localPath, data in
-
     func request(url: URL, uncached: Bool, completion: @escaping (_ localPath: URL?, _ data: Data?) -> Void) {
         
         // if uncached, we simply make sure to make a new request and return data
@@ -97,7 +94,7 @@ class CacheService {
         
         let localPath = url.pathComponents.dropFirst().dropLast().joined(separator: "/")
         
-        return cacheURL.appendingPathComponent(repository, isDirectory: true).appendingPathComponent(localPath, isDirectory: true).appendingPathComponent(filename)
+        return cacheURL.appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!, isDirectory: true).appendingPathComponent(repository, isDirectory: true).appendingPathComponent(localPath, isDirectory: true).appendingPathComponent(filename)
     }
     
     func fileExists(url: URL, repository: String) -> Bool {

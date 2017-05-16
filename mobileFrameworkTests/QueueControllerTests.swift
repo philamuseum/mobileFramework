@@ -32,7 +32,6 @@ class QueueControllerTests: XCTestCase {
     }
     
     func test_reset_store() {
-        controller.reset()
         
         let context = controller.persistentContainer.viewContext
         
@@ -57,7 +56,6 @@ class QueueControllerTests: XCTestCase {
     }
     
     func test_save_object_to_store() {
-        controller.reset()
         
         let context = controller.persistentContainer.viewContext
         
@@ -76,5 +74,16 @@ class QueueControllerTests: XCTestCase {
         XCTAssertEqual(1, controller.getItems()?.count)
         let item = controller.getItems()?.first
         XCTAssertEqual(url?.absoluteString, item?.value(forKey: "url") as? String)
+    }
+    
+    func test_add_url_to_queue() {
+        
+        let url = URL(string: "http://www.example.com")
+        
+        XCTAssertEqual(0, controller.getItems()?.count)
+        
+        controller.addItem(url: url!)
+        
+        XCTAssertEqual(1, controller.getItems()?.count)
     }
 }

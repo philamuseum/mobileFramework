@@ -25,6 +25,27 @@ class CacheServiceTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    // getLocalPathForURL
+    
+    func test_get_local_path_for_remote_URL() {
+        
+        let service = CacheService()
+        
+        let url = URL(string: "http://localhost/api/v0/collection/objectIsOnView?query=4&api_token=WtPr21h94VqPLxEo8079vzg1ZcE6sIwYYcXur80EOULRB79zO0WBqdERk5hG")
+        
+        let expectedPath = service.cacheURL
+            .appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!)
+            .appendingPathComponent(service.manualRequestRepository)
+            .appendingPathComponent("api")
+            .appendingPathComponent("v0")
+            .appendingPathComponent("collection")
+            .appendingPathComponent("objectIsOnView")
+        
+        let resultPath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
+        
+        XCTAssertEqual(expectedPath, resultPath)
+    }
+    
     func test_load_single_file_uncached_from_network() {
         
         let expectationSuccess = expectation(description: "Waiting for caching service to process request.")
@@ -65,15 +86,6 @@ class CacheServiceTests: XCTestCase {
         let urlData = sampleJSON.data(using: .utf8)
         
         let servicePath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
-        let expectedPath = service.cacheURL
-            .appendingPathComponent(service.manualRequestRepository)
-            .appendingPathComponent("api")
-            .appendingPathComponent("v0")
-            .appendingPathComponent("collection")
-            .appendingPathComponent("objectIsOnView")
-        
-        XCTAssertEqual(expectedPath, servicePath)
-        
         if FileManager.default.fileExists(atPath: servicePath.path) {
             try! FileManager.default.removeItem(atPath: servicePath.path)
         }
@@ -85,8 +97,6 @@ class CacheServiceTests: XCTestCase {
             XCTAssertNotNil(localPath)
             XCTAssertNotNil(data)
             
-            XCTAssertEqual(expectedPath, localPath)
-            
             XCTAssertEqual(urlData, data)
             
             let resultJSON = String(data: data!, encoding: .utf8)
@@ -105,7 +115,7 @@ class CacheServiceTests: XCTestCase {
         
     }
     
-    func test_load_single_file_cached_with_file_available_locally() {
+    func test_load_single_file_cached_with_file_locally_available() {
         
         let expectationSuccess = expectation(description: "Waiting for caching service to process request.")
         
@@ -117,16 +127,10 @@ class CacheServiceTests: XCTestCase {
         let urlData = sampleJSON.data(using: .utf8)
         
         let servicePath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
-        let expectedPath = service.cacheURL
-            .appendingPathComponent(service.manualRequestRepository)
-            .appendingPathComponent("api")
-            .appendingPathComponent("v0")
-            .appendingPathComponent("collection")
-            .appendingPathComponent("objectIsOnView")
         
-        XCTAssertEqual(expectedPath, servicePath)
-        
-        XCTAssertTrue(FileManager.default.fileExists(atPath: servicePath.path))
+        var localPathWithoutFilename = servicePath
+        localPathWithoutFilename.deleteLastPathComponent()
+        try! FileManager.default.createDirectory(atPath: localPathWithoutFilename.path, withIntermediateDirectories: true, attributes: nil)
         
         try! sampleJSON.write(toFile: servicePath.path, atomically: true, encoding: .utf8)
         
@@ -134,8 +138,6 @@ class CacheServiceTests: XCTestCase {
             
             XCTAssertNotNil(localPath)
             XCTAssertNotNil(data)
-            
-            XCTAssertEqual(expectedPath, localPath)
             
             XCTAssertEqual(urlData, data)
             
@@ -152,22 +154,6 @@ class CacheServiceTests: XCTestCase {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }
         }
-        
-    }
-    
-    func test_add_multiple_files_to_named_queue() {
-        
-    }
-    
-    func test_downloading_queued_items() {
-        
-    }
-    
-    func test_make_unfinished_queue_live_fails() {
-        
-    }
-    
-    func test_make_named_and_finished_queue_live() {
         
     }
     
