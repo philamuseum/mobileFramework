@@ -41,6 +41,7 @@ class CacheService {
                 } catch {
                     print("Error: Unable to load data: \(error)")
                 }
+                print("Cache: File exists and will be served locally")
                 completion(path, data)
             } else {
                 // if the file does not exist, then let's download, store and return it
@@ -62,6 +63,7 @@ class CacheService {
                     } catch {
                        print("Error: Unable to write file \(error)")
                     }
+                    print("Cache: File did not exist locally, but has now been downloaded")
                     completion(localPath, returnData)
                 })
                 
@@ -69,7 +71,7 @@ class CacheService {
         }
     }
     
-    func getUncachedData(url: URL, completion: @escaping (_ data: Data?) -> Void) {
+    private func getUncachedData(url: URL, completion: @escaping (_ data: Data?) -> Void) {
         
         let session = URLSession.shared
         
@@ -99,6 +101,6 @@ class CacheService {
     }
     
     func fileExists(url: URL, repository: String) -> Bool {
-        return FileManager.default.fileExists(atPath: getLocalPathForURL(url: url, repository: repository).absoluteString)
+        return FileManager.default.fileExists(atPath: getLocalPathForURL(url: url, repository: repository).path)
     }
 }

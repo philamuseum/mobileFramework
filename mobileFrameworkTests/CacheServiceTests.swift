@@ -61,25 +61,33 @@ class CacheServiceTests: XCTestCase {
         
         let url = URL(string: "http://localhost/api/v0/collection/objectIsOnView?query=4&api_token=WtPr21h94VqPLxEo8079vzg1ZcE6sIwYYcXur80EOULRB79zO0WBqdERk5hG")
         
-        let sampleJSON = "{\"onView\":false,\"ObjectID\":4,\"ObjectNumber\":\"1985-52-14899\"}"
+        let sampleJSON = "{\"onView\":true,\"ObjectID\":4,\"ObjectNumber\":\"1985-52-14899\"}\n"
         let urlData = sampleJSON.data(using: .utf8)
+        
+        let servicePath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
+        let expectedPath = service.cacheURL
+            .appendingPathComponent(service.manualRequestRepository)
+            .appendingPathComponent("api")
+            .appendingPathComponent("v0")
+            .appendingPathComponent("collection")
+            .appendingPathComponent("objectIsOnView")
+        
+        XCTAssertEqual(expectedPath, servicePath)
+        
+//        XCTAssertFalse(FileManager.default.fileExists(atPath: servicePath.path))
         
         service.request(url: url!, uncached: false) { localPath, data in
             
             XCTAssertNotNil(localPath)
             XCTAssertNotNil(data)
             
-            let servicePath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
-            let expectedPath = service.cacheURL
-                                    .appendingPathComponent(service.manualRequestRepository)
-                                    .appendingPathComponent("api")
-                                    .appendingPathComponent("v0")
-                                    .appendingPathComponent("collection")
-                                    .appendingPathComponent("objectIsOnView")
-            XCTAssertEqual(expectedPath, servicePath)
             XCTAssertEqual(expectedPath, localPath)
             
             XCTAssertEqual(urlData, data)
+            
+            let resultJSON = String(data: data!, encoding: .utf8)
+            
+            XCTAssertEqual(sampleJSON, resultJSON)
             XCTAssertTrue(FileManager.default.fileExists(atPath: localPath!.path))
             
             expectationSuccess.fulfill()
