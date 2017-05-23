@@ -29,7 +29,7 @@ public class GalleryLocationManager : NSObject  {
         self.locationManager.delegate = self
     }
     
-    private var previousLocation : Location?
+    internal var previousLocation : Location?
     
     var currentLocation : Location? {
         get {

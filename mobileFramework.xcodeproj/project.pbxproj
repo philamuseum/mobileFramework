@@ -9,13 +9,58 @@
 /* Begin PBXBuildFile section */
 		A50EB7D01EA9423200329A5E /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EB7CF1EA9423200329A5E /* Beacon.swift */; };
 		A50EB7D11EA9427A00329A5E /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50EB7CF1EA9423200329A5E /* Beacon.swift */; };
+		A51E42BD1ED4707700CB4749 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54634BE1EB2A00100CAA791 /* Location.swift */; };
+		A51E42BE1ED4707800CB4749 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54634BE1EB2A00100CAA791 /* Location.swift */; };
+		A51E42BF1ED4707F00CB4749 /* BeaconStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030E1EA92EA3005F22C7 /* BeaconStore.swift */; };
+		A51E42C01ED4707F00CB4749 /* BeaconStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030E1EA92EA3005F22C7 /* BeaconStore.swift */; };
+		A54634B71EB283DE00CAA791 /* BeaconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54634B61EB283DE00CAA791 /* BeaconTests.swift */; };
+		A54634BC1EB29FF800CAA791 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54634BB1EB29FF800CAA791 /* LocationStore.swift */; };
+		A54634BD1EB29FF800CAA791 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54634BB1EB29FF800CAA791 /* LocationStore.swift */; };
+		A54634C21EB2A41F00CAA791 /* LocationStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54634C11EB2A41F00CAA791 /* LocationStoreTests.swift */; };
+		A551C1F51EC25E0D0082CEB6 /* sampleUnits.geojson in Resources */ = {isa = PBXBuildFile; fileRef = A551C1F41EC25E0D0082CEB6 /* sampleUnits.geojson */; };
+		A5624F2F1EC60BCE00EF20EF /* GeoJSONAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5624F2E1EC60BCE00EF20EF /* GeoJSONAsset.swift */; };
+		A5624F301EC60BCE00EF20EF /* GeoJSONAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5624F2E1EC60BCE00EF20EF /* GeoJSONAsset.swift */; };
+		A5624F311EC6104400EF20EF /* sampleUnits.geojson in Resources */ = {isa = PBXBuildFile; fileRef = A551C1F41EC25E0D0082CEB6 /* sampleUnits.geojson */; };
+		A5624F331EC6109500EF20EF /* GeoJSONAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5624F321EC6109500EF20EF /* GeoJSONAssetTests.swift */; };
+		A5AC56D91ECB496C006420D8 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56D81ECB496C006420D8 /* CacheService.swift */; };
+		A5AC56DA1ECB496C006420D8 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56D81ECB496C006420D8 /* CacheService.swift */; };
+		A5AC56DD1ECB498F006420D8 /* CacheServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56DC1ECB498F006420D8 /* CacheServiceTests.swift */; };
+		A5AC56DF1ECB941E006420D8 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56DE1ECB941E006420D8 /* QueueController.swift */; };
+		A5AC56E01ECB941E006420D8 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56DE1ECB941E006420D8 /* QueueController.swift */; };
+		A5AC56E21ECB950C006420D8 /* QueueControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56E11ECB950C006420D8 /* QueueControllerTests.swift */; };
+		A5AC56E51ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56E31ECB9AE5006420D8 /* mobileFramework.xcdatamodeld */; };
+		A5AC56E61ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56E31ECB9AE5006420D8 /* mobileFramework.xcdatamodeld */; };
+		A5E4A2371EB8C914001BF1C6 /* BeaconAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */; };
+		A5E4A2381EB8C914001BF1C6 /* BeaconAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */; };
+		A5E4A23A1EB8C91D001BF1C6 /* FeatureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2391EB8C91D001BF1C6 /* FeatureStore.swift */; };
+		A5E4A23B1EB8C91D001BF1C6 /* FeatureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2391EB8C91D001BF1C6 /* FeatureStore.swift */; };
+		A5E4A23D1EB8C92E001BF1C6 /* FeatureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A23C1EB8C92E001BF1C6 /* FeatureStoreTests.swift */; };
+		A5E4A23F1EB8C938001BF1C6 /* BeaconAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A23E1EB8C938001BF1C6 /* BeaconAssetTests.swift */; };
+		A5E4A2411EB8D1B1001BF1C6 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2401EB8D1B1001BF1C6 /* JSONDecodable.swift */; };
+		A5E4A2421EB8D1B1001BF1C6 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2401EB8D1B1001BF1C6 /* JSONDecodable.swift */; };
+		A5E4A2451EB8D8CD001BF1C6 /* sampleBeacons.json in Resources */ = {isa = PBXBuildFile; fileRef = A5E4A2441EB8D8CD001BF1C6 /* sampleBeacons.json */; };
+		A5E4A2461EB8D8CD001BF1C6 /* sampleBeacons.json in Resources */ = {isa = PBXBuildFile; fileRef = A5E4A2441EB8D8CD001BF1C6 /* sampleBeacons.json */; };
+		A5E4A2481EB8F00C001BF1C6 /* sampleLocations.json in Resources */ = {isa = PBXBuildFile; fileRef = A5E4A2471EB8F00C001BF1C6 /* sampleLocations.json */; };
+		A5E4A2491EB8F00C001BF1C6 /* sampleLocations.json in Resources */ = {isa = PBXBuildFile; fileRef = A5E4A2471EB8F00C001BF1C6 /* sampleLocations.json */; };
+		A5E4A24B1EB8F02A001BF1C6 /* LocationAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A24A1EB8F02A001BF1C6 /* LocationAsset.swift */; };
+		A5E4A24C1EB8F02A001BF1C6 /* LocationAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A24A1EB8F02A001BF1C6 /* LocationAsset.swift */; };
+		A5E4A24E1EB8F365001BF1C6 /* LocationAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A24D1EB8F365001BF1C6 /* LocationAssetTests.swift */; };
+		A5E4A2521EB8FC46001BF1C6 /* EdgeAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2511EB8FC46001BF1C6 /* EdgeAsset.swift */; };
+		A5E4A2531EB8FC46001BF1C6 /* EdgeAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2511EB8FC46001BF1C6 /* EdgeAsset.swift */; };
+		A5E4A2551EB8FC9C001BF1C6 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2541EB8FC9C001BF1C6 /* Edge.swift */; };
+		A5E4A2561EB8FC9C001BF1C6 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2541EB8FC9C001BF1C6 /* Edge.swift */; };
+		A5E4A2581EB8FF32001BF1C6 /* sampleEdges.json in Resources */ = {isa = PBXBuildFile; fileRef = A5E4A2571EB8FF32001BF1C6 /* sampleEdges.json */; };
+		A5E4A2591EB8FF32001BF1C6 /* sampleEdges.json in Resources */ = {isa = PBXBuildFile; fileRef = A5E4A2571EB8FF32001BF1C6 /* sampleEdges.json */; };
+		A5E4A25B1EB90127001BF1C6 /* EdgeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A25A1EB90127001BF1C6 /* EdgeAssetTests.swift */; };
+		A5E4A25D1EB92420001BF1C6 /* EdgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A25C1EB92420001BF1C6 /* EdgeTests.swift */; };
+		A5E4A25F1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A25E1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift */; };
+		A5E4A2601EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A25E1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift */; };
+		A5E4A2611EB93393001BF1C6 /* GalleryLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030C1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift */; };
 		A5FC03011EA8F373005F22C7 /* CLLocationManagerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03001EA8F373005F22C7 /* CLLocationManagerSpy.swift */; };
 		A5FC03031EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03021EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift */; };
 		A5FC03051EA9232F005F22C7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03041EA9232F005F22C7 /* Constants.swift */; };
 		A5FC03061EA9232F005F22C7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03041EA9232F005F22C7 /* Constants.swift */; };
 		A5FC030D1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030C1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift */; };
-		A5FC030F1EA92EA3005F22C7 /* BeaconStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030E1EA92EA3005F22C7 /* BeaconStore.swift */; };
-		A5FC03101EA92EA3005F22C7 /* BeaconStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030E1EA92EA3005F22C7 /* BeaconStore.swift */; };
 		A5FC03141EA92F10005F22C7 /* BeaconStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03131EA92F10005F22C7 /* BeaconStoreTests.swift */; };
 		A5FC1C971EA7F96F00669C89 /* mobileFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FC1C8D1EA7F96F00669C89 /* mobileFramework.framework */; };
 		A5FC1C9E1EA7F96F00669C89 /* mobileFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = A5FC1C901EA7F96F00669C89 /* mobileFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -36,6 +81,33 @@
 
 /* Begin PBXFileReference section */
 		A50EB7CF1EA9423200329A5E /* Beacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
+		A54634B61EB283DE00CAA791 /* BeaconTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconTests.swift; sourceTree = "<group>"; };
+		A54634BB1EB29FF800CAA791 /* LocationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
+		A54634BE1EB2A00100CAA791 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		A54634C11EB2A41F00CAA791 /* LocationStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationStoreTests.swift; sourceTree = "<group>"; };
+		A551C1F41EC25E0D0082CEB6 /* sampleUnits.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sampleUnits.geojson; path = SampleData/sampleUnits.geojson; sourceTree = "<group>"; };
+		A5624F2E1EC60BCE00EF20EF /* GeoJSONAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAsset.swift; sourceTree = "<group>"; };
+		A5624F321EC6109500EF20EF /* GeoJSONAssetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAssetTests.swift; sourceTree = "<group>"; };
+		A5AC56D81ECB496C006420D8 /* CacheService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
+		A5AC56DC1ECB498F006420D8 /* CacheServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheServiceTests.swift; sourceTree = "<group>"; };
+		A5AC56DE1ECB941E006420D8 /* QueueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueController.swift; sourceTree = "<group>"; };
+		A5AC56E11ECB950C006420D8 /* QueueControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueControllerTests.swift; sourceTree = "<group>"; };
+		A5AC56E41ECB9AE5006420D8 /* mobileFramework.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mobileFramework.xcdatamodel; sourceTree = "<group>"; };
+		A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconAsset.swift; sourceTree = "<group>"; };
+		A5E4A2391EB8C91D001BF1C6 /* FeatureStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureStore.swift; sourceTree = "<group>"; };
+		A5E4A23C1EB8C92E001BF1C6 /* FeatureStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureStoreTests.swift; sourceTree = "<group>"; };
+		A5E4A23E1EB8C938001BF1C6 /* BeaconAssetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconAssetTests.swift; sourceTree = "<group>"; };
+		A5E4A2401EB8D1B1001BF1C6 /* JSONDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecodable.swift; sourceTree = "<group>"; };
+		A5E4A2441EB8D8CD001BF1C6 /* sampleBeacons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sampleBeacons.json; path = SampleData/sampleBeacons.json; sourceTree = "<group>"; };
+		A5E4A2471EB8F00C001BF1C6 /* sampleLocations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleLocations.json; sourceTree = "<group>"; };
+		A5E4A24A1EB8F02A001BF1C6 /* LocationAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAsset.swift; sourceTree = "<group>"; };
+		A5E4A24D1EB8F365001BF1C6 /* LocationAssetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAssetTests.swift; sourceTree = "<group>"; };
+		A5E4A2511EB8FC46001BF1C6 /* EdgeAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeAsset.swift; sourceTree = "<group>"; };
+		A5E4A2541EB8FC9C001BF1C6 /* Edge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
+		A5E4A2571EB8FF32001BF1C6 /* sampleEdges.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sampleEdges.json; path = SampleData/sampleEdges.json; sourceTree = "<group>"; };
+		A5E4A25A1EB90127001BF1C6 /* EdgeAssetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeAssetTests.swift; sourceTree = "<group>"; };
+		A5E4A25C1EB92420001BF1C6 /* EdgeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeTests.swift; sourceTree = "<group>"; };
+		A5E4A25E1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryLocationManagerDelegateSpy.swift; sourceTree = "<group>"; };
 		A5FC03001EA8F373005F22C7 /* CLLocationManagerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManagerSpy.swift; sourceTree = "<group>"; };
 		A5FC03021EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryLocationManagerSpy.swift; sourceTree = "<group>"; };
 		A5FC03041EA9232F005F22C7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -70,6 +142,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A54634BA1EB29FE300CAA791 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				A54634BB1EB29FF800CAA791 /* LocationStore.swift */,
+				A54634BE1EB2A00100CAA791 /* Location.swift */,
+				A5E4A2541EB8FC9C001BF1C6 /* Edge.swift */,
+			);
+			name = Locations;
+			sourceTree = "<group>";
+		};
 		A551F3F51EAA9CC000BFCE93 /* Beacons */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +166,7 @@
 			children = (
 				A5FC1C911EA7F96F00669C89 /* Info.plist */,
 				A5FC1C901EA7F96F00669C89 /* mobileFramework.h */,
+				A5E4A2401EB8D1B1001BF1C6 /* JSONDecodable.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -94,6 +177,68 @@
 				A5FC1C9D1EA7F96F00669C89 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A5AC56D71ECB4956006420D8 /* Caching */ = {
+			isa = PBXGroup;
+			children = (
+				A5AC56D81ECB496C006420D8 /* CacheService.swift */,
+				A5AC56DE1ECB941E006420D8 /* QueueController.swift */,
+			);
+			name = Caching;
+			sourceTree = "<group>";
+		};
+		A5AC56DB1ECB497B006420D8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A5AC56DC1ECB498F006420D8 /* CacheServiceTests.swift */,
+				A5AC56E11ECB950C006420D8 /* QueueControllerTests.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		A5E4A2351EB8C8F6001BF1C6 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A5E4A2391EB8C91D001BF1C6 /* FeatureStore.swift */,
+				A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */,
+				A5E4A24A1EB8F02A001BF1C6 /* LocationAsset.swift */,
+				A5624F2E1EC60BCE00EF20EF /* GeoJSONAsset.swift */,
+				A5E4A2511EB8FC46001BF1C6 /* EdgeAsset.swift */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		A5E4A2431EB8D8B2001BF1C6 /* SampleData */ = {
+			isa = PBXGroup;
+			children = (
+				A5E4A2441EB8D8CD001BF1C6 /* sampleBeacons.json */,
+				A5E4A2471EB8F00C001BF1C6 /* sampleLocations.json */,
+				A5E4A2571EB8FF32001BF1C6 /* sampleEdges.json */,
+				A551C1F41EC25E0D0082CEB6 /* sampleUnits.geojson */,
+			);
+			name = SampleData;
+			sourceTree = "<group>";
+		};
+		A5E4A24F1EB8FB77001BF1C6 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A5E4A25A1EB90127001BF1C6 /* EdgeAssetTests.swift */,
+				A5E4A24D1EB8F365001BF1C6 /* LocationAssetTests.swift */,
+				A5624F321EC6109500EF20EF /* GeoJSONAssetTests.swift */,
+				A5E4A23E1EB8C938001BF1C6 /* BeaconAssetTests.swift */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		A5E4A2501EB8FB7E001BF1C6 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				A5FC03131EA92F10005F22C7 /* BeaconStoreTests.swift */,
+				A54634C11EB2A41F00CAA791 /* LocationStoreTests.swift */,
+				A5E4A23C1EB8C92E001BF1C6 /* FeatureStoreTests.swift */,
+			);
+			name = Stores;
 			sourceTree = "<group>";
 		};
 		A5FC03111EA92EDD005F22C7 /* Mocks */ = {
@@ -108,6 +253,7 @@
 			children = (
 				A5FC03001EA8F373005F22C7 /* CLLocationManagerSpy.swift */,
 				A5FC03021EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift */,
+				A5E4A25E1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift */,
 			);
 			name = Spys;
 			sourceTree = "<group>";
@@ -115,6 +261,7 @@
 		A5FC1C831EA7F96F00669C89 = {
 			isa = PBXGroup;
 			children = (
+				A5AC56E31ECB9AE5006420D8 /* mobileFramework.xcdatamodeld */,
 				A5FC1C8F1EA7F96F00669C89 /* mobileFramework */,
 				A5FC1C9A1EA7F96F00669C89 /* mobileFrameworkTests */,
 				A5FC1C8E1EA7F96F00669C89 /* Products */,
@@ -133,9 +280,13 @@
 		A5FC1C8F1EA7F96F00669C89 /* mobileFramework */ = {
 			isa = PBXGroup;
 			children = (
+				A5AC56D71ECB4956006420D8 /* Caching */,
+				A5E4A2431EB8D8B2001BF1C6 /* SampleData */,
+				A5E4A2351EB8C8F6001BF1C6 /* Assets */,
 				A5FC03041EA9232F005F22C7 /* Constants.swift */,
 				A551F3F61EAA9CCC00BFCE93 /* Supporting Files */,
 				A551F3F51EAA9CC000BFCE93 /* Beacons */,
+				A54634BA1EB29FE300CAA791 /* Locations */,
 				A5FC1CA91EA7FBBD00669C89 /* GalleryLocationManager.swift */,
 				A5FC030C1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift */,
 			);
@@ -145,11 +296,15 @@
 		A5FC1C9A1EA7F96F00669C89 /* mobileFrameworkTests */ = {
 			isa = PBXGroup;
 			children = (
+				A5AC56DB1ECB497B006420D8 /* Services */,
 				A551F3F71EAA9CE200BFCE93 /* Supporting Files */,
-				A5FC03121EA92EE2005F22C7 /* Spys */,
 				A5FC03111EA92EDD005F22C7 /* Mocks */,
+				A5FC03121EA92EE2005F22C7 /* Spys */,
+				A5E4A2501EB8FB7E001BF1C6 /* Stores */,
+				A5E4A24F1EB8FB77001BF1C6 /* Assets */,
+				A54634B61EB283DE00CAA791 /* BeaconTests.swift */,
+				A5E4A25C1EB92420001BF1C6 /* EdgeTests.swift */,
 				A5FC1CA71EA7F99900669C89 /* GalleryLocationManagerTests.swift */,
-				A5FC03131EA92F10005F22C7 /* BeaconStoreTests.swift */,
 			);
 			path = mobileFrameworkTests;
 			sourceTree = "<group>";
@@ -250,6 +405,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5E4A2481EB8F00C001BF1C6 /* sampleLocations.json in Resources */,
+				A5E4A2451EB8D8CD001BF1C6 /* sampleBeacons.json in Resources */,
+				A5E4A2581EB8FF32001BF1C6 /* sampleEdges.json in Resources */,
+				A551C1F51EC25E0D0082CEB6 /* sampleUnits.geojson in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +416,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5E4A2491EB8F00C001BF1C6 /* sampleLocations.json in Resources */,
+				A5E4A2461EB8D8CD001BF1C6 /* sampleBeacons.json in Resources */,
+				A5E4A2591EB8FF32001BF1C6 /* sampleEdges.json in Resources */,
+				A5624F311EC6104400EF20EF /* sampleUnits.geojson in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,10 +431,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5FC1CAA1EA7FBBD00669C89 /* GalleryLocationManager.swift in Sources */,
-				A5FC030F1EA92EA3005F22C7 /* BeaconStore.swift in Sources */,
+				A5E4A2411EB8D1B1001BF1C6 /* JSONDecodable.swift in Sources */,
+				A5AC56D91ECB496C006420D8 /* CacheService.swift in Sources */,
+				A51E42BE1ED4707800CB4749 /* Location.swift in Sources */,
+				A5AC56E51ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */,
+				A51E42C01ED4707F00CB4749 /* BeaconStore.swift in Sources */,
+				A5E4A2521EB8FC46001BF1C6 /* EdgeAsset.swift in Sources */,
+				A54634BC1EB29FF800CAA791 /* LocationStore.swift in Sources */,
+				A5E4A2551EB8FC9C001BF1C6 /* Edge.swift in Sources */,
+				A5E4A24B1EB8F02A001BF1C6 /* LocationAsset.swift in Sources */,
+				A5E4A25F1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift in Sources */,
+				A5624F2F1EC60BCE00EF20EF /* GeoJSONAsset.swift in Sources */,
 				A50EB7D01EA9423200329A5E /* Beacon.swift in Sources */,
 				A5FC03051EA9232F005F22C7 /* Constants.swift in Sources */,
+				A5AC56DF1ECB941E006420D8 /* QueueController.swift in Sources */,
 				A5FC030D1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift in Sources */,
+				A5E4A2371EB8C914001BF1C6 /* BeaconAsset.swift in Sources */,
+				A5E4A23A1EB8C91D001BF1C6 /* FeatureStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,13 +455,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A54634C21EB2A41F00CAA791 /* LocationStoreTests.swift in Sources */,
+				A51E42BF1ED4707F00CB4749 /* BeaconStore.swift in Sources */,
+				A5E4A2381EB8C914001BF1C6 /* BeaconAsset.swift in Sources */,
+				A51E42BD1ED4707700CB4749 /* Location.swift in Sources */,
+				A5E4A2561EB8FC9C001BF1C6 /* Edge.swift in Sources */,
+				A54634BD1EB29FF800CAA791 /* LocationStore.swift in Sources */,
+				A5E4A24E1EB8F365001BF1C6 /* LocationAssetTests.swift in Sources */,
+				A5E4A23B1EB8C91D001BF1C6 /* FeatureStore.swift in Sources */,
+				A5E4A25B1EB90127001BF1C6 /* EdgeAssetTests.swift in Sources */,
+				A5624F301EC60BCE00EF20EF /* GeoJSONAsset.swift in Sources */,
+				A5AC56DD1ECB498F006420D8 /* CacheServiceTests.swift in Sources */,
+				A5E4A25D1EB92420001BF1C6 /* EdgeTests.swift in Sources */,
+				A5AC56E01ECB941E006420D8 /* QueueController.swift in Sources */,
+				A5E4A24C1EB8F02A001BF1C6 /* LocationAsset.swift in Sources */,
 				A5FC03011EA8F373005F22C7 /* CLLocationManagerSpy.swift in Sources */,
 				A5FC03141EA92F10005F22C7 /* BeaconStoreTests.swift in Sources */,
-				A5FC03101EA92EA3005F22C7 /* BeaconStore.swift in Sources */,
 				A5FC1CAB1EA7FBBD00669C89 /* GalleryLocationManager.swift in Sources */,
+				A5E4A23D1EB8C92E001BF1C6 /* FeatureStoreTests.swift in Sources */,
+				A5E4A2611EB93393001BF1C6 /* GalleryLocationManagerDelegate.swift in Sources */,
+				A5E4A2421EB8D1B1001BF1C6 /* JSONDecodable.swift in Sources */,
 				A5FC03031EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift in Sources */,
 				A50EB7D11EA9427A00329A5E /* Beacon.swift in Sources */,
+				A5E4A2531EB8FC46001BF1C6 /* EdgeAsset.swift in Sources */,
+				A5AC56E21ECB950C006420D8 /* QueueControllerTests.swift in Sources */,
+				A54634B71EB283DE00CAA791 /* BeaconTests.swift in Sources */,
 				A5FC1CA81EA7F99900669C89 /* GalleryLocationManagerTests.swift in Sources */,
+				A5AC56E61ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */,
+				A5E4A2601EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift in Sources */,
+				A5624F331EC6109500EF20EF /* GeoJSONAssetTests.swift in Sources */,
+				A5E4A23F1EB8C938001BF1C6 /* BeaconAssetTests.swift in Sources */,
+				A5AC56DA1ECB496C006420D8 /* CacheService.swift in Sources */,
 				A5FC03061EA9232F005F22C7 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +615,7 @@
 				INFOPLIST_FILE = mobileFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = ./mobileFramework;
 				PRODUCT_BUNDLE_IDENTIFIER = org.philamuseum.mobileFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -436,6 +637,7 @@
 				INFOPLIST_FILE = mobileFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = ./mobileFramework;
 				PRODUCT_BUNDLE_IDENTIFIER = org.philamuseum.mobileFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -500,6 +702,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A5AC56E31ECB9AE5006420D8 /* mobileFramework.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A5AC56E41ECB9AE5006420D8 /* mobileFramework.xcdatamodel */,
+			);
+			currentVersion = A5AC56E41ECB9AE5006420D8 /* mobileFramework.xcdatamodel */;
+			name = mobileFramework.xcdatamodeld;
+			path = mobileFramework/mobileFramework.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A5FC1C841EA7F96F00669C89 /* Project object */;
 }
