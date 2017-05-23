@@ -15,6 +15,19 @@ class CacheService {
     
     let cacheURL : URL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
     
+    internal func reset() {
+    
+        do {
+            let filePaths = try FileManager.default.contentsOfDirectory(atPath: cacheURL.path)
+            for filePath in filePaths {
+                try FileManager.default.removeItem(atPath: cacheURL.appendingPathComponent(filePath).path)
+            }
+        } catch {
+            print("Could not clear temp folder: \(error)")
+        }
+    
+    }
+    
     func request(url: URL, uncached: Bool, completion: @escaping (_ localPath: URL?, _ data: Data?) -> Void) {
         
         // if uncached, we simply make sure to make a new request and return data
@@ -94,7 +107,12 @@ class CacheService {
         
         let localPath = url.pathComponents.dropFirst().dropLast().joined(separator: "/")
         
-        return cacheURL.appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!, isDirectory: true).appendingPathComponent(repository, isDirectory: true).appendingPathComponent(localPath, isDirectory: true).appendingPathComponent(filename)
+        let returnValue = cacheURL.appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!, isDirectory: true).appendingPathComponent(repository, isDirectory: true)
+        if localPath.characters.count > 0 {
+            returnValue.appendingPathComponent(localPath)
+        }
+        
+        return returnValue.appendingPathComponent(filename)
     }
     
     func fileExists(url: URL, repository: String) -> Bool {

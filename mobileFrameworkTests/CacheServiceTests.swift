@@ -12,6 +12,8 @@ class CacheServiceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+//        let service = CacheService()
+//        service.reset()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -31,15 +33,12 @@ class CacheServiceTests: XCTestCase {
         
         let service = CacheService()
         
-        let url = URL(string: "http://localhost/api/v0/collection/objectIsOnView?query=4&api_token=WtPr21h94VqPLxEo8079vzg1ZcE6sIwYYcXur80EOULRB79zO0WBqdERk5hG")
+        let url = URL(string: "http://org.philamuseum.mobileframeworktests.s3.amazonaws.com/objectIsOnView_false.json")
         
         let expectedPath = service.cacheURL
             .appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!)
-            .appendingPathComponent(service.manualRequestRepository)
-            .appendingPathComponent("api")
-            .appendingPathComponent("v0")
-            .appendingPathComponent("collection")
-            .appendingPathComponent("objectIsOnView")
+            .appendingPathComponent(service.manualRequestRepository, isDirectory: true)
+            .appendingPathComponent("objectIsOnView_false.json")
         
         let resultPath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
         
@@ -52,17 +51,16 @@ class CacheServiceTests: XCTestCase {
         
         let service = CacheService()
         
-        let url = URL(string: "http://localhost/api/v0/collection/objectIsOnView?query=4&api_token=WtPr21h94VqPLxEo8079vzg1ZcE6sIwYYcXur80EOULRB79zO0WBqdERk5hG")
+        let url = URL(string: "http://org.philamuseum.mobileframeworktests.s3.amazonaws.com/objectIsOnView_false.json")
         
-        let sampleJSON = "{\"onView\":false,\"ObjectID\":4,\"ObjectNumber\":\"1985-52-14899\"}"
-        let urlData = sampleJSON.data(using: .utf8)
+        let referenceData = try! Data(contentsOf: url!)
         
         service.request(url: url!, uncached: true) { localPath, data in
             
             XCTAssertNil(localPath)
             XCTAssertNotNil(data)
             
-            XCTAssertEqual(urlData, data)
+            XCTAssertEqual(referenceData, data)
             
             expectationSuccess.fulfill()
         }
@@ -80,9 +78,9 @@ class CacheServiceTests: XCTestCase {
         
         let service = CacheService()
         
-        let url = URL(string: "http://localhost/api/v0/collection/objectIsOnView?query=4&api_token=WtPr21h94VqPLxEo8079vzg1ZcE6sIwYYcXur80EOULRB79zO0WBqdERk5hG")
+        let url = URL(string: "http://org.philamuseum.mobileframeworktests.s3.amazonaws.com/objectIsOnView_false.json")
         
-        let sampleJSON = "{\"onView\":false,\"ObjectID\":4,\"ObjectNumber\":\"1985-52-14899\"}"
+        let sampleJSON = "{\"onView\":false,\"ObjectID\":4,\"ObjectNumber\":\"1985-52-14899\"}\n"
         let urlData = sampleJSON.data(using: .utf8)
         
         let servicePath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
@@ -121,7 +119,7 @@ class CacheServiceTests: XCTestCase {
         
         let service = CacheService()
         
-        let url = URL(string: "http://localhost/api/v0/collection/objectIsOnView?query=4&api_token=WtPr21h94VqPLxEo8079vzg1ZcE6sIwYYcXur80EOULRB79zO0WBqdERk5hG")
+        let url = URL(string: "http://org.philamuseum.mobileframeworktests.s3.amazonaws.com/objectIsOnView_false.json")
         
         let sampleJSON = "{\"onView\":true,\"ObjectID\":4,\"ObjectNumber\":\"1985-52-14899\"}"
         let urlData = sampleJSON.data(using: .utf8)
