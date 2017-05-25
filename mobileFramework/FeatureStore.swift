@@ -24,7 +24,7 @@ public class FeatureStore {
     
     public static var sharedInstance = FeatureStore()
     
-    public private(set) var assets = [Any]()
+    public internal(set) var assets = [Any]()
     
     public func load(filename: String, ext: String = "json", type: FeatureStoreType, completion: () -> Void) throws {
         
@@ -56,6 +56,25 @@ public class FeatureStore {
             throw FeatureStoreError.ParsingError
         }
         
+    }
+    
+    public func getAsset(for type: FeatureStoreType) -> Any? {
+        
+        for asset in self.assets {
+            if let a = asset as? BeaconAsset, type == .beacon {
+                return a
+            }
+            if let a = asset as? LocationAsset, type == .location {
+                return a
+            }
+            if let a = asset as? EdgeAsset, type == .edge {
+                return a
+            }
+            if let a = asset as? GeoJSONAsset, type == .geojson {
+                return a
+            }
+        }
+        return nil
     }
     
 }
