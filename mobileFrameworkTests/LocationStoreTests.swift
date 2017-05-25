@@ -159,7 +159,7 @@ class LocationStoreTests: XCTestCase {
         
         do {
             try feature.load(filename: "sampleLocations", type: .location, completion: {
-                if let asset = feature.assets.first as? LocationAsset {
+                if let asset = feature.getAsset(for: .location) as? LocationAsset {
                     store.load(fromAsset: asset)
                 }
             })
@@ -192,13 +192,13 @@ class LocationStoreTests: XCTestCase {
         
         do {
             try fStore.load(filename: "sampleLocations", type: .location, completion: {
-                if let asset = fStore.assets[0] as? LocationAsset {
+                if let asset = fStore.getAsset(for: .location) as? LocationAsset {
                     lStore.load(fromAsset: asset)
                 }
             })
             
             try fStore.load(filename: "sampleEdges", type: .edge, completion: {
-                if let asset = fStore.assets[1] as? EdgeAsset {
+                if let asset = fStore.getAsset(for: .edge) as? EdgeAsset {
                     lStore.load(fromAsset: asset)
                 }
             })
