@@ -35,3 +35,9 @@ public class LocationAsset: JSONDecodable {
         self.locations = locations
     }
 }
+
+extension LocationAsset: Equatable {
+    public  static func == (lhs: LocationAsset, rhs: LocationAsset) -> Bool {
+        return lhs.locations == rhs.locations
+    }
+}

@@ -35,3 +35,9 @@ public class BeaconAsset: JSONDecodable {
         self.beacons = beacons
     }
 }
+
+extension BeaconAsset: Equatable {
+    public  static func == (lhs: BeaconAsset, rhs: BeaconAsset) -> Bool {
+        return lhs.beacons == rhs.beacons
+    }
+}

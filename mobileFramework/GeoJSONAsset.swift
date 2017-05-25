@@ -20,6 +20,8 @@ public class GeoJSONAsset: JSONDecodable {
     
     private(set) var locations = [GeoJSON]()
     
+    private(set) var JSON : [String: Any]
+    
     public required init?(JSON: Any) {
         guard let JSON = JSON as? [String: Any] else { return nil }
         
@@ -62,5 +64,12 @@ public class GeoJSONAsset: JSONDecodable {
         }
         
         self.locations = locations
+        self.JSON = JSON
+    }
+}
+
+extension GeoJSONAsset: Equatable {
+    public  static func == (lhs: GeoJSONAsset, rhs: GeoJSONAsset) -> Bool {
+        return lhs.JSON.count == rhs.JSON.count
     }
 }

@@ -32,3 +32,9 @@ public class EdgeAsset: JSONDecodable {
         self.edges = edges
     }
 }
+
+extension EdgeAsset: Equatable {
+    public  static func == (lhs: EdgeAsset, rhs: EdgeAsset) -> Bool {
+        return lhs.edges == rhs.edges
+    }
+}
