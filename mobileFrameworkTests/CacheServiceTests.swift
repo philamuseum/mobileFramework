@@ -37,10 +37,10 @@ class CacheServiceTests: XCTestCase {
         
         let expectedPath = service.cacheURL
             .appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!)
-            .appendingPathComponent(service.manualRequestRepository, isDirectory: true)
+            .appendingPathComponent(Constants.cache.environment.manual, isDirectory: true)
             .appendingPathComponent("objectIsOnView_false.json")
         
-        let resultPath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
+        let resultPath = service.getLocalPathForURL(url: url!, repository: Constants.cache.environment.manual)
         
         XCTAssertEqual(expectedPath, resultPath)
     }
@@ -83,7 +83,7 @@ class CacheServiceTests: XCTestCase {
         let sampleJSON = "{\"onView\":false,\"ObjectID\":4,\"ObjectNumber\":\"1985-52-14899\"}\n"
         let urlData = sampleJSON.data(using: .utf8)
         
-        let servicePath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
+        let servicePath = service.getLocalPathForURL(url: url!, repository: Constants.cache.environment.manual)
         if FileManager.default.fileExists(atPath: servicePath.path) {
             try! FileManager.default.removeItem(atPath: servicePath.path)
         }
@@ -124,7 +124,7 @@ class CacheServiceTests: XCTestCase {
         let sampleJSON = "{\"onView\":true,\"ObjectID\":4,\"ObjectNumber\":\"1985-52-14899\"}"
         let urlData = sampleJSON.data(using: .utf8)
         
-        let servicePath = service.getLocalPathForURL(url: url!, repository: service.manualRequestRepository)
+        let servicePath = service.getLocalPathForURL(url: url!, repository: Constants.cache.environment.manual)
         
         var localPathWithoutFilename = servicePath
         localPathWithoutFilename.deleteLastPathComponent()
@@ -152,6 +152,65 @@ class CacheServiceTests: XCTestCase {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }
         }
+        
+    }
+    
+    func test_purge_environment() {
+        let service = CacheService()
+        
+        let testFile = "TEST"
+        let repository = "purgeTest"
+        let testURL = URL(string: "http://www.example.com/folder/subfolder/purgeTestFile.txt")!
+        let testPath = service.getLocalPathForURL(url: testURL, repository: repository)
+        
+        XCTAssertFalse(service.fileExists(url: testURL, repository: repository))
+        
+        do {
+            service.prepareDirectories(for: testURL, in: repository)
+            try testFile.write(to: testPath, atomically: true, encoding: String.Encoding.utf8)
+        }
+        catch {
+            XCTFail("Writing test file errored: \(error)")
+        }
+        
+        XCTAssertTrue(service.fileExists(url: testURL, repository: repository))
+        
+        service.purgeEnvironment(environment: repository)
+        
+        XCTAssertFalse(service.fileExists(url: testURL, repository: repository))
+    }
+    
+    func test_move_files_from_staging_to_live_environment() {
+        let service = CacheService()
+        
+        let testFile = "TEST"
+        let repository = Constants.cache.environment.staging
+        let testURL = URL(string: "http://www.example.com/folder/subfolder/stagingTestfile.txt")!
+        let testPath = service.getLocalPathForURL(url: testURL, repository: repository)
+        
+        service.purgeEnvironment(environment: Constants.cache.environment.live)
+        
+        XCTAssertFalse(service.fileExists(url: testURL, repository: repository))
+        
+        do {
+            service.prepareDirectories(for: testURL, in: repository)
+            try testFile.write(to: testPath, atomically: true, encoding: String.Encoding.utf8)
+        }
+        catch {
+            XCTFail("Writing test file errored: \(error)")
+        }
+        
+        XCTAssertTrue(service.fileExists(url: testURL, repository: repository))
+        XCTAssertFalse(service.fileExists(url: testURL, repository: Constants.cache.environment.live))
+        
+        service.publishStagingEnvironment(completion: { success in
+            XCTAssertTrue(success)
+            XCTAssertTrue(service.fileExists(url: testURL, repository: Constants.cache.environment.live))
+        })
+        
+        // cleanup
+        
+        service.purgeEnvironment(environment: repository)
         
     }
     

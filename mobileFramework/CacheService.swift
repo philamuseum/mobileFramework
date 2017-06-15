@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class CacheService {
+public class CacheService {
     
     public static let sharedInstance = CacheService()
     
@@ -86,6 +86,31 @@ class CacheService {
         }
     }
     
+    public func publishStagingEnvironment(completion: @escaping (_ success: Bool) -> Void) {
+        self.purgeEnvironment(environment: Constants.cache.environment.live)
+        
+        // this is a seperate block because we don't care if this fails
+        // (i.e. folder does not exist yet)
+        do {
+            // delete the current live folder
+            try FileManager.default.removeItem(atPath: getCacheRootFolder(forEnvironment: Constants.cache.environment.live).path)
+        } catch {}
+        
+        do {
+            // duplicate the staging folder into live
+            try FileManager.default.copyItem(atPath: getCacheRootFolder(forEnvironment: Constants.cache.environment.staging).path, toPath: getCacheRootFolder(forEnvironment: Constants.cache.environment.live).path)
+            completion(true)
+        } catch {
+            print("Error publishing staging: \(error)")
+            completion(false)
+        }
+    }
+    
+    public func purgeEnvironment(environment: String, completion: @escaping (_ success: Bool) -> Void) {
+        self.purgeEnvironment(environment: environment)
+        completion(true)
+    }
+    
     private func getUncachedData(url: URL, completion: @escaping (_ data: Data?) -> Void) {
         
         let session = URLSession.shared
@@ -112,7 +137,7 @@ class CacheService {
         
         let localPath = url.pathComponents.dropFirst().dropLast().joined(separator: "/")
         
-        var returnValue = cacheURL.appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!, isDirectory: true).appendingPathComponent(repository, isDirectory: true)
+        var returnValue = getCacheRootFolder(forEnvironment: repository)
         
         if localPath.characters.count > 0 {
             returnValue = returnValue.appendingPathComponent(localPath)
@@ -121,7 +146,53 @@ class CacheService {
         return returnValue.appendingPathComponent(filename)
     }
     
+    func getCacheRootFolder(forEnvironment environment: String) -> URL {
+        return cacheURL.appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!, isDirectory: true).appendingPathComponent(environment, isDirectory: true)
+    }
+    
     func fileExists(url: URL, repository: String) -> Bool {
         return FileManager.default.fileExists(atPath: getLocalPathForURL(url: url, repository: repository).path)
+    }
+    
+    func removeFile(for url: URL, repository: String) {
+        do {
+            try FileManager.default.removeItem(at: url)
+        } catch {
+            print("Error removing file: \(error)")
+        }
+    }
+    
+    // http://stackoverflow.com/questions/27721418/ios-swift-getting-list-of-files-in-documents-folder
+    internal func listFilesFromDirectory(path: String) -> [String] {
+        
+        do {
+            let fileList = try FileManager.default.contentsOfDirectory(atPath: path)
+            return fileList as [String]
+        }catch {
+            
+        }
+            
+        let fileList = [""]
+        return fileList
+    }
+    
+    func purgeEnvironment(environment: String) {
+        
+        let folder = getCacheRootFolder(forEnvironment: environment)
+        
+        var fileList = self.listFilesFromDirectory(path: folder.path)
+        
+        for i:Int in 0 ..< fileList.count
+        {
+            let path = folder.path + "/" + fileList[i]
+            
+            do {
+                try FileManager.default.removeItem(atPath: path)
+            } catch {
+                print("error deleting file: \(error)")
+            }
+            print("deleted file: \(fileList[i])")
+        }
+        
     }
 }
