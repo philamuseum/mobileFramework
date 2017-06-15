@@ -13,8 +13,6 @@ class CacheService {
     
     public static let sharedInstance = CacheService()
     
-    let manualRequestRepository = "manual"
-    
     public let cacheURL : URL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
     
     internal func reset() {
@@ -45,8 +43,8 @@ class CacheService {
             
         } else {
             // we want cached data, so let's check if the requested file already exists locally
-            if fileExists(url: url, repository: manualRequestRepository) {
-                let path = getLocalPathForURL(url: url, repository: manualRequestRepository)
+            if fileExists(url: url, repository: Constants.cache.environment.manual) {
+                let path = getLocalPathForURL(url: url, repository: Constants.cache.environment.manual)
                 var data : Data?
                 do {
                     data = try Data(contentsOf: path)
@@ -62,9 +60,9 @@ class CacheService {
                 getUncachedData(url: url, completion: {
                     data in
                     returnData = data
-                    let localPath = self.getLocalPathForURL(url: url, repository: self.manualRequestRepository)
+                    let localPath = self.getLocalPathForURL(url: url, repository: Constants.cache.environment.manual)
                     do {
-                        self.prepareDirectories(for: url, in: self.manualRequestRepository)
+                        self.prepareDirectories(for: url, in: Constants.cache.environment.manual)
                         try returnData?.write(to: localPath, options: .atomic)
                     } catch {
                        print("Error: Unable to write file \(error)")

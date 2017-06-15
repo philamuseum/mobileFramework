@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-var requestCount = 0
-
 public class mobileFrameworkURLProtocol: URLProtocol {
     
     var connection: NSURLConnection!
@@ -42,7 +40,7 @@ public class mobileFrameworkURLProtocol: URLProtocol {
     
     override public func startLoading() {
         
-        let localPath = CacheService.sharedInstance.getLocalPathForURL(url: self.request.url!, repository: "live")
+        let localPath = CacheService.sharedInstance.getLocalPathForURL(url: self.request.url!, repository: Constants.cache.environment.live)
         
         do {
         
@@ -56,10 +54,10 @@ public class mobileFrameworkURLProtocol: URLProtocol {
             
             self.client?.urlProtocolDidFinishLoading(self)
             
-            print("(LOCAL) Req #\(requestCount += 1): \(request.url!.absoluteString)")
+            print("LOCAL: \(request.url!.absoluteString)")
             
         } catch {
-            print("(REMOTE) Req #\(requestCount += 1): \(request.url!.absoluteString)")
+            print("REMOTE: \(request.url!.absoluteString)")
             
             let newRequest = self.request as! NSMutableURLRequest
             URLProtocol.setProperty(true, forKey: "MyURLProtocolHandledKey", in: newRequest)

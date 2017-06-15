@@ -13,6 +13,11 @@ public class Constants {
     public struct cache {
         static let dataModel = "mobileFramework"
         static let entity = "DownloadItem"
+        public struct environment {
+            static let staging = "staging"
+            static let live = "live"
+            static let manual = "misc"
+        }
     }
     
     public struct queue {

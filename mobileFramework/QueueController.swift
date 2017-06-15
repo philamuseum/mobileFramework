@@ -214,8 +214,8 @@ extension QueueController: URLSessionDownloadDelegate {
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
 //        debugPrint("Download finished: \(location)")
         let originalURL = downloadTask.originalRequest?.url
-        CacheService.sharedInstance.prepareDirectories(for: originalURL!, in: "staging")
-        let newLocation = CacheService.sharedInstance.getLocalPathForURL(url: originalURL!, repository: "staging")
+        CacheService.sharedInstance.prepareDirectories(for: originalURL!, in: Constants.cache.environment.staging)
+        let newLocation = CacheService.sharedInstance.getLocalPathForURL(url: originalURL!, repository: Constants.cache.environment.staging)
         
 //        print("URL: \(originalURL) \nLocalPath: \(newLocation)")
         
