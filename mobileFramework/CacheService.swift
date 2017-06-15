@@ -15,7 +15,7 @@ class CacheService {
     
     let manualRequestRepository = "manual"
     
-    let cacheURL : URL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    public let cacheURL : URL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
     
     internal func reset() {
     
