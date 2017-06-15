@@ -64,7 +64,7 @@ public class mobileFrameworkURLProtocol: URLProtocol, URLSessionDataDelegate, UR
         } catch {
             print("REMOTE: \(request.url!.absoluteString)")
             
-            let mutableRequest =  NSMutableURLRequest.init(url: self.request.url!, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 240.0)//self.request as! NSMutableURLRequest
+            let mutableRequest =  NSMutableURLRequest.init(url: self.request.url!, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 240.0)//self.request as! NSMutableURLRequest
             
             let defaultConfigObj = URLSessionConfiguration.default
             let defaultSession = URLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
