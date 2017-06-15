@@ -9,7 +9,12 @@
 import Foundation
 import UIKit
 
-public class mobileFrameworkURLProtocol: URLProtocol {
+// Updated for iOS 9: https://stackoverflow.com/questions/36297813/custom-nsurlprotocol-with-nsurlsession
+public class mobileFrameworkURLProtocol: URLProtocol, URLSessionDataDelegate, URLSessionTaskDelegate {
+    
+    private var dataTask: URLSessionDataTask?
+    private var urlResponse: URLResponse?
+    private var receivedData: NSMutableData?
     
     var connection: NSURLConnection!
     
@@ -59,13 +64,27 @@ public class mobileFrameworkURLProtocol: URLProtocol {
         } catch {
             print("REMOTE: \(request.url!.absoluteString)")
             
-            let newRequest = self.request as! NSMutableURLRequest
-            URLProtocol.setProperty(true, forKey: "MyURLProtocolHandledKey", in: newRequest)
-            self.connection = NSURLConnection(request: newRequest as URLRequest, delegate: self)
+            let mutableRequest =  NSMutableURLRequest.init(url: self.request.url!, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 240.0)//self.request as! NSMutableURLRequest
+            
+            let defaultConfigObj = URLSessionConfiguration.default
+            let defaultSession = URLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
+            self.dataTask = defaultSession.dataTask(with: mutableRequest as URLRequest)
+            self.dataTask!.resume()
+            
+//            var newRequest = self.request as! NSMutableURLRequest
+            URLProtocol.setProperty(true, forKey: "MyURLProtocolHandledKey", in: mutableRequest)
+//            self.connection = NSURLConnection(request: newRequest as URLRequest, delegate: self)
+            
         }
     }
 
     override public func stopLoading() {
+        
+        self.dataTask?.cancel()
+        self.dataTask       = nil
+        self.receivedData   = nil
+        self.urlResponse    = nil
+        
         if self.connection != nil {
             self.connection.cancel()
         }
@@ -86,6 +105,37 @@ public class mobileFrameworkURLProtocol: URLProtocol {
     
     func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
         self.client!.urlProtocol(self, didFailWithError: error)
+    }
+    
+    // MARK: NSURLSessionDataDelegate
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask,
+                    didReceive response: URLResponse,
+                    completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        
+        self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+        
+        self.urlResponse = response
+        self.receivedData = NSMutableData()
+        
+        completionHandler(.allow)
+    }
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        self.client?.urlProtocol(self, didLoad: data as Data)
+        
+        self.receivedData?.append(data as Data)
+    }
+    
+    // MARK: NSURLSessionTaskDelegate
+    
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        if error != nil { //&& error.code != NSURLErrorCancelled {
+            self.client?.urlProtocol(self, didFailWithError: error!)
+        } else {
+            //saveCachedResponse()
+            self.client?.urlProtocolDidFinishLoading(self)
+        }
     }
     
 }
