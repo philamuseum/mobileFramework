@@ -205,10 +205,10 @@ extension QueueController: URLSessionTaskDelegate {
 
 extension QueueController: URLSessionDownloadDelegate {
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        if totalBytesExpectedToWrite > 0 {
-            let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+//        if totalBytesExpectedToWrite > 0 {
+//            let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
 //            debugPrint("Progress \(downloadTask) \(progress)")
-        }
+//        }
     }
     
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
