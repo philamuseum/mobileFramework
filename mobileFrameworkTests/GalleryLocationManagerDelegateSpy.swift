@@ -12,7 +12,7 @@ class GalleryLocationManagerDelegateSpy: NSObject, GalleryLocationManagerDelegat
     
     var didEnterLocationCalled = false
     
-    @nonobjc func locationManager(locationManager: GalleryLocationManager, didEnterLocation: Location) {
+    @nonobjc func locationManager(locationManager: GalleryLocationManager, didEnterKnownLocation: Location) {
         self.didEnterLocationCalled = true
     }
 }

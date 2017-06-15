@@ -81,7 +81,7 @@ public class GalleryLocationManager : NSObject  {
             // so we don't need to trigger a location update
         } else {
             // we have to trigger an update since it seems like we moved
-            self.delegate?.locationManager(locationManager: self, didEnterLocation: currentLocation)
+            self.delegate?.locationManager(locationManager: self, didEnterKnownLocation: currentLocation)
             
             // and we also have to set the previous location to the current location
             self.previousLocation = currentLocation
