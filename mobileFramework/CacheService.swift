@@ -11,6 +11,8 @@ import CoreData
 
 class CacheService {
     
+    public static let sharedInstance = CacheService()
+    
     let manualRequestRepository = "manual"
     
     let cacheURL : URL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -28,11 +30,11 @@ class CacheService {
     
     }
     
-    func request(url: URL, uncached: Bool, completion: @escaping (_ localPath: URL?, _ data: Data?) -> Void) {
+    func request(url: URL, forceUncached: Bool, completion: @escaping (_ localPath: URL?, _ data: Data?) -> Void) {
         
         // if uncached, we simply make sure to make a new request and return data
         // we're currently not saving the data for the next time
-        if uncached {
+        if forceUncached {
             var returnData : Data?
             
             getUncachedData(url: url, completion: {
@@ -62,13 +64,7 @@ class CacheService {
                     returnData = data
                     let localPath = self.getLocalPathForURL(url: url, repository: self.manualRequestRepository)
                     do {
-                        do {
-                            var localPathWithoutFilename = localPath
-                            localPathWithoutFilename.deleteLastPathComponent()
-                            try FileManager.default.createDirectory(atPath: localPathWithoutFilename.path, withIntermediateDirectories: true, attributes: nil)
-                        } catch {
-                            print("Error: Unable to create directory: \(error)")
-                        }
+                        self.prepareDirectories(for: url, in: self.manualRequestRepository)
                         try returnData?.write(to: localPath, options: .atomic)
                     } catch {
                        print("Error: Unable to write file \(error)")
@@ -78,6 +74,17 @@ class CacheService {
                 })
                 
             }
+        }
+    }
+    
+    func prepareDirectories(for url: URL, in repository: String) {
+        let localPath = self.getLocalPathForURL(url: url, repository: repository)
+        do {
+            var localPathWithoutFilename = localPath
+            localPathWithoutFilename.deleteLastPathComponent()
+            try FileManager.default.createDirectory(atPath: localPathWithoutFilename.path, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            print("Error: Unable to create directory: \(error)")
         }
     }
     
@@ -107,9 +114,10 @@ class CacheService {
         
         let localPath = url.pathComponents.dropFirst().dropLast().joined(separator: "/")
         
-        let returnValue = cacheURL.appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!, isDirectory: true).appendingPathComponent(repository, isDirectory: true)
+        var returnValue = cacheURL.appendingPathComponent(Bundle(for: type(of: self)).bundleIdentifier!, isDirectory: true).appendingPathComponent(repository, isDirectory: true)
+        
         if localPath.characters.count > 0 {
-            returnValue.appendingPathComponent(localPath)
+            returnValue = returnValue.appendingPathComponent(localPath)
         }
         
         return returnValue.appendingPathComponent(filename)

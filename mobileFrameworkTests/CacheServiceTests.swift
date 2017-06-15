@@ -55,7 +55,7 @@ class CacheServiceTests: XCTestCase {
         
         let referenceData = try! Data(contentsOf: url!)
         
-        service.request(url: url!, uncached: true) { localPath, data in
+        service.request(url: url!, forceUncached: true) { localPath, data in
             
             XCTAssertNil(localPath)
             XCTAssertNotNil(data)
@@ -65,7 +65,7 @@ class CacheServiceTests: XCTestCase {
             expectationSuccess.fulfill()
         }
         
-        waitForExpectations(timeout: 1) { error in
+        waitForExpectations(timeout: 5) { error in
             if let error = error {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }
@@ -90,7 +90,7 @@ class CacheServiceTests: XCTestCase {
         
         XCTAssertFalse(FileManager.default.fileExists(atPath: servicePath.path))
         
-        service.request(url: url!, uncached: false) { localPath, data in
+        service.request(url: url!, forceUncached: false) { localPath, data in
             
             XCTAssertNotNil(localPath)
             XCTAssertNotNil(data)
@@ -105,7 +105,7 @@ class CacheServiceTests: XCTestCase {
             expectationSuccess.fulfill()
         }
         
-        waitForExpectations(timeout: 1) { error in
+        waitForExpectations(timeout: 5) { error in
             if let error = error {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }
@@ -132,7 +132,7 @@ class CacheServiceTests: XCTestCase {
         
         try! sampleJSON.write(toFile: servicePath.path, atomically: true, encoding: .utf8)
         
-        service.request(url: url!, uncached: false) { localPath, data in
+        service.request(url: url!, forceUncached: false) { localPath, data in
             
             XCTAssertNotNil(localPath)
             XCTAssertNotNil(data)
@@ -147,7 +147,7 @@ class CacheServiceTests: XCTestCase {
             expectationSuccess.fulfill()
         }
         
-        waitForExpectations(timeout: 1) { error in
+        waitForExpectations(timeout: 5) { error in
             if let error = error {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
             }
