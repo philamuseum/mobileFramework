@@ -17,19 +17,29 @@ public class QueueController: NSObject {
     
     internal var identifier : String!
     internal var config : URLSessionConfiguration!
-    internal var session : URLSession {
-        get {
-            identifier = Bundle(for: type(of: self)).bundleIdentifier! + ".backgroundDownloadTask"
-            config = URLSessionConfiguration.background(withIdentifier: identifier)
-            return URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue())
-        }
-    }
+    internal var session : URLSession!
     
     private var isDownloading = false
     private var downloadQueueTimer : Timer?
     
     public override init() {
         super.init()
+        self.session?.invalidateAndCancel()
+        setupQueue()
+    }
+    
+    internal func setupQueue() {
+        
+        identifier = Bundle(for: type(of: self)).bundleIdentifier! + ".backgroundDownloadTask"
+        config = URLSessionConfiguration.background(withIdentifier: identifier)
+        
+        let queue = OperationQueue()
+        if Constants.queue.maxConcurrentOperations != -1 {
+            queue.maxConcurrentOperationCount = Constants.queue.maxConcurrentOperations
+            print("Setting max concurrent task limit: \(queue.maxConcurrentOperationCount)")
+        }
+        self.session = URLSession(configuration: config, delegate: self, delegateQueue: queue)
+        
     }
     
     lazy var persistentContainer: NSPersistentContainer = {
@@ -109,6 +119,7 @@ public class QueueController: NSObject {
 
     
     public func reset() {
+        print("Resetting queue and URL Session")
         guard let items = getItems() else { return }
         for item in items {
             persistentContainer.viewContext.delete(item)
@@ -119,6 +130,14 @@ public class QueueController: NSObject {
         } catch {
             
         }
+        
+        self.session.getAllTasks(completionHandler: { tasks in
+            for task in tasks {
+                task.cancel()
+            }
+        })
+        
+        setupQueue()
     }
     
     public func addItem(url: URL) {
@@ -142,6 +161,8 @@ public class QueueController: NSObject {
 
     public func startDownloading() {
         
+        print("Start downloading queue items...")
+        
         if let items = getItems() {
             for item in items {
                 let url = item.value(forKey: "url") as! String
@@ -150,24 +171,24 @@ public class QueueController: NSObject {
             }
             isDownloading = true
             
-            self.downloadQueueTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(checkRemainingTasks), userInfo: nil, repeats: true)
+            self.downloadQueueTimer = Timer.scheduledTimer(timeInterval: Constants.queue.updateFrequency, target: self, selector: #selector(checkRemainingTasks), userInfo: nil, repeats: true)
         }
     }
     
     func checkRemainingTasks() {
-        print("Checking remaining tasks and publishing progress update")
+        print("Checking remaining tasks and publishing progress update, tasks: \(self.session.delegateQueue.operationCount)")
         
         self.session.getTasksWithCompletionHandler { (tasks, uploads, downloads) in
             let bytesReceived = downloads.map{ $0.countOfBytesReceived }.reduce(0, +)
             let bytesExpectedToReceive = downloads.map{ $0.countOfBytesExpectedToReceive }.reduce(0, +)
-            let progress = bytesExpectedToReceive > 0 ? Float(bytesReceived) / Float(bytesExpectedToReceive) : 100.0
+            let progress = bytesExpectedToReceive > 0 ? Float(bytesReceived) / Float(bytesExpectedToReceive) : 1.0
             self.delegate?.QueueControllerDownloadInProgress(queueController: self, withProgress: progress)
         }
         
         self.session.getAllTasks(completionHandler: { tasks in
             if self.isDownloading && tasks.count == 0 {
                 // we have been downloading but we are done now
-                print("done now")
+                print("All tasks finished.")
                 self.isDownloading = false
                 self.downloadQueueTimer?.invalidate()
                 self.delegate?.QueueControllerDidFinishDownloading(queueController: self)
@@ -178,7 +199,7 @@ public class QueueController: NSObject {
 
 extension QueueController: URLSessionTaskDelegate {
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        debugPrint("Task completed: \(task), error: \(error)")
+//        debugPrint("Task completed: \(task), error: \(error)")
     }
 }
 
@@ -186,17 +207,17 @@ extension QueueController: URLSessionDownloadDelegate {
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         if totalBytesExpectedToWrite > 0 {
             let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
-            debugPrint("Progress \(downloadTask) \(progress)")
+//            debugPrint("Progress \(downloadTask) \(progress)")
         }
     }
     
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        debugPrint("Download finished: \(location)")
+//        debugPrint("Download finished: \(location)")
         let originalURL = downloadTask.originalRequest?.url
         CacheService.sharedInstance.prepareDirectories(for: originalURL!, in: "staging")
         let newLocation = CacheService.sharedInstance.getLocalPathForURL(url: originalURL!, repository: "staging")
         
-        print("URL: \(originalURL) \nLocalPath: \(newLocation)")
+//        print("URL: \(originalURL) \nLocalPath: \(newLocation)")
         
         try? FileManager.default.copyItem(atPath: location.path, toPath: newLocation.path)
         try? FileManager.default.removeItem(at: location)

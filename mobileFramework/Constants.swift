@@ -15,6 +15,11 @@ public class Constants {
         static let entity = "DownloadItem"
     }
     
+    public struct queue {
+        static let updateFrequency : Double = 0.25
+        static let maxConcurrentOperations = -1 // -1 is system default, will dynamically adjust
+    }
+    
     public enum floors : Int {
         case ground
         case first
