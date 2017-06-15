@@ -9,9 +9,28 @@
 import Foundation
 import CoreData
 
-class QueueController: NSObject {
+public class QueueController: NSObject {
     
-    static let shared = QueueController()
+    public static let sharedInstance = QueueController()
+    
+    public var delegate : QueueControllerDelegate?
+    
+    internal var identifier : String!
+    internal var config : URLSessionConfiguration!
+    internal var session : URLSession {
+        get {
+            identifier = Bundle(for: type(of: self)).bundleIdentifier! + ".backgroundDownloadTask"
+            config = URLSessionConfiguration.background(withIdentifier: identifier)
+            return URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue())
+        }
+    }
+    
+    private var isDownloading = false
+    private var downloadQueueTimer : Timer?
+    
+    public override init() {
+        super.init()
+    }
     
     lazy var persistentContainer: NSPersistentContainer = {
         
@@ -59,7 +78,7 @@ class QueueController: NSObject {
         }
     }
     
-    func getItems() -> [NSManagedObject]? {
+    public func getItems() -> [NSManagedObject]? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.cache.entity)
         
         do {
@@ -70,7 +89,26 @@ class QueueController: NSObject {
         }
     }
     
-    func reset() {
+    func removeItem(url: URL) {
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.cache.entity)
+        let predicate = NSPredicate(format: "url == %@", url.absoluteString)
+        
+        request.predicate = predicate
+        request.fetchLimit = 1
+        
+        do {
+            let result = try persistentContainer.viewContext.fetch(request)
+            if let item = result.first as? NSManagedObject {
+                persistentContainer.viewContext.delete(item)
+            }
+        } catch let error as NSError {
+            print("Queue: Error removing download from queue: \(error.localizedDescription) for url \(url.absoluteString)")
+        }
+    }
+
+    
+    public func reset() {
         guard let items = getItems() else { return }
         for item in items {
             persistentContainer.viewContext.delete(item)
@@ -83,25 +121,85 @@ class QueueController: NSObject {
         }
     }
     
-    func addItem(url: URL) {
+    public func addItem(url: URL) {
         
-        if !QueueController.shared.itemAlreadyExists(url: url) {
+        if !QueueController.sharedInstance.itemAlreadyExists(url: url) {
             
             print("Queue: Adding new item to download queue: \(url.absoluteString)")
             
-            let context = QueueController.shared.persistentContainer.viewContext
+            let context = QueueController.sharedInstance.persistentContainer.viewContext
             if let entity = NSEntityDescription.entity(forEntityName: Constants.cache.entity, in: context) {
                 let queueItem = NSManagedObject(entity: entity, insertInto: context)
                 queueItem.setValue(url.absoluteString, forKey: "url")
                 queueItem.setValue(NSDate(), forKey: "created_at")
                 
-                QueueController.shared.save(object: queueItem)
+                QueueController.sharedInstance.save(object: queueItem)
             }
         } else {
             print("Queue: Item already exists in download queue, skipping: \(url.absoluteString)")
         }
     }
 
+    public func startDownloading() {
+        
+        if let items = getItems() {
+            for item in items {
+                let url = item.value(forKey: "url") as! String
+                let task = self.session.downloadTask(with: URL(string: url)!)
+                task.resume()
+            }
+            isDownloading = true
+            
+            self.downloadQueueTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(checkRemainingTasks), userInfo: nil, repeats: true)
+        }
+    }
     
-     
+    func checkRemainingTasks() {
+        print("Checking remaining tasks and publishing progress update")
+        
+        self.session.getTasksWithCompletionHandler { (tasks, uploads, downloads) in
+            let bytesReceived = downloads.map{ $0.countOfBytesReceived }.reduce(0, +)
+            let bytesExpectedToReceive = downloads.map{ $0.countOfBytesExpectedToReceive }.reduce(0, +)
+            let progress = bytesExpectedToReceive > 0 ? Float(bytesReceived) / Float(bytesExpectedToReceive) : 100.0
+            self.delegate?.QueueControllerDownloadInProgress(queueController: self, withProgress: progress)
+        }
+        
+        self.session.getAllTasks(completionHandler: { tasks in
+            if self.isDownloading && tasks.count == 0 {
+                // we have been downloading but we are done now
+                print("done now")
+                self.isDownloading = false
+                self.downloadQueueTimer?.invalidate()
+                self.delegate?.QueueControllerDidFinishDownloading(queueController: self)
+            }
+        })
+    }
+}
+
+extension QueueController: URLSessionTaskDelegate {
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        debugPrint("Task completed: \(task), error: \(error)")
+    }
+}
+
+extension QueueController: URLSessionDownloadDelegate {
+    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        if totalBytesExpectedToWrite > 0 {
+            let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+            debugPrint("Progress \(downloadTask) \(progress)")
+        }
+    }
+    
+    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        debugPrint("Download finished: \(location)")
+        let originalURL = downloadTask.originalRequest?.url
+        CacheService.sharedInstance.prepareDirectories(for: originalURL!, in: "staging")
+        let newLocation = CacheService.sharedInstance.getLocalPathForURL(url: originalURL!, repository: "staging")
+        
+        print("URL: \(originalURL) \nLocalPath: \(newLocation)")
+        
+        try? FileManager.default.copyItem(atPath: location.path, toPath: newLocation.path)
+        try? FileManager.default.removeItem(at: location)
+        self.removeItem(url: originalURL!)
+    }
 }

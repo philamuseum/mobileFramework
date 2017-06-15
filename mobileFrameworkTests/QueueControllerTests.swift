@@ -18,6 +18,12 @@ class QueueControllerTests: XCTestCase {
         
         controller = QueueController()
         controller.reset()
+        
+        controller.session.getAllTasks(completionHandler: { tasks in
+            for task in tasks {
+                task.cancel()
+            }
+        })
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -86,4 +92,50 @@ class QueueControllerTests: XCTestCase {
         
         XCTAssertEqual(1, controller.getItems()?.count)
     }
+    
+    func test_add_existing_item_to_queue_does_not_replicate_entry() {
+        
+        let url = URL(string: "http://www.example.com")
+        
+        XCTAssertEqual(0, controller.getItems()?.count)
+        
+        controller.addItem(url: url!)
+        
+        XCTAssertEqual(1, controller.getItems()?.count)
+        
+        controller.addItem(url: url!)
+        
+        XCTAssertEqual(1, controller.getItems()?.count)
+    }
+    
+    func test_processing_queue_entries() {
+        var urls = [URL]()
+        urls.append(URL(string: "http://www.peteralt.com/images/portfolio_Peter_W_Alt_a_is_for_art_large.jpg")!)
+        urls.append(URL(string: "http://www.peteralt.com/images/portfolio_Peter_W_Alt_rodin_app.jpg")!)
+        urls.append(URL(string: "http://www.peteralt.com/images/portfolio_Peter_W_Alt_breaking_the_silence_table_large.jpg")!)
+        
+        for url in urls {
+            controller.addItem(url: url)
+        }
+        
+        XCTAssertEqual(3, controller.getItems()?.count)
+        
+        controller.startDownloading()
+        
+        let expectationSuccess = expectation(description: "Waiting for queue service to process.")
+        
+        controller.session.getAllTasks(completionHandler: { tasks in
+            XCTAssertEqual(3, tasks.count)
+            expectationSuccess.fulfill()
+        })
+        
+        waitForExpectations(timeout: 1) { error in
+            if let error = error {
+                XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+            }
+        }
+    }
+
+
+    
 }
