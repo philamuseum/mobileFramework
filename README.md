@@ -101,6 +101,22 @@ let url = URL(string: "http://www.example.com/some_image.jpg")
 let request = CacheService.sharedInstance.makeRequest(url: url!, forceUncached: true)
 ~~~~
 
+To download assets into Data (to use it with UIImage for example), see the following code sample:
+
+~~~~swift
+CacheService.sharedInstance.requestData(url: url!, forceUncached: false, completion: { 
+    localPath, data in
+        if data != nil {
+            let image = UIImage(data: data!)
+            DispatchQueue.main.async {
+                self.imageView.image = image
+            }
+        }
+    })
+~~~~
+
+**Note**: By default, any requestData call will save the requested file locally and serve the cached version from now on. To prevent this behavior, use forceCached: true.
+
 ### iBeacon ranging ###
 
 For the iBeacon ranging, there are the following prerequesits:
