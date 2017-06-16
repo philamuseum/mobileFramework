@@ -23,7 +23,7 @@ public class mobileFrameworkURLProtocol: URLProtocol, URLSessionDataDelegate, UR
         //print("Request #\(requestCount++): URL = \(request.URL!.absoluteString)")
         
         // this is a shortcut in case we already processed the request, we can skip out right away!
-        if URLProtocol.property(forKey: "MyURLProtocolHandledKey", in: request) != nil {
+        if URLProtocol.property(forKey: Constants.cache.urlProtocolKey, in: request) != nil {
             return false
         }
         
@@ -47,35 +47,43 @@ public class mobileFrameworkURLProtocol: URLProtocol, URLSessionDataDelegate, UR
         
         let localPath = CacheService.sharedInstance.getLocalPathForURL(url: self.request.url!, repository: Constants.cache.environment.live)
         
-        do {
+        if URLProtocol.property(forKey: Constants.cache.urlProtocolForceUncachedRequestKey, in: request) != nil {
+            processRemoteRequest()
+        } else {
         
-            let data = try Data(contentsOf: localPath)
+            do {
+            
+                let data = try Data(contentsOf: localPath)
+                    
+                let response = URLResponse(url: self.request.url!, mimeType: "", expectedContentLength: data.count, textEncodingName: nil)
                 
-            let response = URLResponse(url: self.request.url!, mimeType: "", expectedContentLength: data.count, textEncodingName: nil)
-            
-            self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: URLCache.StoragePolicy.notAllowed)
-            
-            self.client?.urlProtocol(self, didLoad: data)
-            
-            self.client?.urlProtocolDidFinishLoading(self)
-            
-            print("LOCAL: \(request.url!.absoluteString)")
-            
-        } catch {
-            print("REMOTE: \(request.url!.absoluteString)")
-            
-            let mutableRequest =  NSMutableURLRequest.init(url: self.request.url!, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 240.0)//self.request as! NSMutableURLRequest
-            
-            let defaultConfigObj = URLSessionConfiguration.default
-            let defaultSession = URLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
-            self.dataTask = defaultSession.dataTask(with: mutableRequest as URLRequest)
-            self.dataTask!.resume()
-            
-//            var newRequest = self.request as! NSMutableURLRequest
-            URLProtocol.setProperty(true, forKey: "MyURLProtocolHandledKey", in: mutableRequest)
-//            self.connection = NSURLConnection(request: newRequest as URLRequest, delegate: self)
-            
+                self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: URLCache.StoragePolicy.notAllowed)
+                
+                self.client?.urlProtocol(self, didLoad: data)
+                
+                self.client?.urlProtocolDidFinishLoading(self)
+                
+                print("LOCAL: \(request.url!.absoluteString)")
+                
+            } catch {
+                processRemoteRequest()
+                
+            }
         }
+    }
+    
+    internal func processRemoteRequest() {
+        
+        print("REMOTE: \(request.url!.absoluteString)")
+        
+        let mutableRequest =  NSMutableURLRequest.init(url: self.request.url!, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 240.0)//self.request as! NSMutableURLRequest
+        
+        let defaultConfigObj = URLSessionConfiguration.default
+        let defaultSession = URLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
+        self.dataTask = defaultSession.dataTask(with: mutableRequest as URLRequest)
+        self.dataTask!.resume()
+        
+        URLProtocol.setProperty(true, forKey: Constants.cache.urlProtocolKey, in: mutableRequest)
     }
 
     override public func stopLoading() {
