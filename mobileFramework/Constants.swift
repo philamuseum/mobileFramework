@@ -13,6 +13,8 @@ public class Constants {
     public struct cache {
         static let dataModel = "mobileFramework"
         static let entity = "DownloadItem"
+        static let urlProtocolKey = "mobileFrameworkURLProtocolHandled"
+        static let urlProtocolForceUncachedRequestKey = "mobileFrameworkURLProtocolForcedUncached"
         public struct environment {
             public static let staging = "staging"
             public static let live = "live"
