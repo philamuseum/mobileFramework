@@ -36,6 +36,7 @@
 		A5AC56E21ECB950C006420D8 /* QueueControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56E11ECB950C006420D8 /* QueueControllerTests.swift */; };
 		A5AC56E51ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56E31ECB9AE5006420D8 /* mobileFramework.xcdatamodeld */; };
 		A5AC56E61ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56E31ECB9AE5006420D8 /* mobileFramework.xcdatamodeld */; };
+		A5D01E171EF440AD0039E9FF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A5D01E161EF440AD0039E9FF /* README.md */; };
 		A5E4A2371EB8C914001BF1C6 /* BeaconAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */; };
 		A5E4A2381EB8C914001BF1C6 /* BeaconAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */; };
 		A5E4A23A1EB8C91D001BF1C6 /* FeatureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2391EB8C91D001BF1C6 /* FeatureStore.swift */; };
@@ -103,6 +104,7 @@
 		A5AC56DE1ECB941E006420D8 /* QueueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueController.swift; sourceTree = "<group>"; };
 		A5AC56E11ECB950C006420D8 /* QueueControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueControllerTests.swift; sourceTree = "<group>"; };
 		A5AC56E41ECB9AE5006420D8 /* mobileFramework.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mobileFramework.xcdatamodel; sourceTree = "<group>"; };
+		A5D01E161EF440AD0039E9FF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconAsset.swift; sourceTree = "<group>"; };
 		A5E4A2391EB8C91D001BF1C6 /* FeatureStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureStore.swift; sourceTree = "<group>"; };
 		A5E4A23C1EB8C92E001BF1C6 /* FeatureStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureStoreTests.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 		A5FC1C831EA7F96F00669C89 = {
 			isa = PBXGroup;
 			children = (
+				A5D01E161EF440AD0039E9FF /* README.md */,
 				A5AC56E31ECB9AE5006420D8 /* mobileFramework.xcdatamodeld */,
 				A5FC1C8F1EA7F96F00669C89 /* mobileFramework */,
 				A5FC1C9A1EA7F96F00669C89 /* mobileFrameworkTests */,
@@ -473,6 +476,7 @@
 				A5FC030D1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift in Sources */,
 				A543A9CB1EF2F1C3001E6C7D /* mobileFrameworkURLProtocol.swift in Sources */,
 				A5E4A2371EB8C914001BF1C6 /* BeaconAsset.swift in Sources */,
+				A5D01E171EF440AD0039E9FF /* README.md in Sources */,
 				A5E4A23A1EB8C91D001BF1C6 /* FeatureStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
