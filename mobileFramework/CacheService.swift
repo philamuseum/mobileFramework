@@ -38,7 +38,7 @@ public class CacheService {
         }
     }
     
-    func request(url: URL, forceUncached: Bool, completion: @escaping (_ localPath: URL?, _ data: Data?) -> Void) {
+    public func requestData(url: URL, forceUncached: Bool, saveToEnvironment: String = Constants.cache.environment.manual, completion: @escaping (_ localPath: URL?, _ data: Data?) -> Void) {
         
         // if uncached, we simply make sure to make a new request and return data
         // we're currently not saving the data for the next time
@@ -53,8 +53,8 @@ public class CacheService {
             
         } else {
             // we want cached data, so let's check if the requested file already exists locally
-            if fileExists(url: url, repository: Constants.cache.environment.manual) {
-                let path = getLocalPathForURL(url: url, repository: Constants.cache.environment.manual)
+            if fileExists(url: url, repository: saveToEnvironment) {
+                let path = getLocalPathForURL(url: url, repository: saveToEnvironment)
                 var data : Data?
                 do {
                     data = try Data(contentsOf: path)
@@ -70,9 +70,9 @@ public class CacheService {
                 getUncachedData(url: url, completion: {
                     data in
                     returnData = data
-                    let localPath = self.getLocalPathForURL(url: url, repository: Constants.cache.environment.manual)
+                    let localPath = self.getLocalPathForURL(url: url, repository: saveToEnvironment)
                     do {
-                        self.prepareDirectories(for: url, in: Constants.cache.environment.manual)
+                        self.prepareDirectories(for: url, in: saveToEnvironment)
                         try returnData?.write(to: localPath, options: .atomic)
                     } catch {
                        print("Error: Unable to write file \(error)")
@@ -80,7 +80,6 @@ public class CacheService {
                     print("Cache: File did not exist locally, but has now been downloaded")
                     completion(localPath, returnData)
                 })
-                
             }
         }
     }
