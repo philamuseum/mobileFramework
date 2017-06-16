@@ -47,6 +47,7 @@ public class mobileFrameworkURLProtocol: URLProtocol, URLSessionDataDelegate, UR
         
         let localPath = CacheService.sharedInstance.getLocalPathForURL(url: self.request.url!, repository: Constants.cache.environment.live)
         
+        // we can set a custom key if we need a request to go through uncached, otherwise we'll leave it up to the protocol to repond
         if URLProtocol.property(forKey: Constants.cache.urlProtocolForceUncachedRequestKey, in: request) != nil {
             processRemoteRequest()
         } else {
