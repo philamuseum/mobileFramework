@@ -55,7 +55,7 @@ class CacheServiceTests: XCTestCase {
         
         let referenceData = try! Data(contentsOf: url!)
         
-        service.request(url: url!, forceUncached: true) { localPath, data in
+        service.requestData(url: url!, forceUncached: true) { localPath, data in
             
             XCTAssertNil(localPath)
             XCTAssertNotNil(data)
@@ -90,7 +90,7 @@ class CacheServiceTests: XCTestCase {
         
         XCTAssertFalse(FileManager.default.fileExists(atPath: servicePath.path))
         
-        service.request(url: url!, forceUncached: false) { localPath, data in
+        service.requestData(url: url!, forceUncached: false) { localPath, data in
             
             XCTAssertNotNil(localPath)
             XCTAssertNotNil(data)
@@ -132,7 +132,7 @@ class CacheServiceTests: XCTestCase {
         
         try! sampleJSON.write(toFile: servicePath.path, atomically: true, encoding: .utf8)
         
-        service.request(url: url!, forceUncached: false) { localPath, data in
+        service.requestData(url: url!, forceUncached: false) { localPath, data in
             
             XCTAssertNotNil(localPath)
             XCTAssertNotNil(data)
