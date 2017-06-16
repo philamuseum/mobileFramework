@@ -28,6 +28,16 @@ public class CacheService {
     
     }
     
+    public func makeRequest(url: URL, forceUncached: Bool = false) -> URLRequest {
+        if forceUncached {
+            let mutableRequest = NSMutableURLRequest.init(url: url, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 240.0)
+            URLProtocol.setProperty(true, forKey: Constants.cache.urlProtocolForceUncachedRequestKey, in: mutableRequest)
+            return mutableRequest as URLRequest
+        } else {
+            return URLRequest(url: url)
+        }
+    }
+    
     func request(url: URL, forceUncached: Bool, completion: @escaping (_ localPath: URL?, _ data: Data?) -> Void) {
         
         // if uncached, we simply make sure to make a new request and return data
