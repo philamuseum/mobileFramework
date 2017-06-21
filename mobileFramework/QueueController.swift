@@ -110,7 +110,9 @@ public class QueueController: NSObject {
         do {
             let result = try persistentContainer.viewContext.fetch(request)
             if let item = result.first as? NSManagedObject {
-                persistentContainer.viewContext.delete(item)
+                DispatchQueue.main.async {
+                    self.persistentContainer.viewContext.delete(item)
+                }
             }
         } catch let error as NSError {
             print("Queue: Error removing download from queue: \(error.localizedDescription) for url \(url.absoluteString)")
