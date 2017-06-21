@@ -13,7 +13,7 @@ public class CacheService {
     
     public static let sharedInstance = CacheService()
     
-    public let cacheURL : URL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    public let cacheURL : URL = try! FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
     
     internal func reset() {
     
@@ -141,7 +141,7 @@ public class CacheService {
         task.resume()
     }
     
-    func getLocalPathForURL(url: URL, repository: String) -> URL {
+    public func getLocalPathForURL(url: URL, repository: String) -> URL {
         let filename = url.lastPathComponent
         
         let localPath = url.pathComponents.dropFirst().dropLast().joined(separator: "/")
