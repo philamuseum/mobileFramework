@@ -9,6 +9,11 @@
 import Foundation
 
 class QueueControllerDelegateSpy : NSObject, QueueControllerDelegate {
+    
+    func QueueControllerDownloadInProgress(queueController: QueueController, withProgress progress: Float, tasksTotal: Int, tasksLeft: Int) {
+        
+    }
+
     var didFinishDownloading = false
     var progress : Float = -1
     

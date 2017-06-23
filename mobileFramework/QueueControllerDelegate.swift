@@ -10,5 +10,5 @@ import Foundation
 
 public protocol QueueControllerDelegate : NSObjectProtocol {
     func QueueControllerDidFinishDownloading(queueController: QueueController)
-    func QueueControllerDownloadInProgress(queueController: QueueController, withProgress progress: Float)
+    func QueueControllerDownloadInProgress(queueController: QueueController, withProgress progress: Float, tasksTotal: Int, tasksLeft: Int)
 }

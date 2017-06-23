@@ -21,6 +21,7 @@ public class QueueController: NSObject {
     
     private var isDownloading = false
     private var downloadQueueTimer : Timer?
+    private var totalItemsToDownload: Int = 0
     
     public override init() {
         super.init()
@@ -172,19 +173,26 @@ public class QueueController: NSObject {
                 task.resume()
             }
             isDownloading = true
+            totalItemsToDownload = items.count
             
             self.downloadQueueTimer = Timer.scheduledTimer(timeInterval: Constants.queue.updateFrequency, target: self, selector: #selector(checkRemainingTasks), userInfo: nil, repeats: true)
         }
     }
     
     func checkRemainingTasks() {
-        print("Checking remaining tasks and publishing progress update, tasks: \(self.session.delegateQueue.operationCount)")
+        print("Checking remaining tasks and publishing progress update")
         
         self.session.getTasksWithCompletionHandler { (tasks, uploads, downloads) in
             let bytesReceived = downloads.map{ $0.countOfBytesReceived }.reduce(0, +)
             let bytesExpectedToReceive = downloads.map{ $0.countOfBytesExpectedToReceive }.reduce(0, +)
             let progress = bytesExpectedToReceive > 0 ? Float(bytesReceived) / Float(bytesExpectedToReceive) : 1.0
-            self.delegate?.QueueControllerDownloadInProgress(queueController: self, withProgress: progress)
+            
+            var itemCount: Int = 0
+            if self.getItems() != nil {
+                itemCount = self.getItems()!.count
+            }
+            
+            self.delegate?.QueueControllerDownloadInProgress(queueController: self, withProgress: progress, tasksTotal: self.totalItemsToDownload, tasksLeft: itemCount)
         }
         
         self.session.getAllTasks(completionHandler: { tasks in
