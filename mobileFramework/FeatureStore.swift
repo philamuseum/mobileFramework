@@ -28,12 +28,22 @@ public class FeatureStore {
     
     public func load(filename: String, ext: String = "json", type: FeatureStoreType, completion: () -> Void) throws {
         
-        let bundle = Bundle(for: type(of: self))
-        guard let fileURL = bundle.url(forResource: filename, withExtension: ext)
-            else { throw FeatureStoreError.fileNotFound }
+        var localFileURL : URL?
+        
+        if let url = Bundle(for: type(of: self)).url(forResource: filename, withExtension: ext) {
+            localFileURL = url
+        }
+        
+        if let url = Bundle.main.url(forResource: filename, withExtension: ext) {
+            localFileURL = url
+        }
+        
+        if localFileURL == nil {
+            throw FeatureStoreError.fileNotFound
+        }
         
         do {
-            let localData = try Data(contentsOf: fileURL)
+            let localData = try Data(contentsOf: localFileURL!)
             let JSON = try JSONSerialization.jsonObject(with: localData, options: [])
             
             var asset : Any?
