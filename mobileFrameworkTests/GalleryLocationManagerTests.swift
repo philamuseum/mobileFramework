@@ -34,7 +34,7 @@ class galleryLocationServiceTests: XCTestCase {
         locationManager.beaconRegion = sampleRegion
         
         do {
-            try locationManager.startLocationRanging()
+            try locationManager.startLocationRanging(with: Constants.locationSensing.method.beacon)
         } catch GalleryLocationManagerError.insufficientPermissions {
             return
         } catch {
@@ -51,7 +51,7 @@ class galleryLocationServiceTests: XCTestCase {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         do {
-            try locationManager.startLocationRanging()
+            try locationManager.startLocationRanging(with: Constants.locationSensing.method.beacon)
         } catch GalleryLocationManagerError.missingRegion {
             return
         } catch {
@@ -81,6 +81,7 @@ class galleryLocationServiceTests: XCTestCase {
     func test_get_current_location_when_ranging_a_beacon() {
         
         let locationManager = GalleryLocationManager(locationManager: CLLocationManager())
+        locationManager.locationSensingMethod = Constants.locationSensing.method.beacon
         
         let sampleUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
         let sampleBeacon = Beacon(major: 1111, minor: 2222, UUID: sampleUUID!, alias: "166")
@@ -106,6 +107,8 @@ class galleryLocationServiceTests: XCTestCase {
     func test_location_ranged_delegate_method_called() {
         
         let locationManager = GalleryLocationManager(locationManager: CLLocationManager())
+        locationManager.locationSensingMethod = Constants.locationSensing.method.beacon
+        
         let delegate = GalleryLocationManagerDelegateSpy()
         locationManager.delegate = delegate
         
@@ -126,6 +129,4 @@ class galleryLocationServiceTests: XCTestCase {
         XCTAssertTrue(delegate.didEnterLocationCalled)
         
     }
-    
-    
 }
