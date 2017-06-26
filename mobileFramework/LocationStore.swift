@@ -19,14 +19,22 @@ public class LocationStore {
     
     public private(set) var locations = [Location]()
     private(set) var edges = [Edge]()
+    public var locationNameSubstitutions : [String : String] = [:]
     
     func add(location: Location) {
         locations.append(location)
     }
     
     public func findLocationByName(name: String) -> Location? {
+        var searchName = name
+        
+        if let index = self.locationNameSubstitutions.index(forKey: name) {
+            searchName = self.locationNameSubstitutions[index].value
+            //print("LocationStore: Substituting location name '\(name)' with new name: '\(searchName)'")
+        }
+        
         let result = locations.filter() {
-            return $0.name == name
+            return $0.name == searchName
         }
         
         if result.count == 1 {
@@ -35,7 +43,6 @@ public class LocationStore {
             return nil
         }
     }
-
     
     public func locationForBeacon(beacon: Beacon) -> Location? {
         guard let alias = beacon.alias else { return nil }
@@ -51,6 +58,33 @@ public class LocationStore {
         
         let location = findLocationByName(name: cleanedAlias)
         return location
+    }
+    
+    public func locationForCLLocation(location: CLLocation, ignoreFloors : Bool = false) -> Location? {
+        
+        if let floor = Constants.floors.enumFromCLFloor(floor: location.floor) {
+            // we have floor information
+            print("we found floor info: \(floor)")
+            for storedLocation in self.locations {
+                // we're on the same floor and we actually have coordinates
+                if storedLocation.floor == floor && storedLocation.coordinates != nil {
+                    if location.coordinate.contained(by: storedLocation.coordinates!) {
+                        return storedLocation
+                    }
+                }
+            }
+        }
+        else if ignoreFloors {
+            // we don't have (valid) floor information and we want to ignore floors
+            for storedLocation in self.locations {
+                if storedLocation.coordinates != nil {
+                    if location.coordinate.contained(by: storedLocation.coordinates!) {
+                        return storedLocation
+                    }
+                }
+            }
+        }
+        return nil
     }
     
     public func load(fromAsset: LocationAsset) {
@@ -70,22 +104,15 @@ public class LocationStore {
     
     public func load(fromAsset: GeoJSONAsset) {
         for geoJSONLocation in fromAsset.locations {
-            guard let location = findLocationByName(name: geoJSONLocation.name) else { return }
-            location.addGeoJSONData(polygon: geoJSONLocation.polygon, coordinates: geoJSONLocation.coordinates)
+            //print("LocationStore: loading from asset: \(geoJSONLocation.name)")
+            if let location = findLocationByName(name: geoJSONLocation.name) {
+                //print("LocationStore: loading GeoJSON data into \(geoJSONLocation.name)")
+                location.addGeoJSONData(polygon: geoJSONLocation.polygon, coordinates: geoJSONLocation.coordinates)
+            }
         }
     }
     
-    public func locationForCoordinate(coordinate: CLLocationCoordinate2D, floor: Constants.floors) -> Location? {
-        
-        for location in self.locations {
-            if location.floor == floor && location.coordinates != nil {
-                if coordinate.contained(by: location.coordinates!) {
-                    return location
-                }
-            }
-        }
-        return nil
-    }
+    
     
     // http://stackoverflow.com/questions/27880650/swift-extract-regex-matches
     private func matches(for regex: String, in text: String) -> [String] {
