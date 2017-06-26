@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 public class Constants {
     
@@ -46,6 +47,12 @@ public class Constants {
             
             return floors(rawValue: floor)
         }
+        static func enumFromCLFloor(floor: CLFloor?) -> floors? {
+            if floor == nil {
+                return nil
+            }
+            return floors(rawValue: floor!.level)
+        }
     }
     
     public struct assets {
@@ -54,6 +61,10 @@ public class Constants {
     
     public struct locationSensing {
         static let locationUpdateInterval : Double = 0.5
+        public struct method {
+            public static let beacon = "beacon"
+            public static let apple = "apple"
+        }
     }
     
     public struct beacons {
