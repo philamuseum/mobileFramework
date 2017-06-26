@@ -29,15 +29,27 @@ public class GalleryLocationManager : NSObject  {
         self.locationManager.delegate = self
     }
     
+    internal var locationSensingMethod : String?
+    
     internal var previousLocation : Location?
+    
+    internal var lastLocation : CLLocation?
     
     var currentLocation : Location? {
         get {
-            if let closestBeacon = BeaconStore.sharedInstance.closestBeacon {
-                return LocationStore.sharedInstance.locationForBeacon(beacon: closestBeacon)
-            } else {
-                return nil
+            if self.locationSensingMethod == Constants.locationSensing.method.beacon {
+                if let closestBeacon = BeaconStore.sharedInstance.closestBeacon {
+                    return LocationStore.sharedInstance.locationForBeacon(beacon: closestBeacon)
+                } else {
+                    return nil
+                }
+            } else
+            if self.locationSensingMethod == Constants.locationSensing.method.apple {
+                if self.lastLocation != nil {
+                    return LocationStore.sharedInstance.locationForCLLocation(location: self.lastLocation!)
+                }
             }
+            return nil
         }
     }
     
@@ -51,18 +63,34 @@ public class GalleryLocationManager : NSObject  {
     }
     
    
-    public func startLocationRanging() throws {
-        if beaconRegion != nil {
+    public func startLocationRanging(with method: String) throws {
+        if method == Constants.locationSensing.method.beacon {
+            if beaconRegion != nil {
+                if (CLLocationManager.authorizationStatus() != CLAuthorizationStatus.authorizedWhenInUse) {
+                    throw GalleryLocationManagerError.insufficientPermissions
+                } else {
+                    // let's finally start
+                    locationManager.startRangingBeacons(in: beaconRegion!)
+                    self.locationUpdateTimer?.invalidate()
+                    self.locationUpdateTimer = Timer.scheduledTimer(timeInterval: Constants.locationSensing.locationUpdateInterval, target: self, selector: #selector(checkForLocationUpdates), userInfo: nil, repeats: true)
+                    self.locationSensingMethod = method
+                }
+            } else {
+                throw GalleryLocationManagerError.missingRegion
+            }
+        }
+        
+        if method == Constants.locationSensing.method.apple {
             if (CLLocationManager.authorizationStatus() != CLAuthorizationStatus.authorizedWhenInUse) {
                 throw GalleryLocationManagerError.insufficientPermissions
             } else {
                 // let's finally start
-                locationManager.startRangingBeacons(in: beaconRegion!)
+                locationManager.startUpdatingLocation()
                 self.locationUpdateTimer?.invalidate()
                 self.locationUpdateTimer = Timer.scheduledTimer(timeInterval: Constants.locationSensing.locationUpdateInterval, target: self, selector: #selector(checkForLocationUpdates), userInfo: nil, repeats: true)
+                self.locationSensingMethod = method
             }
-        } else {
-            throw GalleryLocationManagerError.missingRegion
+
         }
     }
     
@@ -98,6 +126,18 @@ public class GalleryLocationManager : NSObject  {
 }
 
 extension GalleryLocationManager: CLLocationManagerDelegate {
+    
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let lastLocation = locations.last {
+            if self.lastLocation == nil {
+                self.lastLocation = lastLocation
+            }
+            
+            if self.lastLocation != lastLocation {
+                self.lastLocation = lastLocation
+            }
+        }
+    }
     
     public func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         
