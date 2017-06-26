@@ -11,7 +11,7 @@ import MapKit
 
 struct GeoJSON {
     let name : String
-    let floor: Constants.floors
+    let floor: Constants.floors?
     let polygon : MKPolygon
     let coordinates : [CLLocationCoordinate2D]
 }
@@ -33,34 +33,60 @@ public class GeoJSONAsset: JSONDecodable {
             
             guard let properties = feature["properties"] as? [String: Any] else { return nil }
             
-            guard let name = properties["SUITE"] as? String else { return nil }
+            var name = properties["SUITE"] as? String
+            
+            if name == nil {
+                name = properties["UNIT_ID"] as? String
+            }
+            
             guard let floorName = properties["LEVEL_ID"] as? String else { return nil }
             
             guard let geometry = feature["geometry"] as? [String: Any] else { return nil }
             
-            guard let coordinatesStacked = geometry["coordinates"] as? [[[Double]]] else { return nil }
-            
-            guard let floor = Constants.floors.enumFromLevelID(string: floorName) else { return nil }
-            
+            let floor = Constants.floors.enumFromLevelID(string: floorName)
             
             var coordinates = [CLLocationCoordinate2D]()
+
             
-            for coord in coordinatesStacked.first! {
-                let lat = coord[0]
-                let lon = coord[1]
-                let locationCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            // apparently Rodin maps use MultiPolygons and Main Building maps use Polygons
+            if geometry["type"] as? String == "Polygon" {
+                guard let coordinatesStacked = geometry["coordinates"] as? [[[Double]]] else {
+                    print("cannot parse coordinates")
+                    return nil
+                }
                 
-                coordinates.append(locationCoordinate)
+                for coord in coordinatesStacked.first! {
+                    let lat = coord[1]
+                    let lon = coord[0]
+                    let locationCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                    
+                    coordinates.append(locationCoordinate)
+                }
+                
+            } else if geometry["type"] as? String == "MultiPolygon" {
+                guard let coordinatesStacked = geometry["coordinates"] as? [[[[Double]]]] else {
+                    print("cannot parse coordinates")
+                    return nil
+                }
+                
+                for coord in coordinatesStacked.first!.first! {
+                    let lat = coord[1]
+                    let lon = coord[0]
+                    let locationCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                    
+                    coordinates.append(locationCoordinate)
+                }
             }
             
             let polygon = MKPolygon(coordinates: coordinates, count: coordinates.count)
             
-            
-            let obj = GeoJSON(name: name, floor: floor, polygon: polygon, coordinates: coordinates)
-            print("COUNT: \(obj.coordinates.count)")
-            
-            locations.append(obj)
-            
+            if name != nil {
+                
+                let obj = GeoJSON(name: name!, floor: floor, polygon: polygon, coordinates: coordinates)
+                print("GeoJSONAsset: Loaded suite: \(String(describing: name)), coordinate count: \(obj.coordinates.count)")
+                
+                locations.append(obj)
+            }
         }
         
         self.locations = locations
