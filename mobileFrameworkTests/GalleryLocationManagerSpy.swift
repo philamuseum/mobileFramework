@@ -16,8 +16,9 @@ class GalleryLocationManagerSpy: GalleryLocationManager {
         didAskForPermissions = true
     }
     
-    override func startLocationRanging() throws {
+    override func startLocationRanging(with method: String) throws {
         
     }
+    
 
 }
