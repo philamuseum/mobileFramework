@@ -82,12 +82,13 @@ class LocationStoreTests: XCTestCase {
 
         
         let sampleLocation = Location(name: "166", title: "166", active: true, floor: .first, polygon: samplePolygon, coordinates: sampleCoordinates)
-        let sampleCoordinateWithinPolygon = CLLocationCoordinate2D(latitude: 39.965080709037295, longitude: -75.18132352024095)
+        
+        let sampleLocationWithinPolygon = CLLocation(latitude: 39.965080709037295, longitude: -75.18132352024095)
         
         let lStore = LocationStore()
         lStore.add(location: sampleLocation)
         
-        guard let locationResult = lStore.locationForCoordinate(coordinate: sampleCoordinateWithinPolygon, floor: .first) else {
+        guard let locationResult = lStore.locationForCLLocation(location: sampleLocationWithinPolygon, ignoreFloors: true) else {
             XCTFail("location not found for coordinate")
             return
         }
@@ -208,6 +209,91 @@ class LocationStoreTests: XCTestCase {
         
         XCTAssertEqual(lStore.findLocationByName(name: "100"), lStore.edges.first?.nodeA)
         
+    }
+    
+    func test_find_location_with_substitute_name() {
+        
+        let lStore = LocationStore()
+        
+        let fStore = FeatureStore()
+        
+        let testSubstitution = [
+            "0229": "175",
+        ]
+        
+        lStore.locationNameSubstitutions = testSubstitution
+        
+        do {
+            try fStore.load(filename: "sampleLocations", type: .location, completion: {
+                if let asset = fStore.getAsset(for: .location) as? LocationAsset {
+                    lStore.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown: \(error)")
+        }
+        
+        do {
+            try fStore.load(filename: "sampleUnits", ext: "geojson", type: .geojson, completion: {
+                if let asset = fStore.getAsset(for: .geojson) as? GeoJSONAsset {
+                    lStore.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown: \(error)")
+        }
+        
+        let locationWithOriginalName = lStore.findLocationByName(name: "175")
+        let locationWithSubstitutedName = lStore.findLocationByName(name: "0229")
+        
+        XCTAssertNotNil(locationWithOriginalName)
+        XCTAssertNotNil(locationWithSubstitutedName)
+        
+        XCTAssertEqual(locationWithOriginalName, locationWithSubstitutedName)
+
+    }
+    
+    func test_get_location_for_CLLocation_with_floor_information() {
+        let lStore = LocationStore()
+        
+        let fStore = FeatureStore()
+        
+        do {
+            try fStore.load(filename: "sampleLocations", type: .location, completion: {
+                if let asset = fStore.getAsset(for: .location) as? LocationAsset {
+                    lStore.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown: \(error)")
+        }
+        
+        do {
+            try fStore.load(filename: "sampleUnits", ext: "geojson", type: .geojson, completion: {
+                if let asset = fStore.getAsset(for: .geojson) as? GeoJSONAsset {
+                    lStore.load(fromAsset: asset)
+                }
+            })
+        } catch {
+            XCTFail("Exception thrown: \(error)")
+        }
+        
+        XCTAssertNotNil(lStore.findLocationByName(name: "175")?.coordinates)
+        
+        let sampleLocation = CLLocationMock(latitude: 39.96615993551854, longitude: -75.18052697181702)
+        sampleLocation.testFloor = CLFloorMock()
+        sampleLocation.testFloor?.testLevel = 1
+        
+        XCTAssertEqual(1, sampleLocation.floor?.level)
+        
+        XCTAssertEqual(1, Constants.floors.enumFromCLFloor(floor: sampleLocation.floor)?.rawValue)
+        
+        guard let locationResult = lStore.locationForCLLocation(location: sampleLocation) else {
+            XCTFail("location not found for location")
+            return
+        }
+        
+        XCTAssertEqual("175", locationResult.name)
     }
     
 }
