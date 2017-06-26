@@ -63,6 +63,8 @@
 		A5E4A25F1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A25E1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift */; };
 		A5E4A2601EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A25E1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift */; };
 		A5E4A2611EB93393001BF1C6 /* GalleryLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC030C1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift */; };
+		A5F2028A1F019B9400EFD1BF /* CLLocationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F202891F019B9400EFD1BF /* CLLocationMock.swift */; };
+		A5F2028C1F019CC300EFD1BF /* CLFloorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F2028B1F019CC300EFD1BF /* CLFloorMock.swift */; };
 		A5F2E20D1ED7378000C1A3C2 /* FeatureStoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F2E20C1ED7378000C1A3C2 /* FeatureStoreMock.swift */; };
 		A5FC03011EA8F373005F22C7 /* CLLocationManagerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03001EA8F373005F22C7 /* CLLocationManagerSpy.swift */; };
 		A5FC03031EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC03021EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift */; };
@@ -120,6 +122,8 @@
 		A5E4A25A1EB90127001BF1C6 /* EdgeAssetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeAssetTests.swift; sourceTree = "<group>"; };
 		A5E4A25C1EB92420001BF1C6 /* EdgeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeTests.swift; sourceTree = "<group>"; };
 		A5E4A25E1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryLocationManagerDelegateSpy.swift; sourceTree = "<group>"; };
+		A5F202891F019B9400EFD1BF /* CLLocationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationMock.swift; sourceTree = "<group>"; };
+		A5F2028B1F019CC300EFD1BF /* CLFloorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLFloorMock.swift; sourceTree = "<group>"; };
 		A5F2E20C1ED7378000C1A3C2 /* FeatureStoreMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureStoreMock.swift; sourceTree = "<group>"; };
 		A5FC03001EA8F373005F22C7 /* CLLocationManagerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManagerSpy.swift; sourceTree = "<group>"; };
 		A5FC03021EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryLocationManagerSpy.swift; sourceTree = "<group>"; };
@@ -267,6 +271,8 @@
 			isa = PBXGroup;
 			children = (
 				A5F2E20C1ED7378000C1A3C2 /* FeatureStoreMock.swift */,
+				A5F202891F019B9400EFD1BF /* CLLocationMock.swift */,
+				A5F2028B1F019CC300EFD1BF /* CLFloorMock.swift */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 				A5F2E20D1ED7378000C1A3C2 /* FeatureStoreMock.swift in Sources */,
 				A5E4A25B1EB90127001BF1C6 /* EdgeAssetTests.swift in Sources */,
 				A5624F301EC60BCE00EF20EF /* GeoJSONAsset.swift in Sources */,
+				A5F2028C1F019CC300EFD1BF /* CLFloorMock.swift in Sources */,
 				A5AC56DD1ECB498F006420D8 /* CacheServiceTests.swift in Sources */,
 				A543A9CC1EF2F1C3001E6C7D /* mobileFrameworkURLProtocol.swift in Sources */,
 				A5E4A25D1EB92420001BF1C6 /* EdgeTests.swift in Sources */,
@@ -508,6 +515,7 @@
 				A5E4A2611EB93393001BF1C6 /* GalleryLocationManagerDelegate.swift in Sources */,
 				A5E4A2421EB8D1B1001BF1C6 /* JSONDecodable.swift in Sources */,
 				A5FC03031EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift in Sources */,
+				A5F2028A1F019B9400EFD1BF /* CLLocationMock.swift in Sources */,
 				A50EB7D11EA9427A00329A5E /* Beacon.swift in Sources */,
 				A5E4A2531EB8FC46001BF1C6 /* EdgeAsset.swift in Sources */,
 				A5AC56E21ECB950C006420D8 /* QueueControllerTests.swift in Sources */,
