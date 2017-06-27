@@ -64,7 +64,7 @@ public class LocationStore {
         
         if let floor = Constants.floors.enumFromCLFloor(floor: location.floor) {
             // we have floor information
-            print("we found floor info: \(floor)")
+            //print("we found floor info: \(floor)")
             for storedLocation in self.locations {
                 // we're on the same floor and we actually have coordinates
                 if storedLocation.floor == floor && storedLocation.coordinates != nil {
