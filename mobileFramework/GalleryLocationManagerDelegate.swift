@@ -11,4 +11,5 @@ import CoreLocation
 
 public protocol GalleryLocationManagerDelegate : CLLocationManagerDelegate {
     func locationManager(locationManager: GalleryLocationManager, didEnterKnownLocation location: Location)
+    func locationManager(locationManager: GalleryLocationManager, didUpdateHeading newHeading: CLHeading)
 }

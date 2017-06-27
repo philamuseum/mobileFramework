@@ -7,8 +7,14 @@
 //
 
 import Foundation
+import CoreLocation
 
 class GalleryLocationManagerDelegateSpy: NSObject, GalleryLocationManagerDelegate {
+    
+    @nonobjc func locationManager(locationManager: GalleryLocationManager, didUpdateHeading newHeading: CLHeading) {
+        
+    }
+
     
     var didEnterLocationCalled = false
     

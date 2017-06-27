@@ -62,6 +62,11 @@ public class GalleryLocationManager : NSObject  {
         }
     }
     
+    public func startUpdatingHeading(with headingFilter: Double) {
+        self.locationManager.headingFilter = headingFilter
+        self.locationManager.startUpdatingHeading()
+    }
+    
    
     public func startLocationRanging(with method: String) throws {
         if method == Constants.locationSensing.method.beacon {
@@ -137,6 +142,10 @@ extension GalleryLocationManager: CLLocationManagerDelegate {
                 self.lastLocation = lastLocation
             }
         }
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        self.delegate?.locationManager(locationManager: self, didUpdateHeading: newHeading)
     }
     
     public func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
