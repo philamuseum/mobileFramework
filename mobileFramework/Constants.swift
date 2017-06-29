@@ -33,7 +33,12 @@ public class Constants {
         case first
         case second
         
-        static func enumFromString(string:String) -> floors? {
+        public static func enumFromString(string:String) -> floors? {
+            
+            if string == "G" { return floors.ground }
+            if string == "1" { return floors.first }
+            if string == "2" { return floors.second }
+            
             var i = 0
             while let item = floors(rawValue: i) {
                 if String(describing: item) == string { return item }
@@ -41,13 +46,13 @@ public class Constants {
             }
             return nil
         }
-        static func enumFromLevelID(string:String) -> floors? {
+        public static func enumFromLevelID(string:String) -> floors? {
             let digit = Int(String(string.characters.last!))
             let floor = digit! - 1
             
             return floors(rawValue: floor)
         }
-        static func enumFromCLFloor(floor: CLFloor?) -> floors? {
+        public static func enumFromCLFloor(floor: CLFloor?) -> floors? {
             if floor == nil {
                 return nil
             }
