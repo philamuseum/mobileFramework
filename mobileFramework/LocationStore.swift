@@ -18,7 +18,7 @@ public class LocationStore {
     }
     
     public private(set) var locations = [Location]()
-    private(set) var edges = [Edge]()
+    public private(set) var edges = [Edge]()
     public var locationNameSubstitutions : [String : String] = [:]
     
     func add(location: Location) {
