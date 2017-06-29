@@ -8,15 +8,15 @@
 
 import Foundation
 
-class Edge {
+public class Edge {
     
-    let nodeAName : String
-    let nodeBName : String
+    public let nodeAName : String
+    public let nodeBName : String
     
     private(set) var nodeA : Location?
     private(set) var nodeB : Location?
     
-    let weight : Float
+    public let weight : Float
     
     init(nodeA: String, nodeB: String, weight: Float) {
         self.nodeAName = nodeA
@@ -32,7 +32,7 @@ class Edge {
 }
 
 extension Edge: Equatable {
-    static func == (lhs: Edge, rhs: Edge) -> Bool {
+    public static func == (lhs: Edge, rhs: Edge) -> Bool {
         return lhs.nodeA == rhs.nodeA &&
             lhs.nodeB == rhs.nodeB &&
             lhs.weight == rhs.weight
@@ -40,7 +40,7 @@ extension Edge: Equatable {
 }
 
 extension Edge: Hashable {
-    var hashValue: Int {
+    public var hashValue: Int {
         return nodeAName.hashValue ^ nodeBName.hashValue ^ weight.hashValue
     }
 }
