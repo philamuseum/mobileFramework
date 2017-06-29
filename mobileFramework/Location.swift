@@ -21,6 +21,8 @@ public class Location {
     public private(set) var polygon : MKPolygon?
     public private(set) var coordinates : [CLLocationCoordinate2D]?
     
+    public var customAttributes : [String : Any] = [:]
+    
     
     init(name: String, title: String, active: Bool, floor: Constants.floors, polygon: MKPolygon? = nil, coordinates: [CLLocationCoordinate2D]? = nil) {
         self.name = name
@@ -48,6 +50,6 @@ extension Location: Equatable {
 
 extension Location: Hashable {
     public var hashValue: Int {
-        return name.hashValue ^ title.hashValue ^ floor.hashValue
+        return name.hashValue ^ floor.hashValue
     }
 }
