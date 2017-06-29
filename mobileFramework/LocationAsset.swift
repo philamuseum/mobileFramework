@@ -17,17 +17,37 @@ public class LocationAsset: JSONDecodable {
         
         var locations = [Location]()
         
+        let keysExcludedFromOptionalAttributes = ["Name", "Title", "Floor", "Open"]
+        
         for location in JSON {
             
+            var customAttributes : [String: Any] = [:]
+            
+            for key in location.keys {
+                if !keysExcludedFromOptionalAttributes.contains(key) {
+                    customAttributes[key] = location[key]
+                }
+            }
+            
             guard let name = location["Name"] as? String else { return nil }
-            guard let title = location["Title"] as? String else { return nil }
+            
+            var title : String!
+            
+            if let t = location["Title"] as? String {
+                title = t
+            } else {
+                title = ""
+            }
+            
             guard let floorName = location["Floor"] as? String else { return nil }
             guard let open = location["Open"] as? Bool else { return nil }
             
             guard let floor = Constants.floors.enumFromString(string: floorName) else { return nil }
             
-            let location = Location(name: name, title: title, active: open, floor: floor)
+            //print("location \(name) successfully parsed")
             
+            let location = Location(name: name, title: title, active: open, floor: floor)
+            location.customAttributes = customAttributes
             locations.append(location)
             
         }
