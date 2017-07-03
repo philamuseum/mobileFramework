@@ -25,12 +25,18 @@ public class LocationStore {
         locations.append(location)
     }
     
-    public func findLocationByName(name: String) -> Location? {
+    public func findLocationByNameOrUnitId(name: String, unitId: String? = nil) -> Location? {
         var searchName = name
         
+        // let's check first if we find the name
         if let index = self.locationNameSubstitutions.index(forKey: name) {
             searchName = self.locationNameSubstitutions[index].value
-            //print("LocationStore: Substituting location name '\(name)' with new name: '\(searchName)'")
+            print("LocationStore: Substituting location name '\(name)' with new name: '\(searchName)' (by name)")
+            
+        // if we can't find the location by name, try unitId instead
+        } else if unitId != nil, let index = self.locationNameSubstitutions.index(forKey: unitId!) {
+            searchName = self.locationNameSubstitutions[index].value
+            print("LocationStore: Substituting location name '\(name)' with new name: '\(searchName)' (by unitId)")
         }
         
         let result = locations.filter() {
@@ -56,7 +62,7 @@ public class LocationStore {
             }
         }
         
-        let location = findLocationByName(name: cleanedAlias)
+        let location = findLocationByNameOrUnitId(name: cleanedAlias)
         return location
     }
     
@@ -77,7 +83,7 @@ public class LocationStore {
         else if ignoreFloors {
             // we don't have (valid) floor information and we want to ignore floors
             for storedLocation in self.locations {
-                if storedLocation.coordinates != nil {
+                if storedLocation.coordinates != nil { // hack a static floor in here for testing purposes
                     if location.coordinate.contained(by: storedLocation.coordinates!) {
                         return storedLocation
                     }
@@ -95,8 +101,8 @@ public class LocationStore {
         self.edges = fromAsset.edges
         
         for edge in self.edges {
-            guard let nodeA = findLocationByName(name: edge.nodeAName) else { return }
-            guard let nodeB = findLocationByName(name: edge.nodeBName) else { return }
+            guard let nodeA = findLocationByNameOrUnitId(name: edge.nodeAName) else { return }
+            guard let nodeB = findLocationByNameOrUnitId(name: edge.nodeBName) else { return }
             
             edge.resolveNodeLocations(nodeA: nodeA, nodeB: nodeB)
         }
@@ -105,7 +111,7 @@ public class LocationStore {
     public func load(fromAsset: GeoJSONAsset) {
         for geoJSONLocation in fromAsset.locations {
             //print("LocationStore: loading from asset: \(geoJSONLocation.name)")
-            if let location = findLocationByName(name: geoJSONLocation.name) {
+            if let location = findLocationByNameOrUnitId(name: geoJSONLocation.name, unitId: geoJSONLocation.unitId) {
                 //print("LocationStore: loading GeoJSON data into \(geoJSONLocation.name)")
                 location.addGeoJSONData(polygon: geoJSONLocation.polygon, coordinates: geoJSONLocation.coordinates)
             }
