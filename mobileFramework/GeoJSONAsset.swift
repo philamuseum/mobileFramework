@@ -12,6 +12,7 @@ import MapKit
 struct GeoJSON {
     let name : String
     let floor: Constants.floors?
+    let unitId: String
     let polygon : MKPolygon
     let coordinates : [CLLocationCoordinate2D]
 }
@@ -38,6 +39,8 @@ public class GeoJSONAsset: JSONDecodable {
             if name == nil {
                 name = properties["UNIT_ID"] as? String
             }
+            
+            guard let unitID = properties["UNIT_ID"] as? String else { return nil }
             
             guard let floorName = properties["LEVEL_ID"] as? String else { return nil }
             
@@ -82,7 +85,7 @@ public class GeoJSONAsset: JSONDecodable {
             
             if name != nil {
                 
-                let obj = GeoJSON(name: name!, floor: floor, polygon: polygon, coordinates: coordinates)
+                let obj = GeoJSON(name: name!, floor: floor, unitId: unitID, polygon: polygon, coordinates: coordinates)
                 print("GeoJSONAsset: Loaded suite: \(String(describing: name)), coordinate count: \(obj.coordinates.count)")
                 
                 locations.append(obj)
