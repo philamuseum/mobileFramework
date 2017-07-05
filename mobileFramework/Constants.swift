@@ -8,8 +8,63 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 public class Constants {
+    
+    public struct device {
+        public static var deviceName : String {
+            get {
+                return UIDevice.current.name
+            }
+        }
+        
+        public static var deviceUUID : String {
+            get {
+                return UIDevice.current.identifierForVendor!.uuidString
+            }
+        }
+        
+        public static var systemVersion : String {
+            get {
+                return UIDevice.current.systemVersion
+            }
+        }
+        
+        public static var appVersion : String {
+            get {
+                let appInfo = Bundle.main.infoDictionary! as Dictionary<String,AnyObject>
+                let shortVersionString = appInfo["CFBundleShortVersionString"] as! String
+                return shortVersionString
+            }
+        }
+        
+        public static var batteryLevel : Int {
+            get {
+                return Int(UIDevice.current.batteryLevel * 100) * -1
+            }
+        }
+        
+        public static var isCharging : Bool {
+            get {
+                return UIDevice.current.batteryState != UIDeviceBatteryState.unplugged
+            }
+        }
+        
+        public static var hasNetworkConnection : Bool {
+            get {
+                return Reachability.isConnectedToNetwork()
+            }
+        }
+    }
+    
+    public struct backend {
+        public static var apiKey : String?
+        public static var host : String?
+        public static var registerEndpoint : String?
+        public static var healthCheckEndpoint : String?
+        public static let healthCheckInterval: Double = 30 * 60 // 30 min
+    }
     
     public struct cache {
         static let dataModel = "mobileFramework"

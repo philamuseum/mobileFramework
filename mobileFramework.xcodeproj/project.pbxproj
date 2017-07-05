@@ -36,6 +36,12 @@
 		A5AC56E21ECB950C006420D8 /* QueueControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56E11ECB950C006420D8 /* QueueControllerTests.swift */; };
 		A5AC56E51ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56E31ECB9AE5006420D8 /* mobileFramework.xcdatamodeld */; };
 		A5AC56E61ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56E31ECB9AE5006420D8 /* mobileFramework.xcdatamodeld */; };
+		A5BF8CC61F0D6C3100AEE4E4 /* BackendServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF8CC51F0D6C3100AEE4E4 /* BackendServiceTests.swift */; };
+		A5BF8CC81F0D6C6200AEE4E4 /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF8CC71F0D6C6200AEE4E4 /* BackendService.swift */; };
+		A5BF8CCA1F0D6D9A00AEE4E4 /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF8CC71F0D6C6200AEE4E4 /* BackendService.swift */; };
+		A5BF8CCC1F0D6E2B00AEE4E4 /* BackendServiceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF8CCB1F0D6E2B00AEE4E4 /* BackendServiceSpy.swift */; };
+		A5BF8CCF1F0D70AF00AEE4E4 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BF8CCE1F0D70AF00AEE4E4 /* UserNotifications.framework */; };
+		A5BF8CD11F0D7D2C00AEE4E4 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF8CD01F0D7D2C00AEE4E4 /* Reachability.swift */; };
 		A5D01E171EF440AD0039E9FF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A5D01E161EF440AD0039E9FF /* README.md */; };
 		A5E4A2371EB8C914001BF1C6 /* BeaconAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */; };
 		A5E4A2381EB8C914001BF1C6 /* BeaconAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */; };
@@ -106,6 +112,11 @@
 		A5AC56DE1ECB941E006420D8 /* QueueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueController.swift; sourceTree = "<group>"; };
 		A5AC56E11ECB950C006420D8 /* QueueControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueControllerTests.swift; sourceTree = "<group>"; };
 		A5AC56E41ECB9AE5006420D8 /* mobileFramework.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mobileFramework.xcdatamodel; sourceTree = "<group>"; };
+		A5BF8CC51F0D6C3100AEE4E4 /* BackendServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendServiceTests.swift; sourceTree = "<group>"; };
+		A5BF8CC71F0D6C6200AEE4E4 /* BackendService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
+		A5BF8CCB1F0D6E2B00AEE4E4 /* BackendServiceSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendServiceSpy.swift; sourceTree = "<group>"; };
+		A5BF8CCE1F0D70AF00AEE4E4 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		A5BF8CD01F0D7D2C00AEE4E4 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A5D01E161EF440AD0039E9FF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconAsset.swift; sourceTree = "<group>"; };
 		A5E4A2391EB8C91D001BF1C6 /* FeatureStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureStore.swift; sourceTree = "<group>"; };
@@ -145,6 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5BF8CCF1F0D70AF00AEE4E4 /* UserNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +204,7 @@
 				A5FC1C911EA7F96F00669C89 /* Info.plist */,
 				A5FC1C901EA7F96F00669C89 /* mobileFramework.h */,
 				A5E4A2401EB8D1B1001BF1C6 /* JSONDecodable.swift */,
+				A5BF8CD01F0D7D2C00AEE4E4 /* Reachability.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -221,6 +234,14 @@
 				A5AC56E11ECB950C006420D8 /* QueueControllerTests.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		A5BF8CCD1F0D70AF00AEE4E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5BF8CCE1F0D70AF00AEE4E4 /* UserNotifications.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A5E4A2351EB8C8F6001BF1C6 /* Assets */ = {
@@ -284,6 +305,7 @@
 				A5FC03021EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift */,
 				A543A9C61EF1C528001E6C7D /* QueueControllerDelegateSpy.swift */,
 				A5E4A25E1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift */,
+				A5BF8CCB1F0D6E2B00AEE4E4 /* BackendServiceSpy.swift */,
 			);
 			name = Spys;
 			sourceTree = "<group>";
@@ -296,6 +318,7 @@
 				A5FC1C8F1EA7F96F00669C89 /* mobileFramework */,
 				A5FC1C9A1EA7F96F00669C89 /* mobileFrameworkTests */,
 				A5FC1C8E1EA7F96F00669C89 /* Products */,
+				A5BF8CCD1F0D70AF00AEE4E4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -320,6 +343,7 @@
 				A551F3F51EAA9CC000BFCE93 /* Beacons */,
 				A54634BA1EB29FE300CAA791 /* Locations */,
 				A5FC1CA91EA7FBBD00669C89 /* GalleryLocationManager.swift */,
+				A5BF8CC71F0D6C6200AEE4E4 /* BackendService.swift */,
 				A5FC030C1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift */,
 			);
 			path = mobileFramework;
@@ -337,6 +361,7 @@
 				A54634B61EB283DE00CAA791 /* BeaconTests.swift */,
 				A5E4A25C1EB92420001BF1C6 /* EdgeTests.swift */,
 				A5FC1CA71EA7F99900669C89 /* GalleryLocationManagerTests.swift */,
+				A5BF8CC51F0D6C3100AEE4E4 /* BackendServiceTests.swift */,
 			);
 			path = mobileFrameworkTests;
 			sourceTree = "<group>";
@@ -465,6 +490,7 @@
 				A5FC1CAA1EA7FBBD00669C89 /* GalleryLocationManager.swift in Sources */,
 				A5E4A2411EB8D1B1001BF1C6 /* JSONDecodable.swift in Sources */,
 				A5AC56D91ECB496C006420D8 /* CacheService.swift in Sources */,
+				A5BF8CC81F0D6C6200AEE4E4 /* BackendService.swift in Sources */,
 				A51E42BE1ED4707800CB4749 /* Location.swift in Sources */,
 				A5AC56E51ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */,
 				A51E42C01ED4707F00CB4749 /* BeaconStore.swift in Sources */,
@@ -475,6 +501,7 @@
 				A5E4A25F1EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift in Sources */,
 				A5624F2F1EC60BCE00EF20EF /* GeoJSONAsset.swift in Sources */,
 				A543A9C41EF1BC3B001E6C7D /* QueueControllerDelegate.swift in Sources */,
+				A5BF8CD11F0D7D2C00AEE4E4 /* Reachability.swift in Sources */,
 				A50EB7D01EA9423200329A5E /* Beacon.swift in Sources */,
 				A543A9C71EF1C528001E6C7D /* QueueControllerDelegateSpy.swift in Sources */,
 				A5FC03051EA9232F005F22C7 /* Constants.swift in Sources */,
@@ -501,6 +528,7 @@
 				A5E4A23B1EB8C91D001BF1C6 /* FeatureStore.swift in Sources */,
 				A5F2E20D1ED7378000C1A3C2 /* FeatureStoreMock.swift in Sources */,
 				A5E4A25B1EB90127001BF1C6 /* EdgeAssetTests.swift in Sources */,
+				A5BF8CCC1F0D6E2B00AEE4E4 /* BackendServiceSpy.swift in Sources */,
 				A5624F301EC60BCE00EF20EF /* GeoJSONAsset.swift in Sources */,
 				A5F2028C1F019CC300EFD1BF /* CLFloorMock.swift in Sources */,
 				A5AC56DD1ECB498F006420D8 /* CacheServiceTests.swift in Sources */,
@@ -515,6 +543,7 @@
 				A5E4A2611EB93393001BF1C6 /* GalleryLocationManagerDelegate.swift in Sources */,
 				A5E4A2421EB8D1B1001BF1C6 /* JSONDecodable.swift in Sources */,
 				A5FC03031EA8FB43005F22C7 /* GalleryLocationManagerSpy.swift in Sources */,
+				A5BF8CCA1F0D6D9A00AEE4E4 /* BackendService.swift in Sources */,
 				A5F2028A1F019B9400EFD1BF /* CLLocationMock.swift in Sources */,
 				A50EB7D11EA9427A00329A5E /* Beacon.swift in Sources */,
 				A5E4A2531EB8FC46001BF1C6 /* EdgeAsset.swift in Sources */,
@@ -524,6 +553,7 @@
 				A5AC56E61ECB9AE5006420D8 /* mobileFramework.xcdatamodeld in Sources */,
 				A5E4A2601EB928CC001BF1C6 /* GalleryLocationManagerDelegateSpy.swift in Sources */,
 				A5624F331EC6109500EF20EF /* GeoJSONAssetTests.swift in Sources */,
+				A5BF8CC61F0D6C3100AEE4E4 /* BackendServiceTests.swift in Sources */,
 				A5E4A23F1EB8C938001BF1C6 /* BeaconAssetTests.swift in Sources */,
 				A5AC56DA1ECB496C006420D8 /* CacheService.swift in Sources */,
 				A543A9C51EF1BC3B001E6C7D /* QueueControllerDelegate.swift in Sources */,
