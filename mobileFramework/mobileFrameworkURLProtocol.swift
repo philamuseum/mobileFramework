@@ -27,6 +27,10 @@ public class mobileFrameworkURLProtocol: URLProtocol, URLSessionDataDelegate, UR
             return false
         }
         
+        if request.httpMethod == "POST" {
+            return false
+        }
+        
         if request.url?.scheme == "customProtocol" {
             return false
         }

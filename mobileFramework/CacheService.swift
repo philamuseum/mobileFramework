@@ -28,6 +28,29 @@ public class CacheService {
     
     }
     
+    public func makePostRequest(url: URL, data: Data, completion: @escaping (_ statusCode: Int?, _ error: Error?) -> ()) {
+        var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30) // self.makeRequest(url: url, forceUncached: true)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = data
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                completion(nil, error)
+                return
+            }
+            
+            guard let _ = data else {
+                return
+            }
+
+            let statusCode = (response as! HTTPURLResponse).statusCode
+            completion(statusCode, nil)
+        }
+        task.resume()
+    }
+    
     public func makeRequest(url: URL, forceUncached: Bool = false) -> URLRequest {
         if forceUncached {
             let mutableRequest = NSMutableURLRequest.init(url: url, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 240.0)
