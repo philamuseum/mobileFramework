@@ -61,7 +61,7 @@ class LocationStoreTests: XCTestCase {
         
         LocationStore.sharedInstance.add(location: sampleLocation)
 
-        guard let locationResult = LocationStore.sharedInstance.findLocationByName(name: "166") else {
+        guard let locationResult = LocationStore.sharedInstance.findLocationByNameOrUnitId(name: "166") else {
             XCTFail("location not found for alias")
             return
         }
@@ -207,7 +207,7 @@ class LocationStoreTests: XCTestCase {
             XCTFail("Exception thrown")
         }
         
-        XCTAssertEqual(lStore.findLocationByName(name: "100"), lStore.edges.first?.nodeA)
+        XCTAssertEqual(lStore.findLocationByNameOrUnitId(name: "100"), lStore.edges.first?.nodeA)
         
     }
     
@@ -243,8 +243,8 @@ class LocationStoreTests: XCTestCase {
             XCTFail("Exception thrown: \(error)")
         }
         
-        let locationWithOriginalName = lStore.findLocationByName(name: "175")
-        let locationWithSubstitutedName = lStore.findLocationByName(name: "0229")
+        let locationWithOriginalName = lStore.findLocationByNameOrUnitId(name: "175")
+        let locationWithSubstitutedName = lStore.findLocationByNameOrUnitId(name: "0229")
         
         XCTAssertNotNil(locationWithOriginalName)
         XCTAssertNotNil(locationWithSubstitutedName)
@@ -278,7 +278,7 @@ class LocationStoreTests: XCTestCase {
             XCTFail("Exception thrown: \(error)")
         }
         
-        XCTAssertNotNil(lStore.findLocationByName(name: "175")?.coordinates)
+        XCTAssertNotNil(lStore.findLocationByNameOrUnitId(name: "175")?.coordinates)
         
         let sampleLocation = CLLocationMock(latitude: 39.96615993551854, longitude: -75.18052697181702)
         sampleLocation.testFloor = CLFloorMock()
