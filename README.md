@@ -5,16 +5,16 @@ The mobile framework is a collection of utilities, which we found to be repeated
 ## The framework has the following features implemented: ##
 
 * Caching assets locally (downloading items in the background)
-* Custom URL protocol to allow UIWebView to directly load assets from cache, without any additional overhead
+* Custom URL protocol to allow loading assets from cache, without any additional overhead
+* Custom URL protocol handles caching transparently for UIImages / Data as well as UIWebViews
 * iBeacon ranging
+* Support for GoeJSON-based indoor positioning
 
 ## Features to be added in the future: ##
-* Queue delegate method will report progress on tasks and downloaded data to avoid progress jumps
 * Save manually requested URLs locally
 * Queue stop / pause
 * Custom log output
 * Route calculation for indoor wayfinding
-* Support for Apple Maps Indoor positioning
 
 ## How to use it ##
 
@@ -104,7 +104,7 @@ let request = CacheService.sharedInstance.makeRequest(url: url!, forceUncached: 
 To download assets into Data (to use it with UIImage for example), see the following code sample:
 
 ~~~~swift
-CacheService.sharedInstance.requestData(url: url!, forceUncached: false, completion: { 
+CacheService.sharedInstance.requestData(url: url!, forceUncached: false, completion: {
     localPath, data in
         if data != nil {
             let image = UIImage(data: data!)
@@ -238,6 +238,57 @@ do {
     print("Error staring location ranging")
 }
 ~~~~
+
+
+### GeoJSON Indoor Positioning ###
+
+Declare your ViewController as Delegate for *GalleryLocationManagerDelegate*, request permissions and start location tracking using the Apple Method.
+
+~~~~swift
+let locationManager = GalleryLocationManager(locationManager: CLLocationManager())
+locationManager.delegate = self
+locationManager.requestPermissions()
+
+do {
+    try FeatureStore.sharedInstance.load(filename: "locations", ext: "json", type: .location, completion: {
+        if let asset = FeatureStore.sharedInstance.getAsset(for: .location) as? LocationAsset {
+            LocationStore.sharedInstance.load(fromAsset: asset)
+        }
+    })
+} catch {
+    print("Error reading locations data")
+}
+
+do {
+    try FeatureStore.sharedInstance.load(filename: "sample", ext: "geojson", type: .geojson, completion: {
+        if let asset = FeatureStore.sharedInstance.getAsset(for: .geojson) as? GeoJSONAsset {
+            LocationStore.sharedInstance.load(fromAsset: asset)
+        }
+    })
+} catch {
+    print("Error reading geojson data")
+}
+
+do {
+    try locationManager.startLocationRanging(with: Constants.locationSensing.method.apple)
+    print("Started ranging locations (apple)")
+} catch {
+    print("Error staring location ranging")
+}
+~~~~
+
+The delegate method will then be called if a location match could be found:
+
+~~~~swift
+func locationManager(locationManager: GalleryLocationManager, didEnterKnownLocation location: Location) {
+        print("Entered location: \(location.name)")
+        DispatchQueue.main.async {
+            //update your UI here
+        }
+    }
+~~~~
+
+Please check out the mobileFrameworkDemo project for sample GeoJSON data.
 
 ## Contact us ##
 
