@@ -23,9 +23,9 @@ class BackendServiceTests: XCTestCase {
     func test_ask_for_notification_permissions() {
         
         let service = BackendServiceSpy()
-        service.requestPermissions()
-        
-        XCTAssertTrue(service.didAskForPermissions)
+        service.requestPermissions(completion: {
+            XCTAssertTrue(service.didAskForPermissions)
+        })
     }
     
     func test_throws_error_without_granted_notification_permissions() {

@@ -8,6 +8,7 @@
 
 import Foundation
 import UserNotifications
+import UIKit
 
 public enum BackendServiceError: Error {
     case insufficientPermissions
@@ -122,7 +123,7 @@ public class BackendService : NSObject {
         healthTimer?.invalidate()
     }
     
-    func updateHealthStatus() {
+    @objc func updateHealthStatus() {
         print("BackendService: Updating Health Status...")
         if self.registeredOnBackend {
             

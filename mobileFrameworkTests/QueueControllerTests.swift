@@ -110,9 +110,9 @@ class QueueControllerTests: XCTestCase {
     
     func test_processing_queue_entries() {
         var urls = [URL]()
-        urls.append(URL(string: "http://www.peteralt.com/images/portfolio_Peter_W_Alt_a_is_for_art_large.jpg")!)
-        urls.append(URL(string: "http://www.peteralt.com/images/portfolio_Peter_W_Alt_rodin_app.jpg")!)
-        urls.append(URL(string: "http://www.peteralt.com/images/portfolio_Peter_W_Alt_breaking_the_silence_table_large.jpg")!)
+        urls.append(URL(string: "https://philamuseum.org/images/cad/zoomers/1980-1-1-CX.jpg")!)
+        urls.append(URL(string: "https://philamuseum.org/images/cad/zoomers/1985-52-17937-mccrindle.jpg")!)
+        urls.append(URL(string: "https://philamuseum.org/images/cad/zoomers/1985-52-23263-mccrindle.jpg")!)
         
         for url in urls {
             controller.addItem(url: url)

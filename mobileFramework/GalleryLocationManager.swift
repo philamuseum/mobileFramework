@@ -103,7 +103,7 @@ public class GalleryLocationManager : NSObject  {
         locationManager.requestWhenInUseAuthorization()
     }
     
-    internal func checkForLocationUpdates() {
+    @objc internal func checkForLocationUpdates() {
         // if we don't have a current location, we can skip right out
         guard let currentLocation = self.currentLocation else {
             return

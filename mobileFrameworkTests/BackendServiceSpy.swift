@@ -12,7 +12,8 @@ public class BackendServiceSpy : BackendService {
     
     var didAskForPermissions = false
     
-    public override func requestPermissions() {
+    public override func requestPermissions(completion: @escaping () -> ()) {
         didAskForPermissions = true
+        completion()
     }
 }

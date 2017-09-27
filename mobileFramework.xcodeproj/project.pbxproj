@@ -28,6 +28,7 @@
 		A5624F301EC60BCE00EF20EF /* GeoJSONAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5624F2E1EC60BCE00EF20EF /* GeoJSONAsset.swift */; };
 		A5624F311EC6104400EF20EF /* sampleUnits.geojson in Resources */ = {isa = PBXBuildFile; fileRef = A551C1F41EC25E0D0082CEB6 /* sampleUnits.geojson */; };
 		A5624F331EC6109500EF20EF /* GeoJSONAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5624F321EC6109500EF20EF /* GeoJSONAssetTests.swift */; };
+		A56CEC8E1F7C1E45006C5217 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF8CD01F0D7D2C00AEE4E4 /* Reachability.swift */; };
 		A5AC56D91ECB496C006420D8 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56D81ECB496C006420D8 /* CacheService.swift */; };
 		A5AC56DA1ECB496C006420D8 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56D81ECB496C006420D8 /* CacheService.swift */; };
 		A5AC56DD1ECB498F006420D8 /* CacheServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC56DC1ECB498F006420D8 /* CacheServiceTests.swift */; };
@@ -42,7 +43,7 @@
 		A5BF8CCC1F0D6E2B00AEE4E4 /* BackendServiceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF8CCB1F0D6E2B00AEE4E4 /* BackendServiceSpy.swift */; };
 		A5BF8CCF1F0D70AF00AEE4E4 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BF8CCE1F0D70AF00AEE4E4 /* UserNotifications.framework */; };
 		A5BF8CD11F0D7D2C00AEE4E4 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BF8CD01F0D7D2C00AEE4E4 /* Reachability.swift */; };
-		A5D01E171EF440AD0039E9FF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A5D01E161EF440AD0039E9FF /* README.md */; };
+		A5D01E171EF440AD0039E9FF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A5D01E161EF440AD0039E9FF /* README.md */; };
 		A5E4A2371EB8C914001BF1C6 /* BeaconAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */; };
 		A5E4A2381EB8C914001BF1C6 /* BeaconAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2361EB8C914001BF1C6 /* BeaconAsset.swift */; };
 		A5E4A23A1EB8C91D001BF1C6 /* FeatureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E4A2391EB8C91D001BF1C6 /* FeatureStore.swift */; };
@@ -423,18 +424,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Philadelphia Museum of Art";
 				TargetAttributes = {
 					A5FC1C8C1EA7F96F00669C89 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = ZP279JY2W4;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					A5FC1C951EA7F96F00669C89 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = ZP279JY2W4;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -462,6 +464,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5D01E171EF440AD0039E9FF /* README.md in Resources */,
 				A5E4A2481EB8F00C001BF1C6 /* sampleLocations.json in Resources */,
 				A5E4A2451EB8D8CD001BF1C6 /* sampleBeacons.json in Resources */,
 				A5E4A2581EB8FF32001BF1C6 /* sampleEdges.json in Resources */,
@@ -509,7 +512,6 @@
 				A5FC030D1EA92AB1005F22C7 /* GalleryLocationManagerDelegate.swift in Sources */,
 				A543A9CB1EF2F1C3001E6C7D /* mobileFrameworkURLProtocol.swift in Sources */,
 				A5E4A2371EB8C914001BF1C6 /* BeaconAsset.swift in Sources */,
-				A5D01E171EF440AD0039E9FF /* README.md in Sources */,
 				A5E4A23A1EB8C91D001BF1C6 /* FeatureStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,6 +534,7 @@
 				A5624F301EC60BCE00EF20EF /* GeoJSONAsset.swift in Sources */,
 				A5F2028C1F019CC300EFD1BF /* CLFloorMock.swift in Sources */,
 				A5AC56DD1ECB498F006420D8 /* CacheServiceTests.swift in Sources */,
+				A56CEC8E1F7C1E45006C5217 /* Reachability.swift in Sources */,
 				A543A9CC1EF2F1C3001E6C7D /* mobileFrameworkURLProtocol.swift in Sources */,
 				A5E4A25D1EB92420001BF1C6 /* EdgeTests.swift in Sources */,
 				A5AC56E01ECB941E006420D8 /* QueueController.swift in Sources */,
@@ -583,7 +586,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -591,7 +596,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -637,7 +646,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -645,7 +656,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -692,7 +707,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -713,7 +729,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.philamuseum.mobileFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -726,7 +743,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.philamuseum.mobileFrameworkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -739,7 +757,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.philamuseum.mobileFrameworkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

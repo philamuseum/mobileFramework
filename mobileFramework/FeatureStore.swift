@@ -30,7 +30,7 @@ public class FeatureStore {
         
         var localFileURL : URL?
         
-        if let url = Bundle(for: type(of: self)).url(forResource: filename, withExtension: ext) {
+        if let url = Bundle(for: Swift.type(of: self)).url(forResource: filename, withExtension: ext) {
             localFileURL = url
         }
         

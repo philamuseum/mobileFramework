@@ -170,16 +170,20 @@ public class QueueController: NSObject {
             for item in items {
                 let url = item.value(forKey: "url") as! String
                 let task = self.session.downloadTask(with: URL(string: url)!)
+                print("starting download for \(url)")
                 task.resume()
             }
             isDownloading = true
             totalItemsToDownload = items.count
             
+            //guard self.downloadQueueTimer == nil else { return }
+            self.downloadQueueTimer?.invalidate()
+            
             self.downloadQueueTimer = Timer.scheduledTimer(timeInterval: Constants.queue.updateFrequency, target: self, selector: #selector(checkRemainingTasks), userInfo: nil, repeats: true)
         }
     }
     
-    func checkRemainingTasks() {
+    @objc func checkRemainingTasks() {
         print("Checking remaining tasks and publishing progress update")
         
         self.session.getTasksWithCompletionHandler { (tasks, uploads, downloads) in
