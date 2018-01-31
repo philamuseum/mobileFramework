@@ -171,7 +171,7 @@ public class CacheService {
         
         var returnValue = getCacheRootFolder(forEnvironment: repository)
         
-        if localPath.characters.count > 0 {
+        if localPath.count > 0 {
             returnValue = returnValue.appendingPathComponent(localPath)
         }
         

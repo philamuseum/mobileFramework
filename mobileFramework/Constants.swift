@@ -102,7 +102,7 @@ public class Constants {
             return nil
         }
         public static func enumFromLevelID(string:String) -> floors? {
-            let digit = Int(String(string.characters.last!))
+            let digit = Int(String(string.last!))
             let floor = digit! - 1
             
             return floors(rawValue: floor)
