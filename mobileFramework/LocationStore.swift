@@ -113,7 +113,7 @@ public class LocationStore {
             //print("LocationStore: loading from asset: \(geoJSONLocation.name)")
             if let location = findLocationByNameOrUnitId(name: geoJSONLocation.name, unitId: geoJSONLocation.unitId) {
                 //print("LocationStore: loading GeoJSON data into \(geoJSONLocation.name)")
-                location.addGeoJSONData(polygon: geoJSONLocation.polygon, coordinates: geoJSONLocation.coordinates)
+                location.addGeoJSONData(polygon: geoJSONLocation.polygon, coordinates: geoJSONLocation.coordinates, unitId: geoJSONLocation.unitId)
             }
         }
     }

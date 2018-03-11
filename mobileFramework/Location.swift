@@ -15,6 +15,7 @@ public class Location {
     public let title : String
     
     public var active : Bool
+    public var unitId : String!
     
     public let floor : Constants.floors!
     
@@ -33,9 +34,10 @@ public class Location {
         self.coordinates = coordinates
     }
     
-    func addGeoJSONData(polygon: MKPolygon, coordinates: [CLLocationCoordinate2D]) {
+    func addGeoJSONData(polygon: MKPolygon, coordinates: [CLLocationCoordinate2D], unitId: String) {
         self.polygon = polygon
         self.coordinates = coordinates
+        self.unitId = unitId
     }
     
 }
