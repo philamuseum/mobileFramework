@@ -57,6 +57,47 @@ public class BackendService : NSObject {
         }
     }
     
+    public func retrieveGeolocationData(completion: @escaping () -> Void) throws {
+        
+        if Constants.backend.apiKey != nil && Constants.backend.host != nil {
+        } else { throw BackendServiceError.backendConfigurationMissing }
+        
+        let locationsUrl = URL(string: "\(Constants.backend.host!)/api/v0/collection/locations?api_token=\(Constants.backend.apiKey!)")
+        
+        CacheService.sharedInstance.requestData(url: locationsUrl!, forceUncached: true, completion: { localPath, data in
+            if data != nil {
+                do {
+                    try FeatureStore.sharedInstance.load(fromData: data!, type: .location, completion: {
+                        if let asset = FeatureStore.sharedInstance.getAsset(for: .location) as? LocationAsset {
+                            LocationStore.sharedInstance.load(fromAsset: asset)
+                            
+                            let geoJSONUrl = URL(string: "\(Constants.backend.host!)/api/v0/collection/geojson?api_token=\(Constants.backend.apiKey!)")
+                            
+                            CacheService.sharedInstance.requestData(url: geoJSONUrl!, forceUncached: true, completion: { localPath, data in
+                                if data != nil {
+                                    do {
+                                        try FeatureStore.sharedInstance.load(fromData: data!, type: .geojson, completion: {
+                                            if let asset = FeatureStore.sharedInstance.getAsset(for: .geojson) as? GeoJSONAsset {
+                                                LocationStore.sharedInstance.load(fromAsset: asset)
+                                                completion()
+                                            } else {
+                                                print("Error retrieving GeoJSON asset from FeatureStore")
+                                            }
+                                        })
+                                    } catch {
+                                        print("Error parsing geojson data from backend")
+                                    }
+                                }
+                            })
+                        }
+                    })
+                } catch {
+                    print("Error parsing locations data from backend")
+                }
+            }
+        })
+    }
+    
     public func registerDevice() throws {
         
         if Constants.backend.apiKey != nil && Constants.backend.host != nil && Constants.backend.registerEndpoint != nil {
