@@ -68,6 +68,33 @@ public class FeatureStore {
         
     }
     
+    public func load(fromData: Data, type: FeatureStoreType, completion: () -> Void) throws {
+        
+        do {
+            let JSON = try JSONSerialization.jsonObject(with: fromData, options: [])
+            
+            var asset : Any?
+            
+            if type == .beacon {
+                asset = BeaconAsset(JSON: JSON) as Any
+            } else if type == .location {
+                asset = LocationAsset(JSON: JSON) as Any
+            } else if type == .edge {
+                asset = EdgeAsset(JSON: JSON) as Any
+            } else if type == .geojson {
+                asset = GeoJSONAsset(JSON: JSON) as Any
+            }
+            
+            if let asset = asset {
+                self.assets.append(asset)
+            }
+            completion()
+        } catch {
+            throw FeatureStoreError.ParsingError
+        }
+        
+    }
+    
     public func getAsset(for type: FeatureStoreType) -> Any? {
         
         for asset in self.assets {

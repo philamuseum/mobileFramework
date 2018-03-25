@@ -26,13 +26,13 @@ public class GeoJSONAsset: JSONDecodable {
     public required init?(JSON: Any) {
         guard let JSON = JSON as? [String: Any] else { return nil }
         
-        guard let features = JSON["features"] as? [[String: Any]] else { return nil }
+        guard let features = JSON["features"] as? [[String: Any]] else { print("GeoJSONAsset ERROR: JSON[\"features\"] missing"); return nil }
 
         var locations = [GeoJSON]()
         
         for feature in features {
             
-            guard let properties = feature["properties"] as? [String: Any] else { return nil }
+            guard let properties = feature["properties"] as? [String: Any] else { print("GeoJSONAsset ERROR: feature[\"properties\"] missing"); return nil }
             
             var name = properties["SUITE"] as? String
             
@@ -40,11 +40,11 @@ public class GeoJSONAsset: JSONDecodable {
                 name = properties["UNIT_ID"] as? String
             }
             
-            guard let unitID = properties["UNIT_ID"] as? String else { return nil }
+            guard let unitID = properties["UNIT_ID"] as? String else { print("GeoJSONAsset ERROR: properties[\"UNIT_ID\"] missing"); return nil }
             
-            guard let floorName = properties["LEVEL_ID"] as? String else { return nil }
+            guard let floorName = properties["LEVEL_ID"] as? String else { print("GeoJSONAsset ERROR: properties[\"LEVEL_ID\"] missing");return nil }
             
-            guard let geometry = feature["geometry"] as? [String: Any] else { return nil }
+            guard let geometry = feature["geometry"] as? [String: Any] else { print("GeoJSONAsset ERROR: feature[\"geometry\"] missing"); return nil }
             
             let floor = Constants.floors.enumFromLevelID(string: floorName)
             
@@ -86,7 +86,7 @@ public class GeoJSONAsset: JSONDecodable {
             if name != nil {
                 
                 let obj = GeoJSON(name: name!, floor: floor, unitId: unitID, polygon: polygon, coordinates: coordinates)
-                print("GeoJSONAsset: Loaded suite: \(String(describing: name)), coordinate count: \(obj.coordinates.count)")
+                print("GeoJSONAsset: Loaded suite: \(String(describing: name)), coordinate count: \(obj.coordinates.count), floor: \(floor)")
                 
                 locations.append(obj)
             }
