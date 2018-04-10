@@ -86,7 +86,7 @@ public class GeoJSONAsset: JSONDecodable {
             if name != nil {
                 
                 let obj = GeoJSON(name: name!, floor: floor, unitId: unitID, polygon: polygon, coordinates: coordinates)
-                print("GeoJSONAsset: Loaded suite: \(String(describing: name)), coordinate count: \(obj.coordinates.count), floor: \(floor)")
+                print("GeoJSONAsset: Loaded suite: \(String(describing: name)), coordinate count: \(obj.coordinates.count), floor: \(String(describing: floor))")
                 
                 locations.append(obj)
             }
