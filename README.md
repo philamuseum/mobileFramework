@@ -8,7 +8,7 @@ The mobile framework is a collection of utilities, which we found to be repeated
 * Custom URL protocol to allow loading assets from cache, without any additional overhead
 * Custom URL protocol handles caching transparently for UIImages / Data as well as UIWebViews
 * iBeacon ranging
-* Support for GoeJSON-based indoor positioning
+* Support for GeoJSON-based indoor positioning
 
 ## Features to be added in the future: ##
 * Save manually requested URLs locally
