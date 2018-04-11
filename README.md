@@ -8,13 +8,45 @@ The mobile framework is a collection of utilities, which we found to be repeated
 * Custom URL protocol to allow loading assets from cache, without any additional overhead
 * Custom URL protocol handles caching transparently for UIImages / Data as well as UIWebViews
 * iBeacon ranging
-* Support for GoeJSON-based indoor positioning
+* Support for GeoJSON-based indoor positioning
 
 ## Features to be added in the future: ##
 * Save manually requested URLs locally
 * Queue stop / pause
 * Custom log output
 * Route calculation for indoor wayfinding
+
+## Installing the Framework ##
+
+### Install with CocoaPods (optional) ###
+
+To use [CocoaPods](http://cocoapods.org), a dependency manager for Cocoa projects, you should first install it using the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+Navigate to the directory that contains your project and create a new text file called `Podfile`. You can create this file by issuing the command `pod init` or open an existing `Podfile` and add `pod 'SwiftyDropbox'` to the main block. Your Podfile should look something like this:
+
+```ruby
+use_frameworks!
+
+target '<YOUR_PROJECT_NAME>' do
+    pod 'PMAMobileFramework'
+end
+```
+
+Run the following command to install the dependency and create an Xcode workspace. Follow the on-screen instructions.
+
+```bash
+$ pod install
+```
+
+Once your project is integrated with the PMA Mobile Framework, you can pull SDK updates using the following command:
+
+```bash
+$ pod update
+```
 
 ## How to use it ##
 
