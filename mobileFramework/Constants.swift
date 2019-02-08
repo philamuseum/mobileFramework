@@ -47,7 +47,7 @@ public class Constants {
         
         public static var isCharging : Bool {
             get {
-                return UIDevice.current.batteryState != UIDeviceBatteryState.unplugged
+                return UIDevice.current.batteryState != UIDevice.BatteryState.unplugged
             }
         }
         
