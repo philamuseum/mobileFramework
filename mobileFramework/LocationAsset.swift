@@ -47,7 +47,7 @@ public class LocationAsset: JSONDecodable {
             //print("location \(name) successfully parsed")
             
             let location = Location(name: name, title: title, active: open, floor: floor)
-            print("LocationAsset: Loaded location: \(String(describing: name)), title: \(title), floor: \(floor), open: \(open)")
+            print("LocationAsset: Loaded location: \(String(describing: name)), title: \(String(describing: title)), floor: \(floor), open: \(open)")
             location.customAttributes = customAttributes
             locations.append(location)
             
